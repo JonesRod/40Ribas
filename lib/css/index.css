@@ -18,26 +18,6 @@ main{
     height: 100vh;
     width: 100vw;
 }
-form#login{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    overflow: hidden; /*tudo que setiver fora da borda vai ficar escondido*/
-    background-color: white;
-    width: 250px;
-    height: 500px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,450);/*borda sombreada*/
-
-}
-/*body .conteiner{
-    align-content: center;
-    /*border: 1px solid black;*//*
-    border-radius: 10px;
-    width: 35%;
-    margin: 10% 25% 10% 25%;
-}*/
 .conteiner #img{
     background: #0d7a0e url(../../arquivos/IMG-20230811-WA0040.jpg);
     background-size: contain;
@@ -52,3 +32,26 @@ form#login{
 
 
 }
+form#login{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden; /*tudo que setiver fora da borda vai ficar escondido*/
+    background-color: white;
+    width: 250px;
+    height: 500px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,450);/*borda sombreada*/
+
+    transition: width .3s, height .3s;
+    transition-timing-function: ease;
+
+}
+/*body .conteiner{
+    align-content: center;
+    /*border: 1px solid black;*//*
+    border-radius: 10px;
+    width: 35%;
+    margin: 10% 25% 10% 25%;
+}*/

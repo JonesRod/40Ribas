@@ -54,6 +54,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="lib/css/index.css">
+    <link rel="stylesheet" href="lib/css/media-query.css">
     <title>Entrar</title>
 </head>
 <body>
