@@ -76,7 +76,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
                 <input required type="password" name="senha">
             </p>
             <p> 
-                <a style="margin-right:10px;" href="php/cadastro_usuario.php">Quero me Cadastrar.</a> 
+                <a style="margin-right:10px;" href="php/ficha_inscricao.php">Quero ser sócio.</a> 
                 <a style="margin-right:10px;" href="php/Recupera_Senha.php">Esqueci minha Senha!</a> 
             </p>
             <button type="submit">Entrar</button>
