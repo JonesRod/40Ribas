@@ -8,7 +8,7 @@
     if(!isset($_SESSION['usuario'])){
         header("Location: ../login.php");
     }*/
-    //$caminhoDaImagem= false;
+    $caminhoDaImagem = "../arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg";
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -19,12 +19,21 @@
 </head>
 <body>
     <h1>Ficha de Inscrição</h1>
-    <form action="processar_upload.php" method="POST" enctype="multipart/form-data">
-        <div>
-            <img src="../arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg" alt=""><br>
-            <input type="file" name="imagem" id="imagem"><br>
-            <input type="submit" value="Adicionar">  
-        </div>    
+    <form action="" method="POST">
+        <form action="upload_img.php" method="POST" enctype="multipart/form-data">
+            <img name="imagem" id="imagem" src="<?php echo $caminhoDaImagem; ?>" alt=""><br>
+            <input type="file"><br>
+            
+            <!--<input type="submit" value="Adicionar">  
+
+
+            <label for="imagem">Escolha uma imagem:</label>
+            <input type="file" name="imagem" id="imagem">
+            <input type="submit" value="Enviar">    -->        
+        </form>
+
+
+  
         <p>
             <label>Nome: </label>
             <input required value="<?php if(isset($_POST['nome'])) echo $_POST['nome']; ?>" name="nome" type="text"><br>
