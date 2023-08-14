@@ -8,41 +8,73 @@
     if(!isset($_SESSION['usuario'])){
         header("Location: ../login.php");
     }*/
+    include('upload.php');
+
     $caminhoDaImagem = "../arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg";
     $msg = false;
 
+    //$foto = $_FILES["input-imagem"];
+    //$foto = $mysqli->escape_string($_POST['input-imagem']);
+
+    $path = "";
+    if(isset($_FILES['input-imagem'])) {
+        $foto = $_FILES['input-imagem'];
+        $path = enviarArquivo($foto['error'], $foto['size'], $foto['name'], $foto['tmp_name']);
+
+        /*if($path == false)
+            $erro = "Falha ao enviar arquivo. Tente novamente";
+            */
+    }
     if(isset($_POST['email'])) {
 
         include('../lib/php/conexao.php');
         include('../lib/php/enviarEmail.php');
 
+        $nome = $mysqli->escape_string($_POST['nome']);
+        $sobrenome = $mysqli->escape_string($_POST['sobrenome']);
+        $apelido = $mysqli->escape_string($_POST['apelido']);
         $cpf = $mysqli->escape_string($_POST['cpf']);
+        $rg = $mysqli->escape_string($_POST['rg']);
+        $nascimento = $mysqli->escape_string($_POST['nascimento']);
+        $uf = $mysqli->escape_string($_POST['uf']);
+        $cid_natal = $mysqli->escape_string($_POST['cidnatal']);
+        $mae = $mysqli->escape_string($_POST['mae']);
+        $pai = $mysqli->escape_string($_POST['pai']);
+        $celular1 = $mysqli->escape_string($_POST['celular1']);
+        $celular2 = $mysqli->escape_string($_POST['celular2']);
+        $endereco = $mysqli->escape_string($_POST['endereco']);
+        $numero = $mysqli->escape_string($_POST['numero']);
+        $bairro = $mysqli->escape_string($_POST['bairro']);
         $email = $mysqli->escape_string($_POST['email']);
+        $motivo = $mysqli->escape_string($_POST['motivo']);
+        $aceito = $mysqli->escape_string($_POST['aceito']);
 
-        $sql_query = $mysqli->query("SELECT * FROM int_associar WHERE cpf = '$cpf', email = '$email'");
+        $sql_query = $mysqli->query("SELECT * FROM int_associar WHERE email = '$email'");
         $result = $sql_query->fetch_assoc();
         $registro = $sql_query->num_rows;
+
+        var_dump($_POST);
 
         if(($registro ) == 0) {
 
             //$senha = $_POST['confSenha'];
             //$senha_criptografada = password_hash($senha, PASSWORD_DEFAULT);
-            $sql_code = "INSERT INTO int_associar (data, nome, sobrenome, apelido, cpf, rg, nascimento, uf, cidnatal, mae, pai, celular1, celular2, endereco, numero, bairro, email, motivo) 
-            VALUES(NOW(), '$nome', '$sobrenome', '$apelido', '$cpf', '$rg', '$nascimento', '$uf', '$cidnata', '$mae', '$pai', '$celular1', '$celular2', '$endereco', '$numero', '$bairro', '$email', '$motivo')";
-            $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
+            $sql_code = "INSERT INTO int_associar (data, foto, apelido, nome, sobrenome, cpf, rg, nascimento, uf, cid_natal, mae, pai, celular1, celular2, endereco, numero, bairro, email, motivo, concord_termos) 
+            VALUES (NOW(), '$foto','$apelido', '$nome','$sobrenome','$cpf','$rg','$nascimento', '$uf', '$cid_natal', '$mae', '$pai', '$celular1','$celular2', '$endereco', '$numero', '$bairro', '$email', '$motivo', '$aceito')";
+            $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
 
             if($deu_certo){
 
                 $msg = "Sua solicitação foi enviada e registrada com sucesso.";
                 echo $msg;
 
-                enviar_email($email, "Registro de solicitação de associação ao Club 40Ribas", "
+                /*enviar_email($email, "Registro de solicitação de associação ao Club 40Ribas", "
                 <h1>Seja bem vindo " . $nome . "</h1>
-                <p>texto informativo</p>");
+                <p>texto informativo</p>");*/
 
                 unset($_POST);
 
-                header("refresh: 5;../index.php"); //Atualiza a pagina em 5s e redireciona apagina
+                //header("refresh: 5;../index.php"); //Atualiza a pagina em 5s e redireciona apagina
             }
         }
         if(($registro ) != 0) {
@@ -79,7 +111,7 @@
     <h1>Ficha de Inscrição</h1>
     <form action="" method="POST" enctype="multipart/form-data">
 
-        <img id="imagem-preview" src="<?php echo $caminhoDaImagem ?>" name="img" alt="" style="max-width: 150px;"><br>
+        <img id="imagem-preview" required src="<?php echo $caminhoDaImagem ?>" name="img" alt="" style="max-width: 150px;"><br>
         <input type="file" id="input-imagem" name="input-imagem" accept="image/*" onchange="carregarImagem(event)"><!--função do js-->
 
         <p>
@@ -96,11 +128,11 @@
         </p>
         <p>
             <label>CPF: </label>
-            <input required value="<?php if(isset($_POST['cpf'])) echo $_POST['cpf']; ?>" name="cpf" type="number"><br>
+            <input required value="<?php if(isset($_POST['cpf'])) echo $_POST['cpf']; ?>" name="cpf" type="text"><br>
         </p>
         <p>
             <label>RG: </label>
-            <input required value="<?php if(isset($_POST['rg'])) echo $_POST['rg']; ?>" name="rg" type="number"><br>
+            <input required value="<?php if(isset($_POST['rg'])) echo $_POST['rg']; ?>" name="rg" type="text"><br>
         </p>
         <p>
             <label>Data de Nascimento: </label>
@@ -183,9 +215,14 @@
             <textarea required placeholder="Minimo 100 digitos" rows="4" cols="50" value="<?php if(isset($_POST['motivo'])) echo $_POST['motivo']; ?>" type="text" name="motivo"></textarea>
         </p>
         <p>
-        <input type="checkbox" id="aceito" onchange="verificarAceite()" name="aceito" value="sim">Eu aceito os <a href="termos.php" target="_blank">Termos.</a><br><br>
+            <input type="checkbox" id="aceito"  onchange="verificarAceite()" name="aceito" value="sim">Eu aceito os <a href="termos.php" target="_blank">Termos.</a><br><br>
+            <span>
+                <?php 
+                    echo $msg; 
+                ?>
+            </span><br>
             <a href="../index.php">Voltar</a>
-            <button id="solicitar" type="submit">Solicitar</button>
+            <button id="solicitar" disabled = "false" type="submit">Solicitar</button>
         </p>
 </body>
 </html>
