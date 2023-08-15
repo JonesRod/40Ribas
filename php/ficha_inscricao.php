@@ -1,35 +1,21 @@
 <?php
-    /*codigo da sessão
-    include('../lib/php/conexao.php');
-
-    if(!isset($_SESSION))
-        session_start();
-    
-    if(!isset($_SESSION['usuario'])){
-        header("Location: ../login.php");
-    }*/
     include('upload.php');
 
     $caminhoDaImagem = "../arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg";
     $msg = false;
 
-    //$foto = $_FILES["input-imagem"];
-    //$foto = $mysqli->escape_string($_POST['input-imagem']);
-
     $path = "";
-    if(isset($_FILES['input-imagem'])) {
-        $foto = $_FILES['input-imagem'];
-        $path = enviarArquivo($foto['error'], $foto['size'], $foto['name'], $foto['tmp_name']);
 
-        /*if($path == false)
-            $erro = "Falha ao enviar arquivo. Tente novamente";
-            */
-    }
-    if(isset($_POST['email'])) {
+    if(isset($_FILES['input_imagem'])) {
+        $foto = $_FILES['input_imagem'];
+        $path = enviarArquivo($foto['error'], $foto['size'], $foto['name'], $foto['tmp_name']);
+        $_FILES['input_imagem']=$path;
+    }(isset($_POST['email'])) {
 
         include('../lib/php/conexao.php');
         include('../lib/php/enviarEmail.php');
 
+        $nome_foto = $path;
         $nome = $mysqli->escape_string($_POST['nome']);
         $sobrenome = $mysqli->escape_string($_POST['sobrenome']);
         $apelido = $mysqli->escape_string($_POST['apelido']);
@@ -49,18 +35,24 @@
         $motivo = $mysqli->escape_string($_POST['motivo']);
         $aceito = $mysqli->escape_string($_POST['aceito']);
 
-        $sql_query = $mysqli->query("SELECT * FROM int_associar WHERE email = '$email'");
+        $sql_query = $mysqli->query("SELECT * FROM int_associar WHERE cpf = '$cpf'");
         $result = $sql_query->fetch_assoc();
         $registro = $sql_query->num_rows;
 
+        //echo $registro ;
         var_dump($_POST);
+        //die();
 
         if(($registro ) == 0) {
 
-            //$senha = $_POST['confSenha'];
-            //$senha_criptografada = password_hash($senha, PASSWORD_DEFAULT);
+            $sql_query = $mysqli->query("SELECT * FROM int_associar WHERE email = '$email'");
+            $result = $sql_query->fetch_assoc();
+            $registro = $sql_query->num_rows;
+
+            if(($registro ) == 0) {
+                
             $sql_code = "INSERT INTO int_associar (data, foto, apelido, nome, sobrenome, cpf, rg, nascimento, uf, cid_natal, mae, pai, celular1, celular2, endereco, numero, bairro, email, motivo, concord_termos) 
-            VALUES (NOW(), '$foto','$apelido', '$nome','$sobrenome','$cpf','$rg','$nascimento', '$uf', '$cid_natal', '$mae', '$pai', '$celular1','$celular2', '$endereco', '$numero', '$bairro', '$email', '$motivo', '$aceito')";
+            VALUES (NOW(), '$nome_foto','$apelido', '$nome','$sobrenome','$cpf','$rg','$nascimento', '$uf', '$cid_natal', '$mae', '$pai', '$celular1','$celular2', '$endereco', '$numero', '$bairro', '$email', '$motivo', '$aceito')";
             $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
 
             if($deu_certo){
@@ -74,13 +66,20 @@
 
                 unset($_POST);
 
-                //header("refresh: 5;../index.php"); //Atualiza a pagina em 5s e redireciona apagina
+                header("refresh: 5;../index.php"); //Atualiza a pagina em 5s e redireciona apagina
             }
+            if(($registro) != 0) {
+                $msg = true;
+                $msg = "Já existe um Solicitação cadastrada com esse e-mail!";
+                echo $msg;
+            }
+
         }
-        if(($registro ) != 0) {
+        if(($registro) != 0) {
             $msg = true;
-            $msg = "Já existe um Solicitação cadastrada com esse e-mail!";
+            $msg = "Já existe um Solicitação cadastrada com esse CPF!";
             echo $msg;
+        }
         }
     }
 ?>
@@ -91,7 +90,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
         function carregarImagem(event) {
-            var imagem = document.getElementById('imagem-preview');
+            var imagem = document.getElementById('imagem_preview');
             imagem.src = URL.createObjectURL(event.target.files[0]);
         }
         function verificarAceite() {
@@ -111,8 +110,8 @@
     <h1>Ficha de Inscrição</h1>
     <form action="" method="POST" enctype="multipart/form-data">
 
-        <img id="imagem-preview" required src="<?php echo $caminhoDaImagem ?>" name="img" alt="" style="max-width: 150px;"><br>
-        <input type="file" id="input-imagem" name="input-imagem" accept="image/*" onchange="carregarImagem(event)"><!--função do js-->
+        <img id="imagem_preview" src="<? echo $caminhoDaImagem; ?>" name="img" alt="" style="max-width: 150px;"><br>
+        <input required type="file" id="input_imagem" name="input_imagem" accept="image/*" onchange="carregarImagem(event)"><!--função do js-->
 
         <p>
             <label>Nome: </label>
@@ -212,7 +211,7 @@
         </p>
         <p>
             <label for="">Diga qual é o motivo ao qual você deseja se tornar sócio: </label><br>
-            <textarea required placeholder="Minimo 100 digitos" rows="4" cols="50" value="<?php if(isset($_POST['motivo'])) echo $_POST['motivo']; ?>" type="text" name="motivo"></textarea>
+            <textarea required value="<?php if(isset($_POST['motivo'])) echo $_POST['motivo']; ?>" placeholder="Minimo 100 digitos" rows="4" cols="50"  type="text" name="motivo"></textarea>
         </p>
         <p>
             <input type="checkbox" id="aceito"  onchange="verificarAceite()" name="aceito" value="sim">Eu aceito os <a href="termos.php" target="_blank">Termos.</a><br><br>
@@ -226,4 +225,3 @@
         </p>
 </body>
 </html>
-
