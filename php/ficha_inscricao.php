@@ -117,7 +117,7 @@
         </p>
         <p>
             <label>CPF: </label>
-            <input required value="<?php if(isset($_POST['cpf'])) echo $_POST['cpf']; ?>" name="cpf" type="text"><br>
+            <input required value="<?php if(isset($_POST['cpf'])) echo $_POST['cpf']; ?>" name="cpf" type="text" maxlength="14"><br>
         </p>
         <p>
             <label>RG: </label>
@@ -125,7 +125,7 @@
         </p>
         <p>
             <label>Data de Nascimento: </label>
-            <input required value="<?php if(isset($_POST['nascimento'])) echo $_POST['nascimento']; ?>" name="nascimento" type="date"><br>
+            <input required value="<?php if(isset($_POST['nascimento'])) echo $_POST['nascimento']; ?>" name="nascimento" type="date" maxlength="10"><br>
         </p>
         <p> 
             <!--<input required value="<?php if(isset($_POST['uf'])) echo $_POST['uf']; ?>" name="uf" type="text"><br>-->
@@ -177,11 +177,11 @@
 
         <p>
             <label>Celular 1: </label>
-            <input required value="<?php if(isset($_POST['celular1'])) echo $_POST['celular1']; ?>" name="celular1" type="text"><br>
+            <input required value="<?php if(isset($_POST['celular1'])) echo $_POST['celular1']; ?>" name="celular1" type="text" maxlength="15"><br>
         </p>
         <p>
             <label>Celular 2: </label>
-            <input value="<?php if(isset($_POST['celular2'])) echo $_POST['celular2']; ?>" name="celular2" type="text"><br>
+            <input value="<?php if(isset($_POST['celular2'])) echo $_POST['celular2']; ?>" name="celular2" type="text" maxlength="15"><br>
         </p>
         <p>
             <label>Endereço: </label>
@@ -201,7 +201,7 @@
         </p>
         <p>
             <label for="">Diga qual é o motivo ao qual você deseja se tornar sócio: </label><br>
-            <textarea required value=""  rows="4" cols="50" placeholder="Minimo 100 digitos" type="text" name="motivo"><?php if(isset($_POST['motivo'])) echo $_POST['motivo']; ?></textarea>
+            <textarea required value=""  rows="4" cols="50" placeholder="Minimo 100 digitos" maxlength="1500" type="text" name="motivo"><?php if(isset($_POST['motivo'])) echo $_POST['motivo']; ?></textarea>
         </p>
         <p>
             <input type="checkbox" id="aceito"  onchange="verificarAceite()" name="aceito" value="sim">Eu aceito os <a href="termos.php" target="_blank">Termos.</a><br><br>
