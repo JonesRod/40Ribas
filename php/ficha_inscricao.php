@@ -1,23 +1,16 @@
 <?php
     include('upload.php');
 
-    $caminhoDaImagem = "../arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg";
+    $caminhoDaImagem ="";
     $msg = false;
 
-    $path = "";
-
-    if(isset($_FILES['input_imagem'])) {
-        $foto = $_FILES['input_imagem'];
-        $path = enviarArquivo($foto['error'], $foto['size'], $foto['name'], $foto['tmp_name']);
-
-    }
     if(isset($_POST['email'])) {
 
         include('../lib/php/conexao.php');
         include('../lib/php/enviarEmail.php');
-
-        $caminhoDaImagem = $path;
-        $nome_foto = $path;
+        //echo ($_FILES['input_imagem']);
+        //$caminhoDaImagem = $foto;
+        $nome_foto = $caminhoDaImagem;
         $nome = $mysqli->escape_string($_POST['nome']);
         $sobrenome = $mysqli->escape_string($_POST['sobrenome']);
         $apelido = $mysqli->escape_string($_POST['apelido']);
@@ -71,17 +64,15 @@
                 }                
             }
             if(($email_registrado) != 0) {
-                //$msg = true;
+
                 $msg = "Já existe um Solicitação cadastrada com esse e-mail!";
-                //echo $msg;
-                //die();
+
             }
         }
         if(($cpf_registrado) != 0) {
-            $msg = true;
+
             $msg = "Já existe um Solicitação cadastrada com esse CPF!";
-            //echo $msg;
-            //die();
+
         }
     }
 ?>
@@ -111,9 +102,6 @@
 <body>
     <h1>Ficha de Inscrição</h1>
     <form action="" method="POST" enctype="multipart/form-data">
-
-        <img id="imagem_preview" src="<? echo $caminhoDaImagem; ?>" name="img" alt="" style="max-width: 150px;"><br>
-        <input required type="file" id="input_imagem" name="input_imagem" accept="image/*" onchange="carregarImagem(event)"><!--função do js-->
 
         <p>
             <label>Nome: </label>
@@ -213,8 +201,8 @@
         </p>
         <p>
             <label for="">Diga qual é o motivo ao qual você deseja se tornar sócio: </label><br>
-            <textarea required value="<?php if(isset($_POST['motivo'])) echo $_POST['motivo']; ?>"  rows="4" cols="50"  type="text" name="motivo"></textarea>
-        </p><!--placeholder="Minimo 100 digitos"-->
+            <textarea required value=""  rows="4" cols="50" placeholder="Minimo 100 digitos" type="text" name="motivo"><?php if(isset($_POST['motivo'])) echo $_POST['motivo']; ?></textarea>
+        </p>
         <p>
             <input type="checkbox" id="aceito"  onchange="verificarAceite()" name="aceito" value="sim">Eu aceito os <a href="termos.php" target="_blank">Termos.</a><br><br>
             <span>
