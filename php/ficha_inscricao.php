@@ -103,102 +103,120 @@
 <body>
     <h1>Ficha de Inscrição</h1>
     <form action="verificar_inscricao.php" method="POST" enctype="multipart/form-data" autocomplete="on">
-        <p>
-            <label for="inome">Nome: </label><br>
-            <input required value="<?php if(isset($_POST['nome'])) echo $_POST['nome']; ?>" name="nome" id="inome" type="text" maxlength="15" size=""><br>
-        </p>
-        <p>
-            <label for="isobrenome">Sobrenome: </label><br>
-            <input required value="<?php if(isset($_POST['sobrenome'])) echo $_POST['sobrenome']; ?>" name="sobrenome" id="isobrenome" type="text" maxlength="100" size="">
-        </p>
-            <label for="iapelido">Apelido: </label><br>
-            <input value="<?php if(isset($_POST['apelido'])) echo $_POST['apelido']; ?>" name="apelido" id="iapelido" type="text"><br>
-        </p>
-        <p>
-            <label for="icpf">CPF: </label><br>
-            <input required value="<?php if(isset($_POST['cpf'])) echo $_POST['cpf']; ?>" name="cpf" id="icpf" type="text" maxlength="14"><br>
-        </p>
-        <p>
-            <label for="irg">RG: </label><br>
-            <input required value="<?php if(isset($_POST['rg'])) echo $_POST['rg']; ?>" name="rg" id="irg" type="text"><br>
-        </p>
-        <p>
-            <label for="inascimento">Data de Nascimento: </label><br>
-            <input required value="<?php if(isset($_POST['nascimento'])) echo $_POST['nascimento']; ?>" name="nascimento" id="inascimento" type="date" maxlength="10"><br>
-        </p>
-        <p> 
-            <!--<input required value="<?php if(isset($_POST['uf'])) echo $_POST['uf']; ?>" name="uf" type="text"><br>-->
-            
-            <label for="iuf">Estado: </label><br>
-            <select name="uf" id="iuf" value="<?php if(isset($_POST['uf'])) echo $_POST['uf']; ?>">
-            <option value="AC">Acre</option>
-            <option value="AL">Alagoas</option>
-            <option value="AP">Amapá</option>
-            <option value="AM">Amazonas</option>
-            <option value="BA">Bahia</option>
-            <option value="CE">Ceará</option>
-            <option value="DF">Distrito Federal</option>
-            <option value="ES">Espírito Santo</option>
-            <option value="GO">Goiás</option>
-            <option value="MA">Maranhão</option>
-            <option value="MT">Mato Grosso</option>
-            <option value="MS">Mato Grosso do Sul</option>
-            <option value="MG">Minas Gerais</option>
-            <option value="PA">Pará</option>
-            <option value="PB">Paraíba</option>
-            <option value="PR">Paraná</option>
-            <option value="PE">Pernambuco</option>
-            <option value="PI">Piauí</option>
-            <option value="RJ">Rio de Janeiro</option>
-            <option value="RN">Rio Grande do Norte</option>
-            <option value="RS">Rio Grande do Sul</option>
-            <option value="RO">Rondônia</option>
-            <option value="RR">Roraima</option>
-            <option value="SC">Santa Catarina</option>
-            <option value="SP">São Paulo</option>
-            <option value="SE">Sergipe</option>
-            <option value="TO">Tocantins</option>
-            <!-- Adicione mais opções para outros estados aqui -->
-            </select>
-        </p>
-        <p>
-            <label for="icidnatal">Cidade Natal: </label><br>
-            <input required value="<?php if(isset($_POST['cidnatal'])) echo $_POST['cidnatal']; ?>" name="cidnatal" id="icidnatal" type="text"><br>
-        </p>
+        <fieldset>
+            <legend>Dados Pessoais</legend>
+            <p>
+                <label for="inome">Nome: </label><br>
+                <input required value="<?php if(isset($_POST['nome'])) echo $_POST['nome']; ?>" name="nome" id="inome" type="text" maxlength="15" size=""><br>
+            </p>
+            <p>
+                <label for="isobrenome">Sobrenome: </label><br>
+                <input required value="<?php if(isset($_POST['sobrenome'])) echo $_POST['sobrenome']; ?>" name="sobrenome" id="isobrenome" type="text" maxlength="100" size="">
+            </p>
+                <label for="iapelido">Apelido: </label><br>
+                <input value="<?php if(isset($_POST['apelido'])) echo $_POST['apelido']; ?>" name="apelido" id="iapelido" type="text"><br>
+            </p>
+            <p>
+                <label for="icpf">CPF: </label><br>
+                <input required value="<?php if(isset($_POST['cpf'])) echo $_POST['cpf']; ?>" name="cpf" id="icpf" type="text" maxlength="14"><br>
+            </p>
+            <p>
+                <label for="irg">RG: </label><br>
+                <input required value="<?php if(isset($_POST['rg'])) echo $_POST['rg']; ?>" name="rg" id="irg" type="text"><br>
+            </p>
+            <p>
+                <label for="inascimento">Data de Nascimento: </label><br>
+                <input required value="<?php if(isset($_POST['nascimento'])) echo $_POST['nascimento']; ?>" name="nascimento" id="inascimento" type="date" maxlength="10"><br>
+            </p>
+            <p> 
+                <!--<input required value="<?php if(isset($_POST['uf'])) echo $_POST['uf']; ?>" name="uf" type="text"><br>-->
+                
+                <label for="iuf">Estado Natal: </label><br>
+                <select name="uf" id="iuf" value="<?php if(isset($_POST['uf'])) echo $_POST['uf']; ?>">
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+                <!-- Adicione mais opções para outros estados aqui -->
+                </select>
+            </p>
+            <p>
+                <label for="icidnatal">Cidade Natal: </label><br>
+                <input required value="<?php if(isset($_POST['cidnatal'])) echo $_POST['cidnatal']; ?>" name="cidnatal" id="icidnatal" type="text"><br>
+            </p>
 
-        <p>
-            <label for="imae">Nome da Mãe: </label><br>
-            <input required value="<?php if(isset($_POST['mae'])) echo $_POST['mae']; ?>" name="mae" id="imae" type="data"><br>
-        </p>
-        <p>
-            <label for="ipai">Nome do Pai: </label><br>
-            <input value="<?php if(isset($_POST['pai'])) echo $_POST['pai']; ?>" name="pai" id="ipai" type="text"><br>
-        </p>
+            <p>
+                <label for="imae">Nome da Mãe: </label><br>
+                <input required value="<?php if(isset($_POST['mae'])) echo $_POST['mae']; ?>" name="mae" id="imae" type="data"><br>
+            </p>
+            <p>
+                <label for="ipai">Nome do Pai: </label><br>
+                <input value="<?php if(isset($_POST['pai'])) echo $_POST['pai']; ?>" name="pai" id="ipai" type="text"><br>
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Sexo</legend>
+            <p>
+                <input type="radio" name="sexo" id="imasc" checked><label for="imasc">Masculino</label> 
+                <input type="radio" name="sexo" id="ifemi"><label for="ifemi">Feminino</label> 
+                <input type="radio" name="sexo" id="iout"><label for="iout">Outros</label>
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Endereço</legend>
+            <p>
+                <label for="iendereco">Logradouro:AV/RUA </label><br>
+                <input required value="<?php if(isset($_POST['endereco'])) echo $_POST['endereco']; ?>" name="endereco" id="iendereco" type="text"><br>
+            </p>
+            <p>
+                <label for="inum">N°: </label><br>
+                <input required value="<?php if(isset($_POST['numero'])) echo $_POST['numero']; ?>" name="numero" id="inum" type="text"><br>
+            </p>
+            <p>
+                <label for="ibairro">Bairro: </label><br>
+                <input required value="<?php if(isset($_POST['bairro'])) echo $_POST['bairro']; ?>" name="bairro" id="ibairro" type="text"><br>
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Contatos</legend>
+            <p>
+                <label for="icelular1">Celular 1: </label><br>
+                <input required value="<?php if(isset($_POST['celular1'])) echo $_POST['celular1']; ?>" name="celular1" id="icelular1" type="tel" pattern="^[0-9]{4}-[0-9]{4}$" maxlength="15" size=""><br>
+            </p>
+            <p>
+                <label for="icelular2">Celular 2: </label><br>
+                <input value="<?php if(isset($_POST['celular2'])) echo $_POST['celular2']; ?>" name="celular2" id="" type="tel" maxlength="15" size=""><br>
+            </p>
 
-        <p>
-            <label for="icelular1">Celular 1: </label><br>
-            <input required value="<?php if(isset($_POST['celular1'])) echo $_POST['celular1']; ?>" name="celular1" id="icelular1" type="text" maxlength="15" size=""><br>
-        </p>
-        <p>
-            <label for="icelular2">Celular 2: </label><br>
-            <input value="<?php if(isset($_POST['celular2'])) echo $_POST['celular2']; ?>" name="celular2" id="" type="text" maxlength="15" size=""><br>
-        </p>
-        <p>
-            <label for="iendereco">Endereço: </label><br>
-            <input required value="<?php if(isset($_POST['endereco'])) echo $_POST['endereco']; ?>" name="endereco" id="iendereco" type="text"><br>
-        </p>
-        <p>
-            <label for="inum">N°: </label><br>
-            <input required value="<?php if(isset($_POST['numero'])) echo $_POST['numero']; ?>" name="numero" id="inum" type="text"><br>
-        </p>
-        <p>
-            <label for="ibairro">Bairro: </label><br>
-            <input required value="<?php if(isset($_POST['bairro'])) echo $_POST['bairro']; ?>" name="bairro" id="ibairro" type="text"><br>
-        </p>
-        <p>
-            <label for="iemail">E-mail:</label><br>
-            <input required value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" name="email" id="iemail" type="email"><br>
-        </p>
+
+            <p>
+                <label for="iemail">E-mail:</label><br>
+                <input required value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" name="email" id="iemail" type="email"><br>
+            </p>
+        </fieldset>
         <p>
             <label for="imotivo">Diga qual é o motivo ao qual você deseja se tornar sócio: </label><br>
             <textarea required value=""  rows="4" cols="50" placeholder="Minimo 100 digitos" minlength="10" maxlength="1500" type="text" name="motivo" id="imotivo" ><?php if(isset($_POST['motivo'])) echo $_POST['motivo']; ?></textarea>
