@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <?php if (isset($nomeArquivo)): ?>
 
-        
+     <img id="img" src="<?php echo ('../arquivos/').$nomeArquivo; ?>">   
     <?php endif; ?>
-<img id="img" src="<?php echo ('../arquivos/') .$nomeArquivo; ?>">
+
 </body>
 </html>

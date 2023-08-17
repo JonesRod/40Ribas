@@ -76,8 +76,9 @@
         }
     }
 ?>
+
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="PT-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -101,36 +102,35 @@
 </head>
 <body>
     <h1>Ficha de Inscrição</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
-
+    <form action="verificar_inscricao.php" method="POST" enctype="multipart/form-data" autocomplete="on">
         <p>
-            <label>Nome: </label>
-            <input required value="<?php if(isset($_POST['nome'])) echo $_POST['nome']; ?>" name="nome" type="text"><br>
+            <label for="inome">Nome: </label><br>
+            <input required value="<?php if(isset($_POST['nome'])) echo $_POST['nome']; ?>" name="nome" id="inome" type="text" maxlength="15" size=""><br>
         </p>
         <p>
-            <label>Sobrenome: </label>
-            <input required value="<?php if(isset($_POST['sobrenome'])) echo $_POST['sobrenome']; ?>" name="sobrenome" type="text"><br>
+            <label for="isobrenome">Sobrenome: </label><br>
+            <input required value="<?php if(isset($_POST['sobrenome'])) echo $_POST['sobrenome']; ?>" name="sobrenome" id="isobrenome" type="text" maxlength="100" size="">
+        </p>
+            <label for="iapelido">Apelido: </label><br>
+            <input value="<?php if(isset($_POST['apelido'])) echo $_POST['apelido']; ?>" name="apelido" id="iapelido" type="text"><br>
         </p>
         <p>
-            <label>Apelido: </label>
-            <input value="<?php if(isset($_POST['apelido'])) echo $_POST['apelido']; ?>" name="apelido" type="text"><br>
+            <label for="icpf">CPF: </label><br>
+            <input required value="<?php if(isset($_POST['cpf'])) echo $_POST['cpf']; ?>" name="cpf" id="icpf" type="text" maxlength="14"><br>
         </p>
         <p>
-            <label>CPF: </label>
-            <input required value="<?php if(isset($_POST['cpf'])) echo $_POST['cpf']; ?>" name="cpf" type="text" maxlength="14"><br>
+            <label for="irg">RG: </label><br>
+            <input required value="<?php if(isset($_POST['rg'])) echo $_POST['rg']; ?>" name="rg" id="irg" type="text"><br>
         </p>
         <p>
-            <label>RG: </label>
-            <input required value="<?php if(isset($_POST['rg'])) echo $_POST['rg']; ?>" name="rg" type="text"><br>
-        </p>
-        <p>
-            <label>Data de Nascimento: </label>
-            <input required value="<?php if(isset($_POST['nascimento'])) echo $_POST['nascimento']; ?>" name="nascimento" type="date" maxlength="10"><br>
+            <label for="inascimento">Data de Nascimento: </label><br>
+            <input required value="<?php if(isset($_POST['nascimento'])) echo $_POST['nascimento']; ?>" name="nascimento" id="inascimento" type="date" maxlength="10"><br>
         </p>
         <p> 
             <!--<input required value="<?php if(isset($_POST['uf'])) echo $_POST['uf']; ?>" name="uf" type="text"><br>-->
             
-            <label>Estado: </label><select name="uf" id="uf" value="<?php if(isset($_POST['uf'])) echo $_POST['uf']; ?>">
+            <label for="iuf">Estado: </label><br>
+            <select name="uf" id="iuf" value="<?php if(isset($_POST['uf'])) echo $_POST['uf']; ?>">
             <option value="AC">Acre</option>
             <option value="AL">Alagoas</option>
             <option value="AP">Amapá</option>
@@ -162,56 +162,53 @@
             </select>
         </p>
         <p>
-            <label>Cidade Natal: </label>
-            <input required value="<?php if(isset($_POST['cidnatal'])) echo $_POST['cidnatal']; ?>" name="cidnatal" type="text"><br>
+            <label for="icidnatal">Cidade Natal: </label><br>
+            <input required value="<?php if(isset($_POST['cidnatal'])) echo $_POST['cidnatal']; ?>" name="cidnatal" id="icidnatal" type="text"><br>
         </p>
 
         <p>
-            <label>Nome da Mãe: </label>
-            <input required value="<?php if(isset($_POST['mae'])) echo $_POST['mae']; ?>" name="mae" type="data"><br>
+            <label for="imae">Nome da Mãe: </label><br>
+            <input required value="<?php if(isset($_POST['mae'])) echo $_POST['mae']; ?>" name="mae" id="imae" type="data"><br>
         </p>
         <p>
-            <label>Nome do Pai: </label>
-            <input value="<?php if(isset($_POST['pai'])) echo $_POST['pai']; ?>" name="pai" type="text"><br>
+            <label for="ipai">Nome do Pai: </label><br>
+            <input value="<?php if(isset($_POST['pai'])) echo $_POST['pai']; ?>" name="pai" id="ipai" type="text"><br>
         </p>
 
         <p>
-            <label>Celular 1: </label>
-            <input required value="<?php if(isset($_POST['celular1'])) echo $_POST['celular1']; ?>" name="celular1" type="text" maxlength="15"><br>
+            <label for="icelular1">Celular 1: </label><br>
+            <input required value="<?php if(isset($_POST['celular1'])) echo $_POST['celular1']; ?>" name="celular1" id="icelular1" type="text" maxlength="15" size=""><br>
         </p>
         <p>
-            <label>Celular 2: </label>
-            <input value="<?php if(isset($_POST['celular2'])) echo $_POST['celular2']; ?>" name="celular2" type="text" maxlength="15"><br>
+            <label for="icelular2">Celular 2: </label><br>
+            <input value="<?php if(isset($_POST['celular2'])) echo $_POST['celular2']; ?>" name="celular2" id="" type="text" maxlength="15" size=""><br>
         </p>
         <p>
-            <label>Endereço: </label>
-            <input required value="<?php if(isset($_POST['endereco'])) echo $_POST['endereco']; ?>" name="endereco" type="text"><br>
+            <label for="iendereco">Endereço: </label><br>
+            <input required value="<?php if(isset($_POST['endereco'])) echo $_POST['endereco']; ?>" name="endereco" id="iendereco" type="text"><br>
         </p>
         <p>
-            <label>N°: </label>
-            <input required value="<?php if(isset($_POST['numero'])) echo $_POST['numero']; ?>" name="numero" type="text"><br>
+            <label for="inum">N°: </label><br>
+            <input required value="<?php if(isset($_POST['numero'])) echo $_POST['numero']; ?>" name="numero" id="inum" type="text"><br>
         </p>
         <p>
-            <label>Bairro: </label>
-            <input required value="<?php if(isset($_POST['bairro'])) echo $_POST['bairro']; ?>" name="bairro" type="text"><br>
+            <label for="ibairro">Bairro: </label><br>
+            <input required value="<?php if(isset($_POST['bairro'])) echo $_POST['bairro']; ?>" name="bairro" id="ibairro" type="text"><br>
         </p>
         <p>
-            <label>E-mail:</label>
-            <input required value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" name="email" type="email"><br>
+            <label for="iemail">E-mail:</label><br>
+            <input required value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" name="email" id="iemail" type="email"><br>
         </p>
         <p>
-            <label for="">Diga qual é o motivo ao qual você deseja se tornar sócio: </label><br>
-            <textarea required value=""  rows="4" cols="50" placeholder="Minimo 100 digitos" maxlength="1500" type="text" name="motivo"><?php if(isset($_POST['motivo'])) echo $_POST['motivo']; ?></textarea>
+            <label for="imotivo">Diga qual é o motivo ao qual você deseja se tornar sócio: </label><br>
+            <textarea required value=""  rows="4" cols="50" placeholder="Minimo 100 digitos" minlength="10" maxlength="1500" type="text" name="motivo" id="imotivo" ><?php if(isset($_POST['motivo'])) echo $_POST['motivo']; ?></textarea>
         </p>
         <p>
             <input type="checkbox" id="aceito"  onchange="verificarAceite()" name="aceito" value="sim">Eu aceito os <a href="termos.php" target="_blank">Termos.</a><br><br>
-            <span>
-                <?php 
-                    echo $msg; 
-                ?>
-            </span><br>
+
             <a href="../index.php">Voltar</a>
-            <button id="solicitar" disabled = "false" type="submit">Solicitar</button>
+            <input id="solicitar" disabled ="false" type="submit" value="Solicitar">
         </p>
+    </form>
 </body>
 </html>
