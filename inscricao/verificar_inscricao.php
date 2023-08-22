@@ -66,7 +66,7 @@
         
                 if(($email_registrado ) == 0) {
                 
-                    $sql_code = "INSERT INTO int_associar (data, admin, foto, apelido, nome, sobrenome, cpf, rg, nascimento, uf, cid_natal, mae, pai, sexo, uf_atual, cep, cid_atual, endereco, numero, bairro, celular1, celular2, email, motivo, termos) 
+                    $sql_code = "INSERT INTO int_associar (data, admin, foto, apelido, nome, sobrenome, cpf, rg, nascimento, uf, cid_natal, mae, pai, sexo, uf_atual, cep, cid_atual, endereco, nu, bairro, celular1, celular2, email, motivo, termos) 
                     VALUES (NOW(), '$admin','$nome_foto','$apelido', '$nome','$sobrenome','$cpf','$rg','$nascimento', '$uf', '$cid_natal', '$mae', '$pai', '$sexo', '$uf_atual','$cep','$cid_atual','$endereco','$numero','$bairro','$celular1','$celular2','$email', '$motivo', '$termos')";
                     $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
 

@@ -1,5 +1,16 @@
 <?php
-
+    function verificar_data(){
+    $data_inicio = "1900-01-01";
+    $nascimento = $_POST['nascimento'];
+//verificar_inscricao.php
+    // Comparando as Datas
+    if(strtotime($data_inicio) > strtotime($nascimento)){
+    echo 'Data invalida. O ano deve ser maior que 1900!';
+    }
+    elseif(strtotime($data_inicio) >= strtotime($nascimento)){
+    echo 'A data 1 é igual a data 2.';
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -17,7 +28,7 @@
 </head>
 <body>
     <h1>Ficha de Inscrição</h1>
-    <form action="verificar_inscricao.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validarData()">
+    <form action="verificar_inscricao.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="">
         <fieldset>
             <div class="max-width">
                 <div class="imageContainer">
@@ -172,11 +183,11 @@
             <legend>Contatos</legend>
             <p>
                 <label for="icelular1">Celular 1: </label><br>
-                <input required value="<?php if(isset($_POST['celular1'])) echo $_POST['celular1']; ?>" name="celular1" id="icelular1" type="tel" placeholder="(00) 00000-0000" minlength="15" maxlength="15" size=""><br>
+                <input required value="<?php if(isset($_POST['celular1'])) echo $_POST['celular1']; ?>" name="celular1" id="icelular1" type="text" placeholder="(00) 00000-0000" minlength="15" maxlength="15" size=""><br>
             </p>
             <p>
                 <label for="icelular2">Celular 2: Opcional </label><br>
-                <input value="<?php if(isset($_POST['celular2'])) echo $_POST['celular2']; ?>" name="celular2" id="icelular2" type="tel" placeholder="(00) 00000-0000" minlength="15" maxlength="15" size=""><br>
+                <input value="<?php if(isset($_POST['celular2'])) echo $_POST['celular2']; ?>" name="celular2" id="icelular2" type="text" placeholder="(00) 00000-0000" minlength="15" maxlength="15" size=""><br>
             </p>
 
 
