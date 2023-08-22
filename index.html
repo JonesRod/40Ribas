@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login/style/index.css">
+    <link rel="stylesheet" href="login/style/media-query.css">
+    <title>Entrar</title>
+</head>
+<body>
+    <main class="conteiner">   
+        <form id ="login" action="login/index.php" method="POST">
+            <div id="img"></div>
+            <h1 id="titulo">Entrar</h1>
+            <p>
+                <label id="email" for="">E-mail</label>
+                <input value="" required type="email" name="email">
+            </p>
+            <p>
+                <label id="senha" for="">Senha</label>
+                <input required type="password" name="senha">
+            </p>
+            <p> 
+                <a style="margin-right:10px;" href="inscricao/ficha_inscricao.php">Quero ser sócio.</a> 
+                <a style="margin-right:10px;" href="paginas/Recupera_Senha.php">Esqueci minha Senha!</a> 
+            </p>
+            <button type="submit">Entrar</button>
+        </form>
+    </main>
+</body>
+</html>

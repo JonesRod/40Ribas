@@ -1,34 +1,15 @@
 <?php
-function processarArquivo() {
-    if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] === UPLOAD_ERR_OK) {
-        $nomeArquivo = $_FILES['arquivo']['name'];
-        //move_uploaded_file($_FILES['arquivo']['tmp_name'], 'caminho/para/diretorio/' . $nomeArquivo);
-        echo ('../arquivos/') .$nomeArquivo;
-        return $nomeArquivo;
-    }
-    return false;
-}
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nomeArquivo = processarArquivo();
-}
-?>
+$d1 = new DateTime('now');
+$d2 = new DateTime('1991-02-05');
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Upload de Arquivo</title>
-</head>
-<body>
-    <form action="" method="post" enctype="multipart/form-data">
-        <input type="file" name="arquivo">
-        <input type="submit" value="Enviar" >
-    </form>
-    
-    <?php if (isset($nomeArquivo)): ?>
+$intervalo = $d1->diff( $d2 );
 
-     <img id="img" src="<?php echo ('../arquivos/').$nomeArquivo; ?>">   
-    <?php endif; ?>
+echo "Diferença de " . $intervalo->d . " dias";
+echo " e " . $intervalo->m . " mese s";
+echo " e " . $intervalo->y . " anos.";
 
-</body>
-</html>
+/*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>*/

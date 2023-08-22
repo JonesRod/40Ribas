@@ -21,7 +21,7 @@ if(isset($_POST['nome']) || isset($_POST['email'])) {
         $email = $mysqli->escape_string($_POST['email']);
         $nome = $mysqli->escape_string($_POST['nome']);
 
-        $sql_query = $mysqli->query("SELECT * FROM usuarios WHERE email = '$email'");
+        $sql_query = $mysqli->query("SELECT * FROM socios WHERE email = '$email'");
         $result = $sql_query->fetch_assoc();
         $registro = $sql_query->num_rows;
 
@@ -29,7 +29,7 @@ if(isset($_POST['nome']) || isset($_POST['email'])) {
 
             $senha = $_POST['confSenha'];
             $senha_criptografada = password_hash($senha, PASSWORD_DEFAULT);
-            $sql_code = "INSERT INTO usuarios (nome, email, senha, data) 
+            $sql_code = "INSERT INTO socios (nome, email, senha, data) 
             VALUES('$nome','$email','$senha_criptografada', NOW())";
             $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
 
@@ -85,7 +85,7 @@ if(isset($_POST['nome']) || isset($_POST['email'])) {
             <input placeholder="Minimo 8 digitos" value="<?php if(isset($_POST['confSenha'])) echo $_POST['confSenha']; ?>" type="password" name="confSenha">
         </p>
         <p>
-            <a href="../index.php">Voltar para tela de login</a>
+            <a href="../index.html">Voltar para tela de login</a>
             <button type="submit">Cadastrar</button>
         </p>
     </form>

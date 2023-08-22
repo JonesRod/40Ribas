@@ -81,7 +81,7 @@ if(count($_POST) > 0) {
             $sql_code = "INSERT INTO clientes (nome, email, senha, telefone, nascimento, data, foto, admin) 
             VALUES ('$nome', '$email', '$senha', '$telefone', '$nascimento', NOW(), '$path', '$admin')";
 
-        $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+        $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
         if($deu_certo) {
             enviar_email($email, "Sua conta no meu site foi criada!!", "
                 <h1>Parabéns!</h1>

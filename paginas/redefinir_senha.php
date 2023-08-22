@@ -38,31 +38,28 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
         $senha = $mysqli->escape_string($_POST['senhaAtual']);
         $novaSenha = $_POST['novaSenha'];
 
-        $sql_code = "SELECT * FROM usuarios WHERE email = '$email' LIMIT 1";
+        $sql_code = "SELECT * FROM socios WHERE email = '$email' LIMIT 1";
         $sql_query =$mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->$error);
         $usuario = $sql_query->fetch_assoc();
         $quantidade = $sql_query->num_rows;//retorna a quantidade encontrado
+       
+        if(($quantidade ) == 1) {
 
-        if(($quantidade ) == 1) 
-        {
-
-            if(password_verify($senha, $usuario['senha'])) 
-            {
+            if(password_verify($senha, $usuario['senha'])) {
 
                 $_SESSION['usuario'] = $usuario['id'];
                 $nome = $usuario['nome'];
-                //$_SESSION['admin'] = $usuario['admin'];
+                $_SESSION['admin'] = $usuario['admin'];
 
                 $nova_senha_criptografada = password_hash($novaSenha, PASSWORD_DEFAULT);
 
-                $sql_code = "UPDATE usuarios
+                $sql_code = "UPDATE socios
                 SET senha = '$nova_senha_criptografada'
                 WHERE email = '$email'";
 
                 $editado = $mysqli->query($sql_code) or die($mysqli->$error);
 
-                if($editado) 
-                {   
+                if($editado) {   
                     $msg = "Nova senha definida com sucesso. Você será redirecionado para a tele de login.";
                     
                     enviar_email($email, "Sua nova senha de acesso da plataforma", "
@@ -75,15 +72,12 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
                     unset($_POST);
 
                     header("refresh: 5;logout.php");
-
                 }
                     
-            }else
-            {
-            $msg = "Senha inválida";
+            }else{
+            $msg = "Senha inválida!";
             }
-        }else
-        {
+        }else{
             $msg = "O e-mail informado não esta correto ou não está cadastrado!";
         }
     }      
@@ -111,7 +105,7 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
         </p>
         <p>
             <label for="">Senha Atual: </label>
-            <input  type="password" name="senhaAtual" value="<?php if(isset($_POST['senhaAtual'])) echo $_POST['senhaAtual']; ?>">
+            <input  type="text" name="senhaAtual" value="<?php if(isset($_POST['senhaAtual'])) echo $_POST['senhaAtual']; ?>">
         </p>
         <p>
             <label for="">Nova Senha: </label>
@@ -121,7 +115,7 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
             <label for="">Confirmar Senha: </label>
             <input placeholder="Minimo 8 digitos" type="password" name="confSenha" value="<?php if(isset($_POST['confSenha'])) echo $_POST['confSenha']; ?>">
         </p>
-        <a href="logout.php">Ir para login</a>
+        <a href="../index.html">Ir para login</a>
         <button type="submit">Salvar</button>
     </form>
 </body>

@@ -1,11 +1,11 @@
 <?php
-include('../lib/php/conexao.php');
+include('../login/conexao.php');
 
 if(!isset($_SESSION))
     session_start();
 
 if(!isset($_SESSION['usuario'])){
-    header("Location: ../login.php");
+    header("Location: ../index.html");
 }
 if(isset($_SESSION['email'])){
 
@@ -16,7 +16,7 @@ if(isset($_SESSION['email'])){
 }
 
 $id = $_SESSION['usuario'];
-$sql_query = $mysqli->query("SELECT * FROM usuarios WHERE id = '$id'") or die($mysqli->$error);
+$sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
 $usuario = $sql_query->fetch_assoc();
 
 ?>

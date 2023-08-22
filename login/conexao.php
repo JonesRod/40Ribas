@@ -20,3 +20,4 @@ function formatar_telefone($telefone){
     $parte2 = substr ($telefone, 7);
     return "($ddd) $parte1-$parte2";
 }
+?>

@@ -15,7 +15,7 @@ if(isset($_POST['email'])) {
     } else {
 
         $email = $mysqli->escape_string($_POST['email']);
-        $sql_query = $mysqli->query("SELECT id, nome FROM usuarios WHERE email = '$email'");
+        $sql_query = $mysqli->query("SELECT id, nome FROM socios WHERE email = '$email'");
         $result = $sql_query->fetch_assoc();
         $registro = $sql_query->num_rows;
 
@@ -42,7 +42,7 @@ if(isset($_POST['email'])) {
         if(($registro ) == 0) {
             $msg = "Não existe nenhum Usuario cadastrado com esse e-mail!";
             echo $msg;
-            header("refresh: 5; ../index.php");
+            header("refresh: 5; ../index.html");
         }
     }  
 }
@@ -63,7 +63,7 @@ if(isset($_POST['email'])) {
             <label for="">Digite E-mail cadastrado</label>
             <input type="email" name="email">
         </p>
-        <a style="margin-right:40px;" href="../index.php">Voltar</a> 
+        <a style="margin-right:40px;" href="../index.html">Voltar</a> 
         <button type="submit">Enviar</button>
     </form>
 </body>
