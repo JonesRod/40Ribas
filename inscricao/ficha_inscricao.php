@@ -64,8 +64,6 @@
                 <input required value="<?php if(isset($_POST['nascimento'])) echo $_POST['nascimento']; ?>" name="nascimento" id="inascimento" type="date" placeholder="00/00/0000"><br>
             </p>
             <p> 
-                <!--<input required value="<?php if(isset($_POST['uf'])) echo $_POST['uf']; ?>" name="uf" type="text"><br>-->
-                
                 <label for="iuf">Estado Natal: </label><br>
                 <select name="uf" id="iuf" value="<?php if(isset($_POST['uf'])) echo $_POST['uf']; ?>">
                 <option value="">---Escolha---</option>
@@ -123,8 +121,6 @@
         <fieldset>
             <legend>Endereço Atual</legend>
             <p> 
-                <!--<input required value="<?php if(isset($_POST['uf_atual'])) echo $_POST['uf_atual']; ?>" name="uf" type="text"><br>-->
-                
                 <label for="iuf_atual">Estado Atual: </label><br>
                 <select name="uf_atual" id="iuf_atual" value="<?php if(isset($_POST['uf_atual'])) echo $_POST['uf_atual']; ?>">
                 <option value="">---Escolha---</option>
@@ -189,8 +185,6 @@
                 <label for="icelular2">Celular 2: Opcional </label><br>
                 <input value="<?php if(isset($_POST['celular2'])) echo $_POST['celular2']; ?>" name="celular2" id="icelular2" type="text" placeholder="(00) 00000-0000" minlength="15" maxlength="15" size=""><br>
             </p>
-
-
             <p>
                 <label for="iemail">E-mail:</label><br>
                 <input required value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" name="email" id="iemail" type="email"><br>
