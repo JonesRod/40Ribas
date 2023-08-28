@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Termos para realização de cadastro.</h1>
-    <p>texto...</p>
+    <textarea value="texto..." name="" id="" cols="120" rows="35"></textarea>
+
 </body>
 </html>

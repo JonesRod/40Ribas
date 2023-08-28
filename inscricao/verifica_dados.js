@@ -12,6 +12,8 @@ function validateForm() {
     if(uf === sem_escolha){
         document.querySelector('#imgAlerta2').textContent = "Selecione o Estado!";
         document.getElementById('iuf').focus();
+        console.log(apelido);
+
         return false; // Impede o envio do formulário
     }
     if(ufAtual === sem_escolha){
@@ -20,8 +22,8 @@ function validateForm() {
         return false; // Impede o envio do formulário
     }
         document.querySelector('#imgAlerta2').textContent = "";
-        console.log('2');
-    
+        //console.log('2');
+
     // Aqui você pode adicionar mais validações conforme necessário
     return true; // Permite o envio do formulário
 }
@@ -31,7 +33,7 @@ window.onload = function() {
     const imageElement = document.getElementById('preview');
 
     if (fileInput.files.length === 0) {
-        imageElement.src =  '../arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg'; // Substitua pelo caminho da imagem padrão
+        imageElement.src = 'foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg'; // Substitua pelo caminho da imagem padrão
     }
 
     fileInput.addEventListener('change', function() {
@@ -43,7 +45,7 @@ window.onload = function() {
             };
             reader.readAsDataURL(selectedFile);
         } else {
-            imageElement.src = '../arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg'; // Substitua pelo caminho da imagem padrão
+            imageElement.src ='foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg'; // Substitua pelo caminho da imagem padrão
         }
     });
 
@@ -62,7 +64,7 @@ function handleImageUpload(event) {
         document.querySelector('#imgAlerta').textContent = "";
     } else {
         //alert('Por favor, selecione uma imagem PNG ou JPG.');
-        document.getElementById('preview').src= "../arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg"
+        document.getElementById('preview').src= "'foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg'"
         document.getElementById('imageInput').value = null;
         document.querySelector('#imgAlerta').textContent = "Por favor, selecione uma imagem PNG ou JPG.";
     }
@@ -84,14 +86,18 @@ function formatCPF(input) {
 }
 function verificaCpf(){
     var cpf =document.getElementById('icpf').value;
-    
-    if(cpf.length < 14){
+    var apelido = document.getElementById('iapelido').value;
+
+    if(apelido === ''){
+        document.getElementById('iapelido').value= document.getElementById('inome').value;
+    }if(cpf.length < 14){
         //console.log(cpf);
         document.querySelector('#imgAlerta').textContent = "CPF invalido! Preencha o campo corretamente.";
         document.getElementById('icpf').focus();
     }else{
         document.querySelector('#imgAlerta').textContent = "";
     }
+      
 }
 function formatRG(input) {
     let value = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
@@ -311,7 +317,7 @@ function formatarCelular1(input) {
 }
 function verificaCelular1(){
     var celular =document.getElementById('icelular1').value;
-    console.log(celular.length);
+    //console.log(celular.length);
     if(celular.length < 11 ){
         
         document.querySelector('#imgAlerta').textContent = "Preencha o campo Celular corretamente!";

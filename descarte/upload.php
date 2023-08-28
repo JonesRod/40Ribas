@@ -9,7 +9,7 @@ function enviarArquivo($error, $size, $name, $tmp_name) {
     if($size > 2097152)
         die("Arquivo muito grande!! Max: 2MB"); 
 
-    $pasta = "../arquivos/";
+    $pasta = "foto_perfil/";
     $nomeDoArquivo = $name;
     $novoNomeDoArquivo = uniqid();
     $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
