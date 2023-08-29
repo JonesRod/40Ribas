@@ -30,8 +30,8 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
     }else
     {
 
-        include("../lib/PHP/conexao.php");
-        include("../lib/PHP/protect.php");
+        include("../login/conexao.php");
+        include("../login/protect.php");
         include('../lib/php/enviarEmail.php');
 
         $email = $mysqli->escape_string($_POST['email']);//$mysqli->escape_string SERVE PARA PROTEGER O ACESSO 
@@ -67,7 +67,7 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
                     <p><b>Seu E-mail de acesso é: </b> $email</p>
                     <p><b>Sua senha de acesso é: </b> $novaSenha</p>
                     <p><b>Para redefinir sua senha </b><a href='../php/redefinir_senha.php'>clique aqui.</a></p>
-                    <p><b>Para entrar </b><a href='index.php'>clique aqui.</a></p>");
+                    <p><b>Para entrar </b><a href='index.html'>clique aqui.</a></p>");
                     
                     unset($_POST);
 
@@ -115,7 +115,7 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
             <label for="">Confirmar Senha: </label>
             <input placeholder="Minimo 8 digitos" type="password" name="confSenha" value="<?php if(isset($_POST['confSenha'])) echo $_POST['confSenha']; ?>">
         </p>
-        <a href="../index.html">Ir para login</a>
+        <a href="../login/index.php">Ir para login</a>
         <button type="submit">Salvar</button>
     </form>
 </body>

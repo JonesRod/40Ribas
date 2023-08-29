@@ -29,9 +29,11 @@ $usuario = $sql_query->fetch_assoc();
     <title>Meu Site</title>
 </head>
 <body>
-    <img src="" alt="">
+    <div>
+        <img src="<?php echo $usuario['foto']; ?>" alt=""><br>
+    </div>
     <p>
-        <a href="perfil.php">Meu Perfil</a><a>Bem Vindo, <?php echo $usuario['nome']; ?></a><br>
+        <a href="perfil.php">Meu Perfil</a><a>Bem Vindo, <?php echo $usuario['apelido']; ?></a><br>
         <a href="logout.php">Sair</a>
     </p>
 

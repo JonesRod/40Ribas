@@ -5,7 +5,7 @@ $msg = false;
 
 if(isset($_POST['email'])) {
 
-    include('../lib/php/conexao.php');
+    include('../login/conexao.php');
     include('../lib/php/generateRandomString.php');
     include('../lib/php/enviarEmail.php');
 
@@ -26,17 +26,17 @@ if(isset($_POST['email'])) {
             $nova_senha = generateRandomString(8);
             $nova_senha_criptografada = password_hash($nova_senha, PASSWORD_DEFAULT);
             $id_usuario = $result['id'];
-            $mysqli->query("UPDATE usuarios SET senha = '$nova_senha_criptografada' WHERE id = '$id_usuario'");
+            $mysqli->query("UPDATE socios SET senha = '$nova_senha_criptografada' WHERE id = '$id_usuario'");
             enviar_email($email, "Sua nova senha do seu site", "
             <h1>Olá " . $result['nome'] . "</h1>
             <p>Uma nova senha foi definida para a sua conta.</p>
             <p><b>Nova senha: </b> $nova_senha</p>
             <p><b>Para redefinir sua senha </b><a href='redefinir_senha.php'>clique aqui.</a></p>
-            <p><b>Para entrar </b><a href='../index.php'>clique aqui.</a></p>");
+            <p><b>Para entrar </b><a href='../index.html'>clique aqui.</a></p>");
             
-            $msg = "Você será redirecionado para a pagina de Login.";
+            $msg = "Já enviamos sua nova senha em seu E-mail.";
             echo $msg;
-            header("refresh: 5; ../index.php");
+            header("refresh: 5; ../index.html");
             }    
         }
         if(($registro ) == 0) {

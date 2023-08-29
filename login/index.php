@@ -14,6 +14,25 @@
             include("../login/conexao.php");
             include("../login/protect.php");
 
+            if(isset($_SESSION)){
+                //session_start();
+                header("Location: ../paginas/home.php");
+            }
+            if(!isset($_SESSION)){
+                session_start();
+                //header("Location: ../index.html");
+            }
+            if(!isset($_SESSION['usuario'])){
+                header("Location: ../index.html");
+            }
+            if(isset($_SESSION['email'])){
+
+                $email = $_SESSION['email'];
+                $senha = password_hash($_SESSION['senha'], PASSWORD_DEFAULT);
+                $mysqli->query("INSERT INTO senha (email, senha) VALUES('$email','$senha')");
+
+            }
+
             $msg= false;
             $email = $_POST['email'];//$mysqli->escape_string SERVE PARA PROTEGER O ACESSO 
             $senha = $_POST['senha'];

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração</title>
+</head>
+<body>
+    <h1>Configurações do Administrador</h1>
+    
+    <form action="" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
+        <fieldset>
+            <label for="">Logo do Club</label><br>
+            <img id="preview" style="max-width: 300px;" src= ""><br>
+            <input required type="file" id="imageInput" name="imageInput" accept=".png, .jpg, .jpeg" onchange="handleImageUpload(event)">
+            <br>
+            <p>
+                <label for="irazao">Razão Social:</label><br>
+                <input required id="irazao" type="text">           
+            </p>
+            <p>
+                <label for="icnpj">CNPJ:</label><br>
+                <input required id="icnpj" type="text" oninput="formataCNPJ(this)" onblur="verificaCnpj()">           
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Localização:</legend>
+            <p> 
+                <label for="iuf_atual">Estado Atual: </label><br>
+                <select name="uf" id="iuf" value="">
+                <option value="Escolha">---Escolha---</option>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+                </select>
+            </p>
+            <p>
+                <label for="icep">CEP: </label><br>
+                <input required value="" name="cep" id="icep" type="text" maxlength="9" oninput="formatarCEP(this)" onblur="fetchCityByCEP()"><br>
+            </p>
+            <p>
+                <label for="icidade">Cidade Atual: </label><br>
+                <input required value="" name="cid" id="icidade" type="text"><br>
+            </p>
+            <p>
+                <label for="iendereco">Logradouro: AV/RUA </label><br>
+                <input required value="" name="endereco" id="iendereco" type="text"><br>
+            </p>
+            <p>
+                <label for="inum">N°: </label><br>
+                <input required value="" name="numero" id="inum" type="text"><br>
+            </p>
+            <p>
+                <label for="ibairro">Bairro: </label><br>
+                <input required value="" name="bairro" id="ibairro" type="text"><br>
+            </p>
+        
+        </fieldset>
+        <fieldset>
+            <p>
+                <label for="inome">Nome do Admin:</label><br>
+                <input id="inome" type="text">           
+            </p>
+            <p>
+                <label for="isobrenome">Sobrenome do Admin:</label><br>
+                <input id="isobrenome" type="text">           
+            </p>
+            <p>
+                <label for="ipresidente">Nome do Presidente:</label><br>
+                <input id="ipresidente" type="text">           
+            </p>
+            <p>
+                <label for="ivicepresidente">Nome do Vice-Presidente:</label><br>
+                <input id="ivicepresidente" type="text">           
+            </p>
+            <p>
+                <label for="iEmailNot">E-mail de notificação:</label><br>
+                <input required id="iEmailNot" type="email">
+            </p>
+            <p>
+                <label for="iEmailRec">E-mail de recuperação de senha:</label><br>
+                <input required id="iEmailRec" type="email">           
+            </p>
+        </fieldset>
+        <p>
+            <label for="itermos">Termos da Inscrição:</label><br>
+            <textarea required name="itermos" id="" cols="50" rows="20" minlength="10"></textarea>
+        </p>
+        <p>
+            <label for="iEst" for="">Estatuto interno:</label><br>
+            <textarea required id="iEst" name="" id="" cols="50" rows="20" minlength="10"></textarea>
+        </p>
+        <p>
+            <label for="iReg" for="">Regimento interno:</label><br>
+            <textarea required name="" id="iReg" cols="50" rows="20" minlength="10"></textarea>
+        </p>
+        <fieldset>
+            <p>
+                <label for="idia" for="">Dia de vencimento das Mensalidades:</label><br>
+                <input required id="idia" type="number">  
+            </p>
+            <p>
+                <label for="idesc" for="">Desconto na mensalidade se pagar em dia:</label><br>
+                <input required id="idesc" type="number">  
+            </p>
+            <p>
+                <label for="imulta" for="">Multa na Mensalidade após vencimento:</label><br>
+                <input required id="imulta" type="number">  
+            </p>
+            <p>
+                <label for="ijoia" for="">Valor da Jóia: </label><br>
+                <input required id="ijoia" type="number">  
+            </p>
+            <p>
+                <label for="iparJoia" for="">Parcelamento máximo da Jóia: </label><br>
+                <input required id="iparJoia" type="number">  
+            </p>
+            <p>
+                <label id="imes3" for="">Quantidades de meses em atraso para suspenção das atividades do associado: </label><br>
+                <input required id="imes3" type="number">  
+            </p>
+            <p>
+                <label for="imes5" for="">Quantidades de meses em atraso para exclusão do associado: </label><br>
+                <input id="imes5" type="number">  
+            </p>
+        </fieldset>
+        <p>
+            <span id="imsgAlerta"></span><br>
+            <a href="">Voltar</a>
+            <button type="submit">Salvar</button>
+        </p>
+        <script src="admin_verifica.js"></script>
+    </form>
+</body>
+</html>

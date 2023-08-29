@@ -1,4 +1,7 @@
 <?php
+    //include('upload.php');
+    include('../login/conexao.php');
+    //include('../lib/php/enviarEmail.php');
 function enviarArquivo($error, $name, $tmp_name) {
     // para obrigar a ter foto
     if($error)
@@ -24,14 +27,8 @@ function enviarArquivo($error, $name, $tmp_name) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitação</title>
+    <title>Aleterar Dados</title>
     <?php
-
-        if(isset($_POST['email'])) {
-            //include('upload.php');
-            include('../login/conexao.php');
-            include('../lib/php/enviarEmail.php');
-
             $nome = $mysqli->escape_string($_POST['nome']);
             $sobrenome = $mysqli->escape_string($_POST['sobrenome']);
             $apelido = $mysqli->escape_string($_POST['apelido']);
@@ -144,9 +141,6 @@ function enviarArquivo($error, $name, $tmp_name) {
 
                 header("refresh: 10;../index.html");
             }
-        }else {
-            exit;
-        }
     ?>
 </head>
 <body>
