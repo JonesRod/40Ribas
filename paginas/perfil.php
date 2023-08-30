@@ -20,7 +20,7 @@
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
     $usuario = $sql_query->fetch_assoc();
 
-    $caminhoDaImagem= false;
+    /*$caminhoDaImagem= false;*/
     
 ?>
 <!DOCTYPE html>
@@ -33,32 +33,33 @@
 <body>
     <form action="alterar_dados_perfil.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
         <div>
+            <input name="foto_antiga" value="<?php echo "../arquivos/" .  $usuario['foto']; ?>" type="hidden">
             <img id="preview" style="max-width: 300px;" src= "<?php echo "../arquivos/" .  $usuario['foto']; ?>" alt="Sem Foto"><br>
             <label for="">Alterar Foto </label><input required type="file" id="imageInput" name="imageInput" accept=".png, .jpg, .jpeg" onchange="handleImageUpload(event)">
             <br>
         </div>  
         <p>
-            <label>Nome: </label>
-            <input value="<?php echo $usuario['nome']; ?>" name="nome" type="text"><br>
+            <label id="" >Nome: </label>
+            <input id="" value="<?php echo $usuario['nome']; ?>" name="nome" type="text"><br>
         </p>
         <p>
-            <label>Sobrenome: </label>
-            <input value="<?php echo $usuario['sobrenome']; ?>" name="sobrenome" type="text"><br>
+            <label id="" >Sobrenome: </label>
+            <input id="" value="<?php echo $usuario['sobrenome']; ?>" name="sobrenome" type="text"><br>
         </p>
         <p>
-            <label>Apelido: </label>
-            <input value="<?php echo $usuario['apelido']; ?>" name="apelido" type="text"><br>
+            <label id="" >Apelido: </label>
+            <input id="" value="<?php echo $usuario['apelido']; ?>" name="apelido" type="text"><br>
         </p>
         <p>
-            <label>CPF: </label>
-            <input value="<?php echo $usuario['cpf']; ?>" name="cpf" type="text" oninput="formatCPF(this)" onblur="verificaCpf()"><br>
+            <label id="" >CPF: </label>
+            <input id="" value="<?php echo $usuario['cpf']; ?>" name="cpf" type="text" oninput="formatCPF(this)" onblur="verificaCpf()"><br>
         </p>
         <p>
-            <label>RG: </label>
-            <input value="<?php echo $usuario['rg']; ?>" name="rg" type="text" oninput="formatRG(this)" onblur="verificaRG()"><br>
+            <label id="" >RG: </label>
+            <input id="" value="<?php echo $usuario['rg']; ?>" name="rg" type="text" oninput="formatRG(this)" onblur="verificaRG()"><br>
         </p>
         <p>
-            <label>Data de Nascimento: </label>
+            <label id="" >Data de Nascimento: </label>
             <?php
                 // Suponha que $usuario seja um array contendo os dados do banco de dados, incluindo o campo "data_nascimento"
                 $dataNascimento = $usuario['nascimento'];
@@ -69,7 +70,7 @@
             <input id="inascimento" value="<?php echo $dataNascimentoFormatada; ?>" name="nascimento" type="text"  oninput="formatarData(this)" onblur="verificaData()"><br>
         </p>
         <p>
-            <label for="iuf">Estado Natal: </label><br>
+            <label id="" for="iuf">Estado Natal: </label><br>
             <select name="uf" id="iuf">
                 <?php
                     $estados = array(
@@ -145,16 +146,16 @@
             
         </p>
         <p>
-            <label>Cidade Natal: </label>
-            <input value="<?php echo $usuario['cid_natal']; ?>" name="cidnatal" type="text"><br>
+            <label id="" >Cidade Natal: </label>
+            <input id="" value="<?php echo $usuario['cid_natal']; ?>" name="cidnatal" type="text"><br>
         </p>
         <p>
-            <label for="">Nome da Mãe: </label>
-            <input value="<?php echo $usuario['mae']; ?>" name="" type="text"><br>
+            <label id="" for="">Nome da Mãe: </label>
+            <input id="" value="<?php echo $usuario['mae']; ?>" name="" type="text"><br>
         </p>
         <p>
-            <label for="">Nome do Pai: </label>
-            <input value="<?php echo $usuario['pai']; ?>" name="" type="text"><br>
+            <label id="" for="">Nome do Pai: </label>
+            <input id="" value="<?php echo $usuario['pai']; ?>" name="" type="text"><br>
         </p>
         <fieldset>
             <legend>Sexo</legend>
@@ -249,45 +250,45 @@
                 </select>
             </p>
             <p>
-                <label for="icep">CEP: </label><br>
-                <input required value="<?php echo $usuario['cep']; ?>" name="cep" id="icep" type="text" maxlength="9" oninput="formatarCEP(this)" onblur="fetchCityByCEP()"><br>
+                <label id="" for="icep">CEP: </label><br>
+                <input id="" required value="<?php echo $usuario['cep']; ?>" name="cep" id="icep" type="text" maxlength="9" oninput="formatarCEP(this)" onblur="fetchCityByCEP()"><br>
             </p>
             <p>
-                <label for="icid_atual">Cidade Atual: </label><br>
-                <input required value="<?php echo $usuario['cid_atual']; ?>" name="cid_atual" id="icid_atual" type="text"><br>
+                <label id="" for="icid_atual">Cidade Atual: </label><br>
+                <input id="" required value="<?php echo $usuario['cid_atual']; ?>" name="cid_atual" id="icid_atual" type="text"><br>
             </p>
             <p>
-                <label for="iendereco">Logradouro: AV/RUA </label><br>
-                <input required value="<?php echo $usuario['endereco']; ?>" name="endereco" id="iendereco" type="text"><br>
+                <label id="" for="iendereco">Logradouro: AV/RUA </label><br>
+                <input id="" required value="<?php echo $usuario['endereco']; ?>" name="endereco" id="iendereco" type="text"><br>
             </p>
             <p>
-                <label for="inum">N°: </label><br>
-                <input required value="<?php echo $usuario['numero']; ?>" name="numero" id="inum" type="text"><br>
+                <label id="" for="inum">N°: </label><br>
+                <input id="" required value="<?php echo $usuario['numero']; ?>" name="numero" id="inum" type="text"><br>
             </p>
             <p>
-                <label for="ibairro">Bairro: </label><br>
-                <input required value="<?php echo $usuario['bairro']; ?>" name="bairro" id="ibairro" type="text"><br>
+                <label id="" for="ibairro">Bairro: </label><br>
+                <input id="" required value="<?php echo $usuario['bairro']; ?>" name="bairro" id="ibairro" type="text"><br>
             </p>
         </fieldset>
         <fieldset>
             <legend>Contatos</legend>
             <p>
-                <label for="icelular1">Celular 1: </label><br>
-                <input required value="<?php echo $usuario['celular1']; ?>" name="celular1" id="icelular1" type="text" placeholder="(00) 00000-0000" size="" oninput="formatarCelular1(this)" onblur="verificaCelular1()"><br>
+                <label id="" for="icelular1">Celular 1: </label><br>
+                <input id="" required value="<?php echo $usuario['celular1']; ?>" name="celular1" id="icelular1" type="text" placeholder="(00) 00000-0000" size="" oninput="formatarCelular1(this)" onblur="verificaCelular1()"><br>
             </p>
             <p>
-                <label for="icelular2">Celular 2: Opcional </label><br>
-                <input value="<?php echo $usuario['celular2']; ?>" name="celular2" id="icelular2" type="text" placeholder="(00) 00000-0000" size="" oninput="formatarCelular2(this)" onblur="verificaCelular2()"><br>
+                <label id="" for="icelular2">Celular 2: Opcional </label><br>
+                <input id="" value="<?php echo $usuario['celular2']; ?>" name="celular2" id="icelular2" type="text" placeholder="(00) 00000-0000" size="" oninput="formatarCelular2(this)" onblur="verificaCelular2()"><br>
             </p>
             <p>
-                <label for="iemail">E-mail:</label><br>
-                <input required value="<?php echo $usuario['email']; ?>" name="email" id="iemail" type="email"><br>
+                <label id="" for="iemail">E-mail:</label><br>
+                <input id="" required value="<?php echo $usuario['email']; ?>" name="email" id="iemail" type="email"><br>
             </p>
         </fieldset>
         <p>
             <span id="imgAlerta"></span><br>
             <a href="home.php">Voltar</a><a href="redefinir_senha.php">Redefinir Senha</a>
-            <button type="submit">Salvar</button>
+            <button id="" type="submit">Salvar</button>
         </p>
         <script src="../inscricao/verifica_dados.js"></script>
     </form>
