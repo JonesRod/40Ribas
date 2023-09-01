@@ -88,7 +88,7 @@ if(count($_POST) > 0) {
         nascimento = '$nascimento',
         admin = '$admin'
         WHERE id = '$id'";
-        $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+        $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
         if($deu_certo) {
             echo "<p><b>Cliente atualizado com sucesso!!!</b></p>";
             unset($_POST);
@@ -98,7 +98,7 @@ if(count($_POST) > 0) {
 }
 
 $sql_cliente = "SELECT * FROM clientes WHERE id = '$id'";
-$query_cliente = $mysqli->query($sql_cliente) or die($mysqli->error);
+$query_cliente = $mysqli->query($sql_cliente) or die($mysqli->$error);
 $cliente = $query_cliente->fetch_assoc();
 
 ?>

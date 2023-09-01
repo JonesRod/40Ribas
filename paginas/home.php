@@ -30,10 +30,11 @@ $usuario = $sql_query->fetch_assoc();
 </head>
 <body>
     <div>
-        <img src="<?php echo $usuario['foto']; ?>" alt=""><br>
+        <img src="<?php echo $usuario['foto']; ?>" style="max-width: 100px;" alt=""><br>
     </div>
     <p>
-        <a href="perfil.php">Meu Perfil</a><a>Bem Vindo, <?php echo $usuario['apelido']; ?></a><br>
+        <a>Seja Bem Vindo, <?php echo $usuario['apelido']; ?></a><br>
+        <a href="perfil.php">Meu Perfil</a><br>
         <a href="logout.php">Sair</a>
     </p>
 

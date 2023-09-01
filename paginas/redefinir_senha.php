@@ -31,7 +31,7 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
     {
 
         include("../login/conexao.php");
-        include("../login/protect.php");
+        //include("../login/protect.php");
         include('../lib/php/enviarEmail.php');
 
         $email = $mysqli->escape_string($_POST['email']);//$mysqli->escape_string SERVE PARA PROTEGER O ACESSO 
