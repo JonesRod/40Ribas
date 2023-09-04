@@ -1,33 +1,51 @@
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Ficha de Inscrição</title>
+    <title>Login</title>
 </head>
 <body>
-    <h1>Ficha de Inscrição</h1>
-    <form action="deu_certo.php" method="POST" enctype="multipart/form-data" autocomplete="on" id="idados">
-    
-        <img height="200" for="img" src="../arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg" alt=""><br>
-        <input name="foto" type="file" id="img">
-        <br>
-
-        <span id="imgAlerta"></span>
-
-        <p>
-            <label for="idata">Data: </label><br>
-            <input type="text" id="idata" name="data" oninput="formatarData(this)" onblur="verificaData()"><br><br>
-
-            <label for="icpf">CPF:</label><br>
-            <input type="text" id="icpf" oninput="formatCPF(this)" onblur="verificaCpf()">
-        </p>
-        <p>
-            <input id="solicitar" type="submit" value="Solicitar">
-        </p>
-        <script src="verifica_dados.js"></script>
+    <h2>Escolha o tipo de login:</h2>
+    <form id="escolherLoginForm">
+        <label>
+            <input type="radio" name="tipoLogin" value="admin"> Admin
+        </label>
+        <label>
+            <input type="radio" name="tipoLogin" value="usuario"> Usuário
+        </label>
+        <button type="button" onclick="mostrarFormulario()">Escolher</button>
     </form>
-    
+
+    <!-- Formulário de login para admin -->
+    <form id="adminLoginForm" style="display: none;">
+        <h2>Login de Admin</h2>
+        <label for="adminUsuario">Nome de Usuário:</label>
+        <input type="text" id="adminUsuario" name="adminUsuario">
+        <label for="adminSenha">Senha:</label>
+        <input type="password" id="adminSenha" name="adminSenha">
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- Formulário de login para usuário -->
+    <form id="usuarioLoginForm" style="display: none;">
+        <h2>Login de Usuário</h2>
+        <label for="usuarioEmail">Email:</label>
+        <input type="email" id="usuarioEmail" name="usuarioEmail">
+        <label for="usuarioSenha">Senha:</label>
+        <input type="password" id="usuarioSenha" name="usuarioSenha">
+        <button type="submit">Login</button>
+    </form>
+
+    <script>
+        function mostrarFormulario() {
+            var escolha = document.querySelector('input[name="tipoLogin"]:checked').value;
+            if (escolha === "admin") {
+                document.getElementById("adminLoginForm").style.display = "block";
+                document.getElementById("usuarioLoginForm").style.display = "none";
+            } else if (escolha === "usuario") {
+                document.getElementById("adminLoginForm").style.display = "none";
+                document.getElementById("usuarioLoginForm").style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>

@@ -27,11 +27,12 @@ main{
 }
 .conteiner h1{
     font-family: 'Permanent Marker', cursive;
-    margin-top: 10px;
-    margin-bottom: 50px;
+    margin-top: 5%;
+    margin-bottom: 5%;
 
 
 }
+
 form#login{
     position: absolute;
     top: 50%;
@@ -39,14 +40,18 @@ form#login{
     transform: translate(-50%, -50%);
     overflow: hidden; /*tudo que setiver fora da borda vai ficar escondido*/
     background-color: white;
-    width: 250px;
-    height: 500px;
+    width: 400px;
+    height: 250px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0,0,0,450);/*borda sombreada*/
 
     transition: width .3s, height .3s;
     transition-timing-function: ease;
 
+}
+/*label{
+    margin-top: 20%;
+    margin-bottom: 20%;
 }
 /*body .conteiner{
     align-content: center;
