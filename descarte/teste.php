@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Exemplo de Ícone de Menu Hambúrguer</title>
+    <style>
+        /* Estilos para o botão de menu */
+        .menu-button {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* As três barrinhas horizontais */
+        .menu-bar {
+            width: 30px;
+            height: 3px;
+            background-color: #333;
+            margin: 6px 0;
+        }
+    </style>
 </head>
 <body>
-    <h2>Escolha o tipo de login:</h2>
-    <form id="escolherLoginForm">
-        <label>
-            <input type="radio" name="tipoLogin" value="admin"> Admin
-        </label>
-        <label>
-            <input type="radio" name="tipoLogin" value="usuario"> Usuário
-        </label>
-        <button type="button" onclick="mostrarFormulario()">Escolher</button>
-    </form>
+    <div class="menu-button" onclick="mostrarMenu()">
+        <div class="menu-bar"></div>
+        <div class="menu-bar"></div>
+        <div class="menu-bar"></div>
+   
 
-    <!-- Formulário de login para admin -->
-    <form id="adminLoginForm" style="display: none;">
-        <h2>Login de Admin</h2>
-        <label for="adminUsuario">Nome de Usuário:</label>
-        <input type="text" id="adminUsuario" name="adminUsuario">
-        <label for="adminSenha">Senha:</label>
-        <input type="password" id="adminSenha" name="adminSenha">
-        <button type="submit">Login</button>
-    </form>
-
-    <!-- Formulário de login para usuário -->
-    <form id="usuarioLoginForm" style="display: none;">
-        <h2>Login de Usuário</h2>
-        <label for="usuarioEmail">Email:</label>
-        <input type="email" id="usuarioEmail" name="usuarioEmail">
-        <label for="usuarioSenha">Senha:</label>
-        <input type="password" id="usuarioSenha" name="usuarioSenha">
-        <button type="submit">Login</button>
-    </form>
-
+    <!-- Conteúdo do menu (inicialmente oculto) -->
+    <div id="menu" style="display: none;">
+        <ul>
+            <li><a href="#">Configuração</a></li>
+            <li><a href="#">Sair</a></li>
+        </ul>
+    </div>
+ </div>
     <script>
-        function mostrarFormulario() {
-            var escolha = document.querySelector('input[name="tipoLogin"]:checked').value;
-            if (escolha === "admin") {
-                document.getElementById("adminLoginForm").style.display = "block";
-                document.getElementById("usuarioLoginForm").style.display = "none";
-            } else if (escolha === "usuario") {
-                document.getElementById("adminLoginForm").style.display = "none";
-                document.getElementById("usuarioLoginForm").style.display = "block";
+        function mostrarMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.style.display === "none") {
+                menu.style.display = "block";
+            } else {
+                menu.style.display = "none";
             }
         }
     </script>
 </body>
 </html>
+

@@ -99,45 +99,6 @@
             border-bottom: none;
         }
 
-
-
-        
-
-
-
-                /* Estilos para o botão de menu */
-                .menu-button {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            position: relative;
-        }
-
-        /* Estilos para o menu suspenso */
-        .menu-dropdown {
-            display: none;
-            position: absolute;
-            background-color: #333;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        /* Estilos para os itens do menu */
-        .menu-item {
-            padding: 12px 16px;
-            text-decoration: none;
-            color: white;
-            display: block;
-        }
-
-        /* Quando o mouse passa sobre o botão de menu, exibe o menu suspenso */
-        .menu-button:hover .menu-dropdown {
-            display: block;
-        }
-
     </style>
     <title>Tela Admin</title>
 </head>
@@ -150,18 +111,6 @@
         <li><a href="admin_logout.php">Sair</a></li>
     </ul>
     
-    <div class="menu-button">
-        Menu ▼ <!-- Seta para baixo -->
-        <div class="menu-dropdown">
-            <div></div>
-            <div></div>
-            <div></div>
-            <a class="menu-item" href="#">Configuração</a>
-            <a class="menu-item" href="#">Sair</a>
-            <!-- Adicione mais itens de menu, se necessário -->
-        </div>
-    </div>
-
     <script>
         // Captura o botão e o menu
         // Captura o botão e o menu
