@@ -58,7 +58,7 @@
     $id = 1;
     $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
     $dadosEscolhido = $dados->fetch_assoc();
-//hidden
+//hidden esconde o input
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -80,7 +80,7 @@
                 <img id="ilogoNova" style="max-width: 200px;" alt=""><br>
                 <label for="imageInput">Alterar Logo</label>
                 <input type="file" id="imageInput" name="imageInput" accept=".png, .jpg, .jpeg" onchange="imgLogo(event)">
-                <input type="text" name="end_logo" value= "<?php echo $dadosEscolhido['logo']; ?>">
+                <input type="hidden" name="end_logo" value= "<?php echo $dadosEscolhido['logo']; ?>">
             </p>  
             <p>
                 <label for="irazao">Razão Social:</label><br>

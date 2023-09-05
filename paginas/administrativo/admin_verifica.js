@@ -52,13 +52,13 @@ function imgLogo(event) {
     var minhaLogo = document.getElementById('ilogo');
     var novalogo = document.getElementById('ilogoNova');
     const inputElement = document.getElementById('imageInput');
-console.log('oi');
+    //console.log('oi');
     if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
         
         const reader = new FileReader();
         reader.onload = function() {
             const novalogo = document.getElementById('ilogoNova');
-            novafoto.src = reader.result;
+            novalogo.src = reader.result;
         };
         reader.readAsDataURL(file);
         //document.getElementById('ifoto').type = hidden;
