@@ -1,0 +1,32 @@
+/* Estilos para ocultar o menu inicialmente */
+.escondido {
+    display: none;
+}
+
+/* Estilos para o botão */
+#menuBtn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Estilos para o menu suspenso */
+#menu {
+    list-style: none;
+    padding: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    position: absolute;
+    z-index: 1;
+}
+
+#menu li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+#menu li:last-child {
+    border-bottom: none;
+}

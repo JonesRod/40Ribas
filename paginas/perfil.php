@@ -38,7 +38,7 @@
             <?php } ?>
             <img id="ifotoNova" style="max-width: 200px;" alt=""><br>
             <label for="imageInput">Alterar Foto </label><input type="file" id="imageInput" name="imageInput" accept=".png, .jpg, .jpeg" onchange="imgPerfil(event)">
-            <input type="hidden" name="end_foto" value= "<?php echo $usuario['foto']; ?>" id="">
+            <input type="hidden" name="end_foto" value= "<?php echo $usuario['foto']; ?>">
         </p>  
         
         <input id="" value="<?php echo $usuario['id']; ?>" name="id" type="hidden">

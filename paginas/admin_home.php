@@ -65,41 +65,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Estilos para ocultar o menu inicialmente */
-        .escondido {
-            display: none;
-        }
-
-        /* Estilos para o botão */
-        #menuBtn {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        /* Estilos para o menu suspenso */
-        #menu {
-            list-style: none;
-            padding: 0;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            position: absolute;
-            z-index: 1;
-        }
-
-        #menu li {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        #menu li:last-child {
-            border-bottom: none;
-        }
-
-    </style>
+    <link rel="stylesheet" href="admin_config.css">
     <title>Tela Admin</title>
 </head>
 <body>
@@ -109,25 +75,7 @@
     <ul id="menu" class="escondido">
         <li><a href="admin_config.php">Configurações</a></li>
         <li><a href="admin_logout.php">Sair</a></li>
-    </ul>
-    
-    <script>
-        // Captura o botão e o menu
-        // Captura o botão e o menu
-        var menuBtn = document.getElementById('menuBtn');
-        var menu = document.getElementById('menu');
-
-        // Adiciona um evento de clique ao botão
-        menuBtn.addEventListener('click', function() {
-            // Alterna a visibilidade do menu
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'block';
-            }
-        });
-
-    </script>
-
+    </ul>   
+    <script src="admin_home.js"></script>
 </body>
 </html>

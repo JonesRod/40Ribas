@@ -1,27 +1,35 @@
 function validateForm() {
-    const arqFoto = document.getElementById('imageInput');
+    const arqLogo = document.getElementById('imageInput');
+    const imageElementAtual = document.getElementById('ilogo');
+    const imageElement = document.getElementById('ilogoNova');
     var uf = document.getElementById('iuf').value;
+    //var ufAtual =document.getElementById('iuf_atual').value;
     var sem_escolha ="Escolha";
 
-    if (arqFoto.files.length === 0) {
+    if (arqLogo.files.length === 0 && imageElementAtual.src=='' && imageElement.src=='') {
+        alert('Por favor, adicione uma logo.');
+        document.querySelector('#imsgAlerta').textContent = "Adicione uma logo.";
+        return false; // Impede o envio do formulário
+    }
+    if (arqLogo.files.length === 0) {
         //alert('Por favor, preencha todos os campos.');
-        document.querySelector('#imgAlerta2').textContent = "Adicione uma foto.";
+        document.querySelector('#imsgAlerta').textContent = "Adicione uma logo.";
         return false; // Impede o envio do formulário
     }
     if(uf === sem_escolha){
-        document.querySelector('#imgAlerta2').textContent = "Selecione o Estado!";
+        document.querySelector('#imsgAlerta').textContent = "Selecione o Estado!";
         document.getElementById('iuf').focus();
         console.log(apelido);
 
         return false; // Impede o envio do formulário
     }
-        document.querySelector('#imgAlerta2').textContent = "";
+        document.querySelector('#imsgAlerta').textContent = "";
         //console.log('2');
 
     // Aqui você pode adicionar mais validações conforme necessário
     return true; // Permite o envio do formulário
 }
-function handleImageUpload(event) {
+/*function handleImageUpload(event) {
     const file = event.target.files[0];
 
     if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
@@ -34,11 +42,37 @@ function handleImageUpload(event) {
         document.querySelector('#imsgAlerta').textContent = "";
     } else {
         //alert('Por favor, selecione uma imagem PNG ou JPG.');
-        document.getElementById('preview').src= "'foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg'"
+        document.getElementById('preview').src= "../arquivos/IMG-20230811-WA0040.jpg"
         document.getElementById('imageInput').value = null;
         //document.querySelector('#imgAlerta').textContent = "Por favor, selecione uma imagem PNG ou JPG.";
     }
-}  
+} */
+function imgLogo(event) {
+    const file = event.target.files[0];
+    var minhaLogo = document.getElementById('ilogo');
+    var novalogo = document.getElementById('ilogoNova');
+    const inputElement = document.getElementById('imageInput');
+console.log('oi');
+    if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+        
+        const reader = new FileReader();
+        reader.onload = function() {
+            const novalogo = document.getElementById('ilogoNova');
+            novafoto.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+        //document.getElementById('ifoto').type = hidden;
+        minhaLogo.style.display = 'none';
+        novalogo.style.display = 'block';
+        document.querySelector('#imsgAlerta').textContent = "";
+    } 
+
+    if (inputElement.files.length === 0) {
+        novalogo.style.display = 'none';
+        minhaLogo.style.display = 'block';
+
+    } 
+}   
 function formataCNPJ(input) {
     let value = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
     if (value.length > 14) {
