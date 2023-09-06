@@ -1,5 +1,5 @@
 <?php
-include("login/conexao.php");
+include("login/lib/conexao.php");
 
 if(isset($_SESSION)) {
     
@@ -8,10 +8,10 @@ if(isset($_SESSION)) {
 
     if($admin == 1 ){
         //echo "2";  
-       header("Location: paginas/admin_home.php");       
+       header("Location: login/lib/paginas/administrativo/admin_home.php");       
     }else{
         //echo "3";  
-        header("Location: ../paginas/usuario_home.php");  
+        header("Location: login/lib/paginas/usuarios/usuario_home.php");  
     }
 }
 if(!isset($_SESSION)){
@@ -58,13 +58,13 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
                     $_SESSION['admin'] = $admin;
                     //$msg = "1";
                     unset($_POST);
-                    header("Location: login/tipo_login.php");
+                    header("Location: login/lib/tipo_login.php");
                 }else if($admin != 1){
                     $_SESSION['usuario'] = $usuario['id'];
                     $_SESSION['admin'] = $admin;
                     //$msg = "2";
                     unset($_POST);
-                    header("Location: paginas/usuario_home.php");
+                    header("Location: login/lib/paginas/usuario_home.php");
                 }    
             }else{
                 $msg= true;
@@ -93,7 +93,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
 </head>
 <body>
     <main class="conteiner">   
-        <form id ="login" action="index.php" method="POST" >
+        <form id ="login" action="" method="POST" >
             <img id="img" alt="">
             <h1 id="titulo">Entrar</h1>
             <span id="msg"><?php echo $msg; ?></span>
@@ -107,7 +107,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
             </p>
             <p> 
                 <a style="margin-right:10px;" href="inscricao/ficha_inscricao.html">Quero ser sócio.</a> 
-                <a style="margin-right:10px;" href="paginas/Recupera_Senha.php">Esqueci minha Senha!</a> 
+                <a style="margin-right:10px;" href="login/lib/Recupera_Senha.php">Esqueci minha Senha!</a> 
             </p>
             <button type="submit">Entrar</button>
 

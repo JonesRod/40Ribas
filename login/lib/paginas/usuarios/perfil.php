@@ -1,12 +1,12 @@
 <?php
     //codigo da sessão
-    include('../login/conexao.php');
+    include('../../conexao.php');
 
     if(!isset($_SESSION))
         session_start();
     
     if(!isset($_SESSION['usuario'])){
-        header("Location: ../index.php");
+        header("Location: ../../../../index.php");
     }
     if(isset($_SESSION['email'])){
 
@@ -292,7 +292,7 @@
         <p>
             <span id="imgAlerta"></span><br>
             <span id="imgAlerta2" type="hidden"></span><br>
-            <a href="home.php" style="margin-left: 10px; margin-right: 10px;">Voltar</a><a href="redefinir_senha.php" style="margin-left: 10px; margin-right: 10px;">Redefinir Senha</a>
+            <a href="usuario_home.php" style="margin-left: 10px; margin-right: 10px;">Voltar</a><a href="../../redefinir_senha.php" style="margin-left: 10px; margin-right: 10px;">Redefinir Senha</a>
             <button id="" type="submit" style="margin-left: 10px;">Salvar</button>
         </p>
         <script src="perfil_verifica_dados.js"></script>

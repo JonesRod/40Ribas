@@ -33,7 +33,7 @@ window.onload = function() {
     const imageElement = document.getElementById('preview');
 
     if (fileInput.files.length === 0) {
-        imageElement.src = '../arquivos/foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg'; // Substitua pelo caminho da imagem padrão
+        imageElement.src = '../login/lib/paginas/usuarios/arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg'; // Substitua pelo caminho da imagem padrão
     }
 
     fileInput.addEventListener('change', function() {
@@ -45,7 +45,7 @@ window.onload = function() {
             };
             reader.readAsDataURL(selectedFile);
         } else {
-            imageElement.src ='../arquivos/foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg'; // Substitua pelo caminho da imagem padrão
+            imageElement.src ='../login/lib/paginas/usuarios/arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg'; // Substitua pelo caminho da imagem padrão
         }
     });
 
@@ -64,7 +64,7 @@ function handleImageUpload(event) {
         document.querySelector('#imgAlerta').textContent = "";
     } else {
         //alert('Por favor, selecione uma imagem PNG ou JPG.');
-        document.getElementById('preview').src= "../arquivos/foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg"
+        document.getElementById('preview').src= "../login/lib/paginas/usuarios/arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg"
         document.getElementById('imageInput').value = null;
         document.querySelector('#imgAlerta').textContent = "Por favor, selecione uma imagem PNG ou JPG.";
     }

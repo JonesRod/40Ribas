@@ -7,15 +7,15 @@
         session_start();
         
     if(!isset($_SESSION['usuario'])){
-        header("Location: ../login.html");
-    }    
+        header("Location: ../../../../index.php");
+    }   
     function enviarArquivo($error, $name, $tmp_name) {
         // para obrigar a ter foto
         if($error)
             //echo("Falha ao enviar arquivo");
             return false;
 
-        $pasta = "../arquivos/foto_perfil/";
+        $pasta = "arquivos/";
         $nomeDoArquivo = $name;
         $novoNomeDoArquivo = uniqid();
         $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
@@ -69,14 +69,14 @@
                     $nova_foto= " foto = '$path', ";
             
                 if(empty($_POST['foto'])){
-                    if(isset($_POST['foto']) && $_POST['foto'] !== '../arquivos/foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
+                    if(isset($_POST['foto']) && $_POST['foto'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
                     unlink($_POST['foto']);
                 }
             else
                 $nova_foto= " foto = '$path', ";
         
             if(empty($_POST['foto'])) {
-                if(isset($_POST['foto']) && $_POST['foto'] !== '../arquivos/foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
+                if(isset($_POST['foto']) && $_POST['foto'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
                 unlink($_POST['foto']);
             }
         }

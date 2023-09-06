@@ -1,14 +1,14 @@
 <?php
-    include('../login/conexao.php');
+    include('../../conexao.php');
 
     $erro = false;
 
     if(!isset($_SESSION))
         session_start();
         
-    if(!isset($_SESSION['usuario'])){
+    /*if(!isset($_SESSION['usuario'])){
         header("Location: ../login.html");
-    }    
+    }*/    
     function enviarArquivo($error, $name, $tmp_name) {
         // para obrigar a ter foto
         if($error)
@@ -69,14 +69,14 @@
                     $nova_foto= " foto = '$path', ";
             
                 if(empty($_POST['foto'])){
-                    if(isset($_POST['foto']) && $_POST['foto'] !== '../arquivos/foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
+                    if(isset($_POST['foto']) && $_POST['foto'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
                     unlink($_POST['foto']);
                 }
             else
                 $nova_foto= " foto = '$path', ";
         
             if(empty($_POST['foto'])) {
-                if(isset($_POST['foto']) && $_POST['foto'] !== '../arquivos/foto_perfil/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
+                if(isset($_POST['foto']) && $_POST['foto'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
                 unlink($_POST['foto']);
             }
         }

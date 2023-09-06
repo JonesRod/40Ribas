@@ -19,7 +19,7 @@ main{
     width: 100vw;
 }
 .conteiner #img{
-    background: #0d7a0e url(../../arquivos/IMG-20230811-WA0040.jpg);
+    background: #0d7a0e url(../../paginas/administrativo/arquivos/IMG-20230811-WA0040.jpg);
     background-size: cover;
     height: 175px;
     display: block; /*para colocar a imagem em bloco quando ...*/

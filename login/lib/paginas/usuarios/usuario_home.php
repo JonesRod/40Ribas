@@ -1,5 +1,5 @@
 <?php
-    include('../login/conexao.php');
+    include('../../conexao.php');
 
     if(!isset($_SESSION)){
         session_start(); 
@@ -39,12 +39,12 @@
         }else{
             session_unset();
             session_destroy();
-            header("Location: ../index.php"); 
+            header("Location: ../../../../index.php"); 
         }
     }else{
         session_unset();
         session_destroy();
-        header("Location: ../index.php"); 
+        header("Location: ../../../../index.php"); 
     }
 
     $id = $_SESSION['usuario'];
@@ -66,7 +66,7 @@
     <p>
         <a>Seja Bem Vindo, <?php echo $usuario['apelido']; ?></a><br>
         <a href="perfil.php">Meu Perfil</a><br>
-        <a href="admin_logout.php">Sair</a>
+        <a href="usuario_logout.php">Sair</a>
     </p>
 
 </body>

@@ -11,7 +11,7 @@
             if($admin != 1){
                 $usuario = $_SESSION['usuario'];
                 $admin = $_SESSION['admin'];
-                header("Location: ../paginas/usuario_home.php");      
+                header("Location: paginas/usuarios/usuario_home.php");      
             }else{
                 $usuario = $_SESSION['usuario'];
                 $admin = $_SESSION['admin'];
@@ -24,13 +24,13 @@
             // Destruir todas as variáveis de sessão
             session_unset();
             session_destroy();
-            header("Location: ../index.php");  
+            header("Location: ../../index.php");  
         }
     }else{
             // Destruir todas as variáveis de sessão
             session_unset();
             session_destroy();
-            header("Location: ../index.php");  
+            header("Location: ../../index.php");  
     }
 
 ?>
@@ -44,7 +44,7 @@
     <main>
         <h2>Olá, <?php echo $usuario['apelido']; ?></h2>
         <h3>Escolha o tipo de login:</h3>
-        <form id="escolherLoginForm" method="POST" action="../paginas/admin_home.php" onsubmit="return resposta()">
+        <form id="escolherLoginForm" method="POST" action="paginas/administrativo/admin_home.php" onsubmit="return resposta()">
             <label>
                 <input type="radio" name="tipoLogin" value="1"> Admin
             </label>
