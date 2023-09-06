@@ -114,7 +114,7 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
             <label for="">Confirmar Senha: </label>
             <input placeholder="Minimo 8 digitos" type="password" name="confSenha" value="<?php if(isset($_POST['confSenha'])) echo $_POST['confSenha']; ?>">
         </p>
-        <a href="../../index.php">Ir para login</a>
+        <a href="paginas/usuarios/usuario_logout.php">Ir para login</a>
         <button type="submit">Salvar</button>
     </form>
 </body>
