@@ -6,16 +6,16 @@
     if(!isset($_SESSION))
         session_start();
         
-    /*if(!isset($_SESSION['usuario'])){
-        header("Location: ../login.html");
-    }*/    
+    if(!isset($_SESSION['usuario'])){
+        header("Location: ../../../../index.php");
+    }
     function enviarArquivo($error, $name, $tmp_name) {
         // para obrigar a ter foto
         if($error)
             //echo("Falha ao enviar arquivo");
             return false;
 
-        $pasta = "../arquivos/foto_perfil/";
+        $pasta = "arquivos/";
         $nomeDoArquivo = $name;
         $novoNomeDoArquivo = uniqid();
         $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
