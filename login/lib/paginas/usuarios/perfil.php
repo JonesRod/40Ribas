@@ -45,12 +45,8 @@
         
         <input id="" value="<?php echo $usuario['id']; ?>" name="id" type="hidden">
         <p>
-            <label for="inome" >Nome: </label>
-            <input id="inome" value="<?php echo $usuario['nome']; ?>" name="nome" type="text"><br>
-        </p>
-        <p>
-            <label for="isobrenome" >Sobrenome: </label>
-            <input id="isobrenome" value="<?php echo $usuario['sobrenome']; ?>" name="sobrenome" type="text"><br>
+            <label for="inome_completo" >Nome Completo: </label>
+            <input id="inome_completo" value="<?php echo $usuario['nome_completo']; ?>" name="nome_completo" type="text"><br>
         </p>
         <p>
             <label for="iapelido" >Apelido: </label>

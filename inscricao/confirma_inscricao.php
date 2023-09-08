@@ -32,9 +32,17 @@ function enviarArquivo($error, $name, $tmp_name) {
             include('../login/conexao.php');
             include('../lib/php/enviarEmail.php');
 
-            $nome = $mysqli->escape_string($_POST['nome']);
-            $sobrenome = $mysqli->escape_string($_POST['sobrenome']);
+            $nome_completo = $mysqli->escape_string($_POST['nome_completo']);
             $apelido = $mysqli->escape_string($_POST['apelido']);
+
+            // Separar o nome do sobrenome
+            $partesNome = explode(' ', $nome_completo);
+            $primeiroNome = $partesNome[0];
+            $sobrenome = end($partesNome);
+            if($apelido == ''){
+                $apelido = $primeiroNome;
+            }
+            
             $cpf = $mysqli->escape_string($_POST['cpf']);
             $rg = $mysqli->escape_string($_POST['rg']);
             $nascimento = $mysqli->escape_string($_POST['nascimento']);
@@ -99,7 +107,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                         $path = enviarArquivo($arq['error'], $arq['name'], $arq['tmp_name']);
                         //echo $path;
                         $sql_code = "INSERT INTO int_associar (data, foto, apelido, nome, sobrenome, cpf, rg, nascimento, uf, cid_natal, mae, pai, sexo, uf_atual, cep, cid_atual, endereco, nu, bairro, celular1, celular2, email, motivo, termos) 
-                        VALUES (NOW(),'$path','$apelido', '$nome','$sobrenome','$cpf','$rg','$nasc', '$uf', '$cid_natal', '$mae', '$pai', '$sexo', '$uf_atual','$cep','$cid_atual','$endereco','$numero','$bairro','$celular1','$celular2','$email', '$motivo', '$termos')";
+                        VALUES (NOW(),'$path','$apelido', '$nome_completo','$cpf','$rg','$nasc', '$uf', '$cid_natal', '$mae', '$pai', '$sexo', '$uf_atual','$cep','$cid_atual','$endereco','$numero','$bairro','$celular1','$celular2','$email', '$motivo', '$termos')";
                         $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
 
                         if($deu_certo){
@@ -108,7 +116,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                             //echo $msg;
 
                             enviar_email($email, "Registro de solicitação de para associação ao Club 40Ribas", "
-                            <h1>Olá Sr. " . $nome . "</h1>
+                            <h1>Olá Sr. " . $apelido . "</h1>
                             <p>Sua solicitação foi registrada com sucesso. Assim que surgir uma vaga passaremos sua 
                             solicitação por votação de aprovação. Lhe avisaremos assim ...</p>
                             <p>Menssagem automatica. Não responda!</p>");

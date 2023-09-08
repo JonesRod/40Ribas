@@ -6,16 +6,16 @@ function validateForm() {
     //var ufAtual =document.getElementById('iuf_atual').value;
     var sem_escolha ="Escolha";
 
-    if (arqLogo.files.length === 0 && imageElementAtual.src=='' && imageElement.src=='') {
+    if (arqLogo.files.length === 0 && imageElementAtual.src =='' && imageElement.src=='') {
         alert('Por favor, adicione uma logo.');
-        document.querySelector('#imsgAlerta').textContent = "Adicione uma logo.";
+        document.querySelector('#imsgAlerta').textContent = "Adicione uma logo.1";
         return false; // Impede o envio do formulário
     }
-    if (arqLogo.files.length === 0) {
+    /*if (arqLogo.files.length === 0) {
         //alert('Por favor, preencha todos os campos.');
-        document.querySelector('#imsgAlerta').textContent = "Adicione uma logo.";
+        document.querySelector('#imsgAlerta').textContent = "Adicione uma logo.2";
         return false; // Impede o envio do formulário
-    }
+    }*/
     if(uf === sem_escolha){
         document.querySelector('#imsgAlerta').textContent = "Selecione o Estado!";
         document.getElementById('iuf').focus();
@@ -24,7 +24,7 @@ function validateForm() {
         return false; // Impede o envio do formulário
     }
         document.querySelector('#imsgAlerta').textContent = "";
-        //console.log('2');
+        console.log('2');
 
     // Aqui você pode adicionar mais validações conforme necessário
     return true; // Permite o envio do formulário
@@ -134,4 +134,7 @@ async function fetchCityByCEP() {
     }
     document.querySelector('#imsgAlerta').textContent = "";
     document.getElementById('icidade').value = data.localidade;
+}
+function imprimirPagina() {
+    window.print();
 }

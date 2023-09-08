@@ -55,7 +55,7 @@
         header("Location: ../index.php"); 
     }
 
-    $id = 1;
+    $id = '1';
     $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
     $dadosEscolhido = $dados->fetch_assoc();
 //hidden esconde o input
@@ -71,7 +71,7 @@
     <a>Admin <?php echo $usuario['apelido']; ?></a> <br>
     <h1>Configurações do Administrador</h1>
     
-    <form action="" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
+    <form action="admin_altera_dados.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
         <fieldset>
             <p>
                 <?php if($dadosEscolhido['logo']) { ?>
@@ -84,11 +84,11 @@
             </p>  
             <p>
                 <label for="irazao">Razão Social:</label><br>
-                <input required id="irazao" type="text" value="<?php echo $dadosEscolhido['razao']; ?>">           
+                <input required name="razao" id="irazao" type="text" value="<?php echo $dadosEscolhido['razao']; ?>">           
             </p>
             <p>
                 <label for="icnpj">CNPJ:</label><br>
-                <input required id="icnpj" type="text" oninput="formataCNPJ(this)" onblur="verificaCnpj()" value="<?php echo $dadosEscolhido['cnpj']; ?>">           
+                <input required name="cnpj" id="icnpj" type="text" oninput="formataCNPJ(this)" onblur="verificaCnpj()" value="<?php echo $dadosEscolhido['cnpj']; ?>">           
             </p>
         </fieldset>
         <fieldset>
@@ -169,7 +169,7 @@
             </p>
             <p>
                 <label for="icep">CEP: </label><br>
-                <input required value="<?php echo $dadosEscolhido['cep']; ?>" name="cep" id="icep" type="text" maxlength="9" oninput="formatarCEP(this)" onblur="fetchCityByCEP()"><br>
+                <input required name="cep" value="<?php echo $dadosEscolhido['cep']; ?>" name="cep" id="icep" type="text" maxlength="9" oninput="formatarCEP(this)" onblur="fetchCityByCEP()"><br>
             </p>
             <p>
                 <label for="icidade">Cidade Atual: </label><br>
@@ -192,78 +192,75 @@
         <fieldset>
             <legend>Administrativo:</legend>
             <p>
+                <label for="inome">Nome do Tesoureiro(Admin):</label><br>
+                <input name="nome_tesoureiro" id="inome" type="text" value="<?php echo $dadosEscolhido['nome_tesoureiro']; ?>">           
+            </p>            
+            <p>
                 <label for="ipresidente">Nome do Presidente:</label><br>
-                <input id="ipresidente" type="text" value="<?php echo $dadosEscolhido['presidente']; ?>">           
+                <input name="presidente" id="ipresidente" type="text" value="<?php echo $dadosEscolhido['presidente']; ?>">           
             </p>
             <p>
                 <label for="ivicepresidente">Nome do Vice-Presidente:</label><br>
-                <input id="ivicepresidente" type="text" value="<?php echo $dadosEscolhido['vice_presidente']; ?>">           
+                <input name="vice_presidente" id="ivicepresidente" type="text" value="<?php echo $dadosEscolhido['vice_presidente']; ?>">           
             </p>
-            <p>
-                <label for="inome">Nome do Tesoureiro(Admin):</label><br>
-                <input id="inome" type="text" value="<?php echo $dadosEscolhido['nome_tesoureiro']; ?>">           
-            </p>
-            <p>
-                <label for="isobrenome">Sobrenome do Admin:</label><br>
-                <input id="isobrenome" type="text" value="<?php echo $dadosEscolhido['sobrenome_tesoureiro']; ?>">           
-            </p>
+
             <p>
                 <label for="iEmailNot">E-mail de notificação:</label><br>
-                <input required id="iEmailNot" type="email" value="<?php echo $dadosEscolhido['email_not']; ?>">
+                <input required name="email_not" id="iEmailNot" type="email" value="<?php echo $dadosEscolhido['email_not']; ?>">
             </p>
             <p>
                 <label for="iEmailRec">E-mail de recuperação de senha:</label><br>
-                <input required id="iEmailRec" type="email" value="<?php echo $dadosEscolhido['email_rec']; ?>">           
+                <input name="email_rec" required id="iEmailRec" type="email" value="<?php echo $dadosEscolhido['email_rec']; ?>">           
             </p>
         </fieldset>
         <fieldset>
             <legend>Config. Financeira:</legend>
             <p>
-                <label for="idia" for="">Dia de vencimento das Mensalidades:</label><br>
-                <input required id="idia" type="number" value="<?php echo $dadosEscolhido['dia_fecha_mes']; ?>">  
+                <label for="idia">Dia de vencimento das Mensalidades:</label><br>
+                <input required name="dia_fecha_mes" id="idia" type="number" value="<?php echo $dadosEscolhido['dia_fecha_mes']; ?>">  
             </p>
             <p>
-                <label for="imensal" for="">Valor das Mensalidades: </label><br>
-                <input required id="imensal" type="number" value="<?php echo $dadosEscolhido['valor_mensalidades']; ?>">  
+                <label for="imensal">Valor das Mensalidades: </label><br>
+                <input required name="valor_mensalidades" id="imensal" type="number" value="<?php echo $dadosEscolhido['valor_mensalidades']; ?>">  
             </p>
             <p>
-                <label for="idesc" for="">Desconto na mensalidade se pagar em dia:</label><br>
-                <input required id="idesc" type="number" value="<?php echo $dadosEscolhido['desconto_mensalidades']; ?>">  
+                <label for="idesc">Desconto na mensalidade se pagar em dia:</label><br>
+                <input required name="desconto_mensalidades" id="idesc" type="number" value="<?php echo $dadosEscolhido['desconto_mensalidades']; ?>">  
             </p>
             <p>
-                <label for="imulta" for="">Multa na Mensalidade após vencimento:</label><br>
-                <input required id="imulta" type="number" value="<?php echo $dadosEscolhido['multa']; ?>">  
+                <label for="imulta">Multa na Mensalidade após vencimento:</label><br>
+                <input required name="multa" id="imulta" type="number" value="<?php echo $dadosEscolhido['multa']; ?>">  
             </p>
             <p>
-                <label for="ijoia" for="">Valor da Jóia: </label><br>
-                <input required id="ijoia" type="number" value="<?php echo $dadosEscolhido['joia']; ?>">  
+                <label for="ijoia">Valor da Jóia: </label><br>
+                <input required name="joia" id="ijoia" type="number" value="<?php echo $dadosEscolhido['joia']; ?>">  
             </p>
             <p>
-                <label for="iparJoia" for="">Parcelamento máximo da Jóia: </label><br>
-                <input required id="iparJoia" type="number" value="<?php echo $dadosEscolhido['parcela_joia']; ?>">  
+                <label for="iparJoia">Parcelamento máximo da Jóia: </label><br>
+                <input required name="parcela_joia" id="iparJoia" type="number" value="<?php echo $dadosEscolhido['parcela_joia']; ?>">  
             </p>
             <p>
                 <label id="" for="imes3">Quantidades de meses em atraso para suspenção das atividades do associado: </label><br>
-                <input required id="imes3" type="number" value="<?php echo $dadosEscolhido['meses_vence3']; ?>">  
+                <input required name="meses_vence3" id="imes3" type="number" value="<?php echo $dadosEscolhido['meses_vence3']; ?>">  
             </p>
             <p>
                 <label for="imes5">Quantidades de meses em atraso para exclusão do associado: </label><br>
-                <input id="imes5" type="number" value="<?php echo $dadosEscolhido['meses_vence5']; ?>">  
+                <input name="meses_vence5" id="imes5" type="number" value="<?php echo $dadosEscolhido['meses_vence5']; ?>">  
             </p>
         </fieldset>
         <p>
             <label for="itermos">Termos da Inscrição:</label><br>
-            <textarea required name="" id="itermos" cols="50" rows="20" minlength="10" value="<?php echo $dadosEscolhido['termos_insc']; ?>"></textarea>
+            <textarea required type="text" name="termos_insc" id="itermos" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['termos_insc']; ?></textarea>
         </p>
         <p>
             <label for="iEst">Estatuto interno:</label><br>
-            <textarea required id="iEst" name="" cols="50" rows="20" minlength="10" value="<?php echo $dadosEscolhido['estatuto_int']; ?>"></textarea>
+            <textarea required type="text" id="iEst" name="estatuto_int" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['estatuto_int']; ?></textarea>
         </p>
         <p>
             <label for="iReg" for="">Regimento interno:</label><br>
-            <textarea required name="" id="iReg" cols="50" rows="20" minlength="10" value="<?php echo $dadosEscolhido['reg_int']; ?>"></textarea>
+            <textarea required type="text" name="reg_int" id="iReg" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['reg_int']; ?></textarea>
+            <button onclick="imprimirPagina()">Imprimir</button>
         </p>
-
         <p>
             <span id="imsgAlerta"></span><br>
             <a href="admin_home.php">Voltar</a>

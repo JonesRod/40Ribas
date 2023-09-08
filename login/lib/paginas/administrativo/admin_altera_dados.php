@@ -1,5 +1,5 @@
 <?php
-    include('../login/conexao.php');
+    include('../../conexao.php');
 
     $erro = false;
 
@@ -35,8 +35,8 @@
             $arq = $_FILES['imageInput'];
             $path = enviarArquivo($arq['error'], $arq['name'], $arq['tmp_name']);
             //echo $path;
-            if($path == false)
-                $nova_foto = false;
+            if($path == false){
+                $nova_logo = $_POST['end_logo'];
                 //$erro = "Falha ao enviar arquivo. Tente novamente1";
                 /*$arq = $mysqli->escape_string($_POST['end_foto']);
                 $caminhoCompleto = $arq;
@@ -65,19 +65,19 @@
 
                 if($path == false)
                     $erro = "Falha ao enviar arquivo. Tente novamente2";*/
-                else
-                    $nova_foto= " foto = '$path', ";
+                }else
+                    $nova_logo= " logo = '$path', ";
             
-                if(empty($_POST['foto'])){
-                    if(isset($_POST['foto']) && $_POST['foto'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
-                    unlink($_POST['foto']);
+                if(empty($_POST['logo'])){
+                    if(isset($_POST['logo']) && $_POST['logo'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
+                    unlink($_POST['logo']);
                 }
             else
-                $nova_foto= " foto = '$path', ";
+                $nova_logo= " logo = '$path', ";
         
             if(empty($_POST['foto'])) {
-                if(isset($_POST['foto']) && $_POST['foto'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
-                unlink($_POST['foto']);
+                if(isset($_POST['logo']) && $_POST['logo'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
+                unlink($_POST['logo']);
             }
         }
         /*if(!isset($_FILES['imageInput'])) {
@@ -86,73 +86,88 @@
         }*/
         
         //$arq = $_FILES['imageInput'];
-        $id = intval($_POST['id']);
-        $nome = $mysqli->escape_string($_POST['nome']);
-        $sobrenome = $mysqli->escape_string($_POST['sobrenome']);
-        $apelido = $mysqli->escape_string($_POST['apelido']);
-        $cpf = $mysqli->escape_string($_POST['cpf']);
-        $rg = $mysqli->escape_string($_POST['rg']);
-        $nascimento = $mysqli->escape_string($_POST['nascimento']);
+        $id = 1;
+        $razao = $mysqli->escape_string($_POST['razao']);
+        $cnpj = $mysqli->escape_string($_POST['cnpj']);
         $uf = $mysqli->escape_string($_POST['uf']);
-        $cid_natal = $mysqli->escape_string($_POST['cidnatal']);
-        $mae = $mysqli->escape_string($_POST['mae']);
-        $pai = $mysqli->escape_string($_POST['pai']);
-        $sexo = $mysqli->escape_string($_POST['sexo']);
-        $uf_atual = $mysqli->escape_string($_POST['uf_atual']);
         $cep = $mysqli->escape_string($_POST['cep']);
-        $cid_atual = $mysqli->escape_string($_POST['cid_atual']);
-        $endereco = $mysqli->escape_string($_POST['endereco']);
+        $cid = $mysqli->escape_string($_POST['cid']);
+        $rua = $mysqli->escape_string($_POST['endereco']);
         $numero = $mysqli->escape_string($_POST['numero']);
-        $bairro = $mysqli->escape_string($_POST['bairro']);        
-        $celular1 = $mysqli->escape_string($_POST['celular1']);
-        $celular2 = $mysqli->escape_string($_POST['celular2']);
-        $email = $mysqli->escape_string($_POST['email']);
-    
+        $bairro = $mysqli->escape_string($_POST['bairro']);
+        $nome_tesoureiro = $mysqli->escape_string($_POST['nome_tesoureiro']);
+        $presidente = $mysqli->escape_string($_POST['presidente']);
+        $vice_presidente = $mysqli->escape_string($_POST['vice_presidente']);
+        $email_not = $mysqli->escape_string($_POST['email_not']);
+        $email_rec = $mysqli->escape_string($_POST['email_rec']);
+        $termos_insc = $mysqli->escape_string($_POST['termos_insc']);
+        $estatuto_int = $mysqli->escape_string($_POST['estatuto_int']);
+        $reg_int = $mysqli->escape_string($_POST['reg_int']);
+        $dia_fecha_mes = $mysqli->escape_string($_POST['dia_fecha_mes']);        
+        $valor_mensalidades = $mysqli->escape_string($_POST['valor_mensalidades']);
+        $desconto_mensalidades = $mysqli->escape_string($_POST['desconto_mensalidades']);
+        $multa = $mysqli->escape_string($_POST['multa']);
+        $joia = $mysqli->escape_string($_POST['joia']);        
+        $parcela_joia = $mysqli->escape_string($_POST['parcela_joia']);
+        $meses_vence3 = $mysqli->escape_string($_POST['meses_vence3']); 
+        $meses_vence5 = $mysqli->escape_string($_POST['meses_vence5']); 
         //$hoje = new DateTime('now');
-        $dataStr = $nascimento;
+        /*$dataStr = $nascimento;
         $dataFormatada = DateTime::createFromFormat('d/m/Y', $dataStr);
 
-        $nasc = $dataFormatada->format('Y-m-d');
+        $nasc = $dataFormatada->format('Y-m-d');*/
         
         //var_dump($_POST);
 
         if($erro) {
             echo "<p><b>ERRO: $erro</b></p>";
         } else {
-    
-            $sql_code = "UPDATE socios
+        //,
+            $sql_code = "UPDATE config_admin
             SET 
-            $nova_foto
-            apelido ='$apelido',
-            nome = '$nome', 
-            sobrenome = '$sobrenome',
-            cpf = '$cpf',
-            rg = '$rg',
-            nascimento = '$nasc',
+            data_alteracao = NOW(),
+            $nova_logo
+            razao = '$razao',
+            cnpj = '$cnpj',
             uf = '$uf',
-            cid_natal = '$cid_natal',
-            mae = '$mae',
-            pai = '$pai',
-            sexo = '$sexo',
-            uf_atual = '$uf_atual',
             cep = '$cep',
-            cid_atual = '$cid_atual',
-            endereco = '$endereco',
+            cid = '$cid',
+            rua = '$rua',
             numero = '$numero',
-            bairro = '$bairro',       
-            celular1 = '$celular1',
-            celular2 = '$celular2',
-            email = '$email'
+            bairro = '$bairro',
+            nome_tesoureiro = '$nome_tesoureiro',
+            presidente = '$presidente',
+            vice_presidente = '$vice_presidente',
+            email_not = '$email_not',
+            email_rec = '$email_rec',
+            termos_insc = '$termos_insc',
+            estatuto_int = '$estatuto_int',
+            reg_int = '$reg_int',
+            dia_fecha_mes = '$dia_fecha_mes',       
+            valor_mensalidades = '$valor_mensalidades',
+            desconto_mensalidades = '$desconto_mensalidades',
+            multa = '$multa',
+            joia = '$joia',       
+            parcela_joia = '$parcela_joia',
+            meses_vence3 = '$meses_vence3', 
+            meses_vence5 = '$meses_vence5'
             WHERE id = '$id'";
 
             //var_dump($_POST);
 
-            $deu_certo = $mysqli->query($sql_code) or die($mysqli->$erro);
-            
+            $sql_code = "INSERT INTO histo_config_admin (data_alteracao, logo, razao, cnpj, uf, cep, cid,rua, numero, bairro, 
+            nome_tesoureiro, presidente, vice_presidente, email_not, email_rec,termos_insc, estatuto_int, reg_int, dia_fecha_mes, 
+            valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5) 
+            VALUES(NOW(), '$nova_logo', '$razao', '$cnpj', '$uf', '$cep', '$cid', '$rua', '$numero', '$bairro', 
+            '$nome_tesoureiro', '$presidente', '$vice_presidente', '$email_not', '$email_rec', '$termos_insc', '$estatuto_int', '$reg_int', '$dia_fecha_mes', 
+            '$valor_mensalidades', '$desconto_mensalidades', '$multa', '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
+
+            $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+
             if($deu_certo) {
                 echo "<p><b>Dados atualizado com sucesso!!!</b></p>";
                 unset($_POST);
-                header("refresh: 5; perfil.php");
+                header("refresh: 5; admin_config.php");
             }
 
         }
@@ -163,7 +178,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aleterar Dados</title>
+    <title>Alterar Dados</title>
 
 </head>
 <body>

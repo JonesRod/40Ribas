@@ -87,8 +87,7 @@
         
         //$arq = $_FILES['imageInput'];
         $id = intval($_POST['id']);
-        $nome = $mysqli->escape_string($_POST['nome']);
-        $sobrenome = $mysqli->escape_string($_POST['sobrenome']);
+        $nome_completo = $mysqli->escape_string($_POST['nome_completo']);
         $apelido = $mysqli->escape_string($_POST['apelido']);
         $cpf = $mysqli->escape_string($_POST['cpf']);
         $rg = $mysqli->escape_string($_POST['rg']);
@@ -113,6 +112,12 @@
         $dataFormatada = DateTime::createFromFormat('d/m/Y', $dataStr);
 
         $nasc = $dataFormatada->format('Y-m-d');
+
+        /*$nome_completo = "Fulano de Tal";
+        // Separar o nome do sobrenome
+        $partesNome = explode(' ', $nome_completo);
+        $primeiroNome = $partesNome[0];
+        $sobrenome = end($partesNome);*/
         
         //var_dump($_POST);
 
@@ -124,8 +129,7 @@
             SET 
             $nova_foto
             apelido ='$apelido',
-            nome = '$nome', 
-            sobrenome = '$sobrenome',
+            nome_completo = '$nome_completo', 
             cpf = '$cpf',
             rg = '$rg',
             nascimento = '$nasc',
