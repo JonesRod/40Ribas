@@ -249,8 +249,11 @@
             </p>
         </fieldset>
         <p>
-            <label for="itermos">Termos da Inscrição:</label><br>
-            <textarea required type="text" name="termos_insc" id="itermos" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['termos_insc']; ?></textarea>
+            <label for="">Termos da Inscrição:</label><br>
+            <input type="text" name="termos_insc" id="itermos" value="<?php echo $dadosEscolhido['termos_insc']; ?>">
+            <button type="button" id="ibaixatermos" onclick="baixarArq()">Baixar</button>
+            <input type="file" name="novos_termos_insc" id="inovos_termos">
+            
         </p>
         <p>
             <label for="iEst">Estatuto interno:</label><br>
@@ -258,8 +261,8 @@
         </p>
         <p>
             <label for="iReg" for="">Regimento interno:</label><br>
-            <textarea required type="text" name="reg_int" id="iReg" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['reg_int']; ?></textarea>
-            <button onclick="imprimirPagina()">Imprimir</button>
+            <textarea required type="text" name="reg_int" id="iReg" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['reg_int']; ?></textarea><br>
+            <button type="button" onclick="imprimirTexto(event)">Imprimir</button>
         </p>
         <p>
             <span id="imsgAlerta"></span><br>
@@ -269,5 +272,7 @@
         
         <script src="admin_verifica.js"></script>
     </form>
+    
+
 </body>
 </html>

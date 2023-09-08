@@ -123,7 +123,7 @@ function enviarArquivo($error, $name, $tmp_name) {
 
                             unset($_POST);
 
-                            header("refresh: 5;../index.html"); //Atualiza a pagina em 5s e redireciona apagina
+                            header("refresh: 5;../index.php"); //Atualiza a pagina em 5s e redireciona apagina
                         }                
                     }
                     if(($email_registrado) != 0) {
@@ -132,7 +132,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                         $msg1 = "";
                         $msg2 = "";
                         //echo $msg;
-                        header("refresh: 10;../index.html");
+                        header("refresh: 10;../index.php");
                     }
                 }
                 if(($cpf_registrado) != 0) {
@@ -141,7 +141,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                     $msg1 = "";
                     $msg2 = "";
                     //echo $msg;
-                    header("refresh: 10;../index.html");
+                    header("refresh: 10;../index.php");
                 }
             }else{
 
@@ -150,7 +150,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                 $msg2 = "Complete a idade minima que é ".$idade_minima ." anos e tente novamente.";
                 unset($_POST);
 
-                header("refresh: 10;../index.html");
+                header("refresh: 10;../index.php");
             }
         }else {
             exit;

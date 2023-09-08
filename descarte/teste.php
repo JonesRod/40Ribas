@@ -19,29 +19,40 @@
     </style>
 </head>
 <body>
-    <div class="menu-button" onclick="mostrarMenu()">
-        <div class="menu-bar"></div>
-        <div class="menu-bar"></div>
-        <div class="menu-bar"></div>
-   
+    <form>
+        <textarea id="meuTextarea" rows="4" cols="50">Conteúdo da textarea</textarea>
+        <br>
+        <iframe src="https://docs.google.com/viewer?url=http://../arquivos/Duvidas%20do%20NOVO%20REGIMENTO%20INTERNO%2040A%20RIBAS.pdf&embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe><br>
+        <input type="file" name="arquivo" accept=".pdf, .doc, .docx"><br>
+        <button type="button" onclick="imprimirTexto(event)">Imprimir</button>
+        <button type="button" onclick="baixarConteudo()">Baixar</button>
+    </form>
 
-    <!-- Conteúdo do menu (inicialmente oculto) -->
-    <div id="menu" style="display: none;">
-        <ul>
-            <li><a href="#">Configuração</a></li>
-            <li><a href="#">Sair</a></li>
-        </ul>
-    </div>
- </div>
     <script>
-        function mostrarMenu() {
-            var menu = document.getElementById("menu");
-            if (menu.style.display === "none") {
-                menu.style.display = "block";
-            } else {
-                menu.style.display = "none";
-            }
-        }
+    function imprimirTexto(event) {
+    // console.log('oi');
+        // Evita o envio do formulário
+        event.preventDefault();
+        var conteudo = document.getElementById('meuTextarea').value;
+        var janelaImpressao = window.open('', '_blank');
+        janelaImpressao.document.write('<pre>' + conteudo + '</pre>');
+        //janelaImpressao.document.close();
+            // Adicionar um evento para fechar a janela após a impressão
+            /*janela.onafterprint = function() {
+                janela.close();
+            };*/
+        janelaImpressao.print();
+    }
+    function baixarConteudo() {
+        // Obter o conteúdo da textarea
+        var conteudo = document.getElementById("meuTextarea").value;
+
+        // Criar um link de download
+        var link = document.createElement('a');
+        link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(conteudo);
+        link.download = 'meu_arquivo.txt';
+        link.click();
+    }
     </script>
 </body>
 </html>

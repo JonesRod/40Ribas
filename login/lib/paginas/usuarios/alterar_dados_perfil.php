@@ -37,47 +37,20 @@
             //echo $path;
             if($path == false)
                 $nova_foto = false;
-                //$erro = "Falha ao enviar arquivo. Tente novamente1";
-                /*$arq = $mysqli->escape_string($_POST['end_foto']);
-                $caminhoCompleto = $arq;
 
-                $info = pathinfo($caminhoCompleto);
-
-                $diretorio = $info['dirname']; // ../arquivos/foto_perfil
-                $nomeArquivo = $info['basename']; // 9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg
-
-                //echo "Diretório: " . $diretorio . "<br>";
-                //echo "Nome do Arquivo: " . $nomeArquivo;
-                //$path = enviarArquivo($nomeArquivo['error'], $nomeArquivo['name'], $nomeArquivo['tmp_name']);
-                $pasta = "../arquivos/foto_perfil/";
-                $nomeDoArquivo = $nomeArquivo;
-                $novoNomeDoArquivo = uniqid();
-                $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
-        
-                $path = $pasta . $novoNomeDoArquivo . "." . $extensao;
-                $deu_certo = move_uploaded_file($tmp_name, $path);
-                //echo $path;
-                if ($deu_certo) {
-                    return $path;
-                } else
-                    return false;
-                //echo $path;
-
-                if($path == false)
-                    $erro = "Falha ao enviar arquivo. Tente novamente2";*/
                 else
                     $nova_foto= " foto = '$path', ";
             
                 if(empty($_POST['foto'])){
                     if(isset($_POST['foto']) && $_POST['foto'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
-                    unlink($_POST['foto']);
+                        unlink($_POST['foto']);
                 }
             else
                 $nova_foto= " foto = '$path', ";
         
             if(empty($_POST['foto'])) {
                 if(isset($_POST['foto']) && $_POST['foto'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
-                unlink($_POST['foto']);
+                    unlink($_POST['foto']);
             }
         }
         /*if(!isset($_FILES['imageInput'])) {
