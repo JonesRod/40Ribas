@@ -93,35 +93,70 @@
         if (isset($_FILES['novo_estatuto']) && $_FILES['novo_estatuto']['error'] != 4) {
             $arq = $_FILES['novo_estatuto'];
             $pathEstatuto = enviarArquivoEstatuto($arq['error'], $arq['name'], $arq['tmp_name']);
-        
+
             if ($pathEstatuto !== false) {
+               
                 $estatuto_int = $pathEstatuto;
-                if(isset($_FILES['estatuto_int'])) {
-                    unlink($_POST['estatuto_int']);
-                }
+
+                //echo $estatuto_int.'1';
+                if(isset($_POST['estatuto']) && $_POST['estatuto'] !== '') {
+                    $estatuto = $_POST['estatuto'];
+
+                    if (file_exists($estatuto)) {
+                        unlink($estatuto);
+                    } else {
+                        // O arquivo não existe, não faz nada
+                    }
+                } 
             } else {
-                $estatuto_int = $mysqli->escape_string($_POST['estatuto_int']);
+                if(isset($_POST['estatuto']) && $_POST['estatuto'] !== '') {
+                    $estatuto_int = $mysqli->escape_string($_POST['estatuto']);
+                    //echo $estatuto_int.'3';
+                }else{
+                    $estatuto_int = '';
+                }
             }
         } else {
-            $estatuto_int = $mysqli->escape_string($_POST['estatuto_int']);
+            if(isset($_POST['estatuto']) && $_POST['estatuto'] !== '') {
+                $estatuto_int = $mysqli->escape_string($_POST['estatuto']);
+                //echo $estatuto_int.'4';
+            }else{
+                $estatuto_int = '';
+            }
         }
 
         if (isset($_FILES['novo_regimento']) && $_FILES['novo_regimento']['error'] != 4) {
             $arq = $_FILES['novo_regimento'];
             $pathRegimento = enviarArquivoRegimento($arq['error'], $arq['name'], $arq['tmp_name']);
-        
+               
             if ($pathRegimento !== false) {
                 $reg_int = $pathRegimento;
-                if(isset($_FILES['reg_int'])) {
-                    unlink($_POST['reg_int']);
-                }
-                
+
+                if(isset($_POST['regimento']) && $_POST['regimento'] !== '') {
+                    $regimento = $_POST['regimento'];
+
+                    if (file_exists($regimento)) {
+                        unlink($regimento);
+                    } else {
+                        // O arquivo não existe, não faz nada
+                    }
+                }     
             } else {
-                $reg_int = $mysqli->escape_string($_POST['reg_int']);
-            }
+                if(isset($_POST['regimento']) && $_POST['regimento'] !== '') {
+                    $regimento_int = $mysqli->escape_string($_POST['regimento']);
+                    //echo $estatuto_int.'4';
+                }else{
+                    $regimento_int = '';
+                }
+            }   
         } else {
-            $reg_int = $mysqli->escape_string($_POST['reg_int']);
-        }   
+            if(isset($_POST['regimento']) && $_POST['regimento'] !== '') {
+                $regimento_int = $mysqli->escape_string($_POST['regimento']);
+                //echo $estatuto_int.'4';
+            }else{
+                $regimento_int = '';
+            }
+        }    
 
         $id = 1;
         $razao = $mysqli->escape_string($_POST['razao']);
@@ -138,8 +173,6 @@
         $email_not = $mysqli->escape_string($_POST['email_not']);
         $email_rec = $mysqli->escape_string($_POST['email_rec']);
         $termos_insc = $mysqli->escape_string($_POST['termos_insc']);
-        //$estatuto_int = $mysqli->escape_string($_POST['estatuto_int']);
-        //$reg_int = $mysqli->escape_string($_POST['reg_int']);
         $dia_fecha_mes = $mysqli->escape_string($_POST['dia_fecha_mes']);        
         $valor_mensalidades = $mysqli->escape_string($_POST['valor_mensalidades']);
         $desconto_mensalidades = $mysqli->escape_string($_POST['desconto_mensalidades']);
@@ -148,14 +181,9 @@
         $parcela_joia = $mysqli->escape_string($_POST['parcela_joia']);
         $meses_vence3 = $mysqli->escape_string($_POST['meses_vence3']); 
         $meses_vence5 = $mysqli->escape_string($_POST['meses_vence5']); 
-        //$hoje = new DateTime('now');
-        /*$dataStr = $nascimento;
-        $dataFormatada = DateTime::createFromFormat('d/m/Y', $dataStr);
 
-        $nasc = $dataFormatada->format('Y-m-d');*/
-        
+        //echo $estatuto_int.'4';
         //var_dump($_POST);
-           // 
         if($erro) {
             echo "<p><b>ERRO: $erro</b></p>";
         } else {
@@ -190,7 +218,7 @@
             meses_vence5 = '$meses_vence5'
             WHERE id = '$id'";
 
-            //echo $nova_logo.'4';
+            //echo $estatuto_int.'4';
             //var_dump($_POST);
 
             $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
@@ -207,7 +235,7 @@
             if($deu_certo) {
                 echo "<p><b>Dados atualizado com sucesso!!!</b></p>";
                 unset($_POST);
-                header("refresh: 5; admin_config.php");
+                //header("refresh: 5; admin_config.php");
             }
         }
     }

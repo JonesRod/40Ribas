@@ -135,6 +135,7 @@ async function fetchCityByCEP() {
     document.querySelector('#imsgAlerta').textContent = "";
     document.getElementById('icidade').value = data.localidade;
 }
+
 function imprimirTexto(event) {
    // console.log('oi');
     // Evita o envio do formulário
