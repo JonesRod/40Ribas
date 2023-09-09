@@ -20,7 +20,7 @@
 </head>
 <body>
     <form>
-        <textarea id="meuTextarea" rows="4" cols="50">Conteúdo da textarea</textarea>
+        <textarea id="meuTextarea" rows="4" cols="50">arquivos/64fb658ed01f6.pdf</textarea>
         <br>
         <iframe src="https://docs.google.com/viewer?url=http://../arquivos/Duvidas%20do%20NOVO%20REGIMENTO%20INTERNO%2040A%20RIBAS.pdf&embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe><br>
         <input type="file" name="arquivo" accept=".pdf, .doc, .docx"><br>

@@ -33,7 +33,7 @@
 <body>
     <form action="alterar_dados_perfil.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
         <p>
-            <?php if($usuario['foto']) { ?>
+            <?php if(isset($usuario['foto'])) { ?>
             <img id="ifoto" style="max-width: 200px;" src= "<?php echo $usuario['foto']; ?>" name="foto_antiga" alt=""><br>
             <?php }else{ ?>
                 <img id="ifoto" style="max-width: 200px;" src= "arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg" name="foto_antiga" alt=""><br>

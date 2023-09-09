@@ -30,7 +30,7 @@
             return false;
         }
     }
-    function enviarArquivotermos($error, $name, $tmp_name) {
+    function enviarArquivoEstatuto($error, $name, $tmp_name) {
         if ($error) {
             echo "Falha ao enviar o arquivo. Código de erro: " . $error;
             return false;
@@ -41,11 +41,32 @@
         $novoNomeDoArquivo = uniqid();
         $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
     
-        $pathtermos = $pasta . $novoNomeDoArquivo . "." . $extensao;
-        $deu_certo = move_uploaded_file($tmp_name, $pathtermos);
+        $pathEstatuto = $pasta . $novoNomeDoArquivo . "." . $extensao;
+        $deu_certo = move_uploaded_file($tmp_name, $pathEstatuto);
     
         if ($deu_certo) {
-            return $pathtermos;
+            return $pathEstatuto;
+        } else {
+            echo "Falha ao mover o arquivo para o diretório de destino.";
+            return false;
+        }
+    }
+    function enviarArquivoRegimento($error, $name, $tmp_name) {
+        if ($error) {
+            echo "Falha ao enviar o arquivo. Código de erro: " . $error;
+            return false;
+        }
+    
+        $pasta = "arquivos/";
+        $nomeDoArquivo = $name;
+        $novoNomeDoArquivo = uniqid();
+        $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
+    
+        $pathRegimento = $pasta . $novoNomeDoArquivo . "." . $extensao;
+        $deu_certo = move_uploaded_file($tmp_name, $pathRegimento);
+    
+        if ($deu_certo) {
+            return $pathRegimento;
         } else {
             echo "Falha ao mover o arquivo para o diretório de destino.";
             return false;
@@ -58,54 +79,49 @@
             $path = enviarArquivo($arq['error'], $arq['name'], $arq['tmp_name']);
         
             if ($path !== false) {
-                // Se o upload foi bem-sucedido, você pode usar $path na sua instrução SQL para atualizar o banco de dados.
-                //$nova_logo = " logo = '$path'";
                 $nova_logo = $path;
-                // Execute a instrução SQL aqui
-                //echo $nova_logo.'1';
-                //$nova_logo = $_POST['end_logo'];
-                echo $nova_logo.'2';
-                if(empty($_POST['foto'])) {
-                    if(isset($_POST['logo']) && $_POST['logo'] !== 'arquivos/IMG-20230811-WA0040.jpg')
-                        unlink($_POST['logo']);
-                    //echo $nova_logo.'5';
+                if(isset($_POST['end_logo']) && $_POST['end_logo'] !== 'arquivos/IMG-20230811-WA0040.jpg'){
+                    unlink($_POST['end_logo']);
                 }
             } else {
-                // O upload falhou, você pode querer tomar alguma ação aqui.
                 $nova_logo = $_POST['end_logo'];
-                //echo $nova_logo.'2';
             }
         } else {
-            // O campo de arquivo não foi enviado no formulário.
             $nova_logo = $_POST['end_logo'];
-            //echo $nova_logo.'3';
         }
-        /*if(empty($_POST['foto'])) {
-                if(isset($_POST['logo']) && $_POST['logo'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
-                unlink($_POST['logo']);
-                echo $nova_logo.'5';
-        }*/
-        if (isset($_FILES['novos_termos_insc']) && $_FILES['novos_termos_insc']['error'] != 4) {
-            $arq = $_FILES['novos_termos_insc'];
-            $pathtermos = enviarArquivotermos($arq['error'], $arq['name'], $arq['tmp_name']);
+
+        if (isset($_FILES['novo_estatuto']) && $_FILES['novo_estatuto']['error'] != 4) {
+            $arq = $_FILES['novo_estatuto'];
+            $pathEstatuto = enviarArquivoEstatuto($arq['error'], $arq['name'], $arq['tmp_name']);
         
-            if ($pathtermos !== false) {
-                // Se o upload foi bem-sucedido, você pode usar $path na sua instrução SQL para atualizar o banco de dados.
-                //$nova_logo = " logo = '$path'";
-                $termos_insc = $pathtermos;
-                // Execute a instrução SQL aqui
-                //echo $nova_logo.'1';
+            if ($pathEstatuto !== false) {
+                $estatuto_int = $pathEstatuto;
+                if(isset($_FILES['estatuto_int'])) {
+                    unlink($_POST['estatuto_int']);
+                }
             } else {
-                // O upload falhou, você pode querer tomar alguma ação aqui.
-                $termos_insc = $mysqli->escape_string($_POST['termos_insc']);
-                //echo $nova_logo.'2';
+                $estatuto_int = $mysqli->escape_string($_POST['estatuto_int']);
             }
         } else {
-            // O campo de arquivo não foi enviado no formulário.
-            $termos_insc = $mysqli->escape_string($_POST['termos_insc']);
-            //echo $nova_logo.'3';
+            $estatuto_int = $mysqli->escape_string($_POST['estatuto_int']);
         }
-    
+
+        if (isset($_FILES['novo_regimento']) && $_FILES['novo_regimento']['error'] != 4) {
+            $arq = $_FILES['novo_regimento'];
+            $pathRegimento = enviarArquivoRegimento($arq['error'], $arq['name'], $arq['tmp_name']);
+        
+            if ($pathRegimento !== false) {
+                $reg_int = $pathRegimento;
+                if(isset($_FILES['reg_int'])) {
+                    unlink($_POST['reg_int']);
+                }
+                
+            } else {
+                $reg_int = $mysqli->escape_string($_POST['reg_int']);
+            }
+        } else {
+            $reg_int = $mysqli->escape_string($_POST['reg_int']);
+        }   
 
         $id = 1;
         $razao = $mysqli->escape_string($_POST['razao']);
@@ -121,9 +137,9 @@
         $vice_presidente = $mysqli->escape_string($_POST['vice_presidente']);
         $email_not = $mysqli->escape_string($_POST['email_not']);
         $email_rec = $mysqli->escape_string($_POST['email_rec']);
-        //$termos_insc = $mysqli->escape_string($_POST['termos_insc']);
-        $estatuto_int = $mysqli->escape_string($_POST['estatuto_int']);
-        $reg_int = $mysqli->escape_string($_POST['reg_int']);
+        $termos_insc = $mysqli->escape_string($_POST['termos_insc']);
+        //$estatuto_int = $mysqli->escape_string($_POST['estatuto_int']);
+        //$reg_int = $mysqli->escape_string($_POST['reg_int']);
         $dia_fecha_mes = $mysqli->escape_string($_POST['dia_fecha_mes']);        
         $valor_mensalidades = $mysqli->escape_string($_POST['valor_mensalidades']);
         $desconto_mensalidades = $mysqli->escape_string($_POST['desconto_mensalidades']);
@@ -177,7 +193,7 @@
             //echo $nova_logo.'4';
             //var_dump($_POST);
 
-            $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+            $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
 
             $sql_code = "INSERT INTO histo_config_admin (data_alteracao, logo, razao, cnpj, uf, cep, cid,rua, numero, bairro, 
             nome_tesoureiro, presidente, vice_presidente, email_not, email_rec,termos_insc, estatuto_int, reg_int, dia_fecha_mes, 
@@ -186,15 +202,13 @@
             '$nome_tesoureiro', '$presidente', '$vice_presidente', '$email_not', '$email_rec', '$termos_insc', '$estatuto_int', '$reg_int', '$dia_fecha_mes', 
             '$valor_mensalidades', '$desconto_mensalidades', '$multa', '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
 
-            $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+            $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
             //var_dump($_POST);
             if($deu_certo) {
                 echo "<p><b>Dados atualizado com sucesso!!!</b></p>";
                 unset($_POST);
                 header("refresh: 5; admin_config.php");
-                //header("refresh: 10;../index.php");
             }
-
         }
     }
 ?>

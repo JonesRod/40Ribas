@@ -24,7 +24,7 @@ function validateForm() {
         return false; // Impede o envio do formulário
     }
         document.querySelector('#imsgAlerta').textContent = "";
-        console.log('2');
+        //console.log('2');
 
     // Aqui você pode adicionar mais validações conforme necessário
     return true; // Permite o envio do formulário

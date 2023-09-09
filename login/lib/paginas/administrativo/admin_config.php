@@ -74,7 +74,7 @@
     <form action="admin_altera_dados.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
         <fieldset>
             <p>
-                <?php if($dadosEscolhido['logo']) { ?>
+                <?php if(isset($dadosEscolhido['logo'])) { ?>
                 <img id="ilogo" style="max-width: 200px;" src= "<?php echo $dadosEscolhido['logo']; ?>" name="logo_antiga" alt=""><br>
                 <?php } ?>
                 <img id="ilogoNova" style="max-width: 200px;" alt=""><br>
@@ -250,19 +250,18 @@
         </fieldset>
         <p>
             <label for="">Termos da Inscrição:</label><br>
-            <input type="text" name="termos_insc" id="itermos" value="<?php echo $dadosEscolhido['termos_insc']; ?>">
-            <button type="button" id="ibaixatermos" onclick="baixarArq()">Baixar</button>
-            <input type="file" name="novos_termos_insc" id="inovos_termos">
-            
+            <textarea required type="text" name="termos_insc" id="itermos" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['termos_insc']; ?></textarea><br> 
         </p>
         <p>
             <label for="iEst">Estatuto interno:</label><br>
-            <textarea required type="text" id="iEst" name="estatuto_int" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['estatuto_int']; ?></textarea>
-        </p>
+            <input type="text" name="estatuto_int" id="iEst" disabled ="false" value="<?php echo $dadosEscolhido['estatuto_int']; ?>">
+            <button type="button" id="ibaixar_estatuto" onclick="baixarArq_estatuto()">Baixar</button>
+            <input type="file" accept=".pdf, .doc, .docx" name="novo_estatuto" id="inovo_estatuto"></p>
         <p>
             <label for="iReg" for="">Regimento interno:</label><br>
-            <textarea required type="text" name="reg_int" id="iReg" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['reg_int']; ?></textarea><br>
-            <button type="button" onclick="imprimirTexto(event)">Imprimir</button>
+            <input type="text" name="reg_int" id="iReg" disabled ="false" value="<?php echo $dadosEscolhido['reg_int']; ?>">
+            <button type="button" id="ibaixar_regimento" onclick="baixarArq_regimento()">Baixar</button>
+            <input type="file" accept=".pdf, .doc, .docx" name="novo_regimento" id="inovo_regimento"></p>
         </p>
         <p>
             <span id="imsgAlerta"></span><br>
