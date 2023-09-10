@@ -41,7 +41,7 @@
     <form action="" method="POST" enctype="multipart/form-data">
         <p>
             <label for="iEst">Estatuto interno:</label><br>
-            <input type="text" name="estatuto" id="iEst" disabled ="false" value="">
+            <input type="text" name="estatuto" id="iEst" value="">
             <input type="file" accept=".pdf, .doc, .docx" name="novo_estatuto" id="inovo_estatuto"></p>
         </p>
     </form>

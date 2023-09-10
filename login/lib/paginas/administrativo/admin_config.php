@@ -254,14 +254,14 @@
         </p>
         <p>
             <label for="iEst">Estatuto interno:</label><br>
-            <input type="text" name="estatuto" id="iEst"  value="<?php echo $dadosEscolhido['estatuto_int']; ?>">
-            <button type="button" id="ibaixar_estatuto" onclick="baixarArq_estatuto()">Baixar</button>
+            <input type="hidden" name="estatuto" id="iEst" value="<?php echo $dadosEscolhido['estatuto_int']; ?>">
+            <button type="button" id="ibaixar_estatuto" onclick="baixarArq_estatuto()">Baixar Atual</button>
             <input type="file" accept=".pdf, .doc, .docx" name="novo_estatuto" id="inovo_estatuto"></p>
         </p>
         <p>
             <label for="iReg" for="">Regimento interno:</label><br>
-            <input type="text" name="regimento" id="iReg" disabled ="false" value="<?php echo $dadosEscolhido['reg_int']; ?>">
-            <button type="button" id="ibaixar_regimento" onclick="baixarArq_regimento()">Baixar</button>
+            <input type="hidden" name="regimento" id="iReg" value="<?php echo $dadosEscolhido['reg_int']; ?>">
+            <button type="button" id="ibaixar_regimento" onclick="baixarArq_regimento()">Baixar Atual</button>
             <input type="file" accept=".pdf, .doc, .docx" name="novo_regimento" id="inovo_regimento"></p>
         </p>
         <p>

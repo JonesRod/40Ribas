@@ -136,27 +136,14 @@ async function fetchCityByCEP() {
     document.getElementById('icidade').value = data.localidade;
 }
 
-function imprimirTexto(event) {
-   // console.log('oi');
-    // Evita o envio do formulário
-    event.preventDefault();
-    var conteudo = document.getElementById('iReg').value;
-    var janelaImpressao = window.open('', '_blank');
-    janelaImpressao.document.write('<pre>' + conteudo + '</pre>');
-    //janelaImpressao.document.close();
-        // Adicionar um evento para fechar a janela após a impressão
-        /*janela.onafterprint = function() {
-            janela.close();
-        };*/
-    janelaImpressao.print();
-}
-function baixarArq() {
+function baixarArq_estatuto() {
     // Obter o conteúdo da textarea
-    var conteudo = document.getElementById("ibaixatermos").value;
+    var conteudo = document.getElementById("ibaixar_estatuto").value;
 
     // Criar um link de download
     var link = document.createElement('a');
     link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(conteudo);
-    link.download = 'termos_insc.txt';
+    link.download = 'Estatuto_interno.txt';
     link.click();
+    console.log('oi');
 }

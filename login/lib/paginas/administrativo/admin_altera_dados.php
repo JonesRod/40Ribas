@@ -38,10 +38,10 @@
     
         $pasta = "arquivos/";
         $nomeDoArquivo = $name;
-        $novoNomeDoArquivo = uniqid();
+        //$novoNomeDoArquivo = uniqid();
         $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
     
-        $pathEstatuto = $pasta . $novoNomeDoArquivo . "." . $extensao;
+        $pathEstatuto = $pasta . $nomeDoArquivo  . "." . $extensao;
         $deu_certo = move_uploaded_file($tmp_name, $pathEstatuto);
     
         if ($deu_certo) {
@@ -59,10 +59,10 @@
     
         $pasta = "arquivos/";
         $nomeDoArquivo = $name;
-        $novoNomeDoArquivo = uniqid();
+        //$novoNomeDoArquivo = uniqid();
         $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
     
-        $pathRegimento = $pasta . $novoNomeDoArquivo . "." . $extensao;
+        $pathRegimento = $pasta . $nomeDoArquivo . "." . $extensao;
         $deu_certo = move_uploaded_file($tmp_name, $pathRegimento);
     
         if ($deu_certo) {
@@ -95,33 +95,29 @@
             $pathEstatuto = enviarArquivoEstatuto($arq['error'], $arq['name'], $arq['tmp_name']);
 
             if ($pathEstatuto !== false) {
-               
                 $estatuto_int = $pathEstatuto;
-
                 //echo $estatuto_int.'1';
-                if(isset($_POST['estatuto']) && $_POST['estatuto'] !== '') {
-                    $estatuto = $_POST['estatuto'];
+                //if(empty($_POST['estatuto'])) {
+                    if(isset($_POST['estatuto'])){
+                        $estatuto = $_POST['estatuto'];
 
-                    if (file_exists($estatuto)) {
-                        unlink($estatuto);
-                    } else {
-                        // O arquivo não existe, não faz nada
+                        if (file_exists($estatuto)) {
+                            unlink($estatuto);
+                        } else {
+                            // O arquivo não existe, não faz nada
+                        }
                     }
-                } 
+                //} 
             } else {
-                if(isset($_POST['estatuto']) && $_POST['estatuto'] !== '') {
-                    $estatuto_int = $mysqli->escape_string($_POST['estatuto']);
+                if(isset($_POST['estatuto'])){
+                    $estatuto_int = $_POST['estatuto'];
                     //echo $estatuto_int.'3';
-                }else{
-                    $estatuto_int = '';
                 }
             }
         } else {
-            if(isset($_POST['estatuto']) && $_POST['estatuto'] !== '') {
-                $estatuto_int = $mysqli->escape_string($_POST['estatuto']);
-                //echo $estatuto_int.'4';
-            }else{
-                $estatuto_int = '';
+            if(isset($_POST['estatuto'])) {
+                $estatuto_int = $_POST['estatuto'];
+                //echo 'resposta 1 '.$estatuto_int;
             }
         }
 
@@ -131,8 +127,7 @@
                
             if ($pathRegimento !== false) {
                 $reg_int = $pathRegimento;
-
-                if(isset($_POST['regimento']) && $_POST['regimento'] !== '') {
+                if(isset($_POST['regimento'])) {
                     $regimento = $_POST['regimento'];
 
                     if (file_exists($regimento)) {
@@ -142,19 +137,15 @@
                     }
                 }     
             } else {
-                if(isset($_POST['regimento']) && $_POST['regimento'] !== '') {
-                    $regimento_int = $mysqli->escape_string($_POST['regimento']);
-                    //echo $estatuto_int.'4';
-                }else{
-                    $regimento_int = '';
+                if(isset($_POST['regimento'])) {
+                    $reg_int = $_POST['regimento'];
+                    echo $estatuto_int.'41';
                 }
             }   
         } else {
-            if(isset($_POST['regimento']) && $_POST['regimento'] !== '') {
-                $regimento_int = $mysqli->escape_string($_POST['regimento']);
-                //echo $estatuto_int.'4';
-            }else{
-                $regimento_int = '';
+            if(isset($_POST['regimento'])) {
+                $reg_int = $_POST['regimento'];
+                echo $estatuto_int.'42';
             }
         }    
 
