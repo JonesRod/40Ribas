@@ -139,17 +139,17 @@
             } else {
                 if(isset($_POST['regimento'])) {
                     $reg_int = $_POST['regimento'];
-                    echo $estatuto_int.'41';
+                    //echo $estatuto_int.'41';
                 }
             }   
         } else {
             if(isset($_POST['regimento'])) {
                 $reg_int = $_POST['regimento'];
-                echo $estatuto_int.'42';
+                //echo $estatuto_int.'42';
             }
         }    
 
-        $id = 1;
+        $id= 1; 
         $razao = $mysqli->escape_string($_POST['razao']);
         $cnpj = $mysqli->escape_string($_POST['cnpj']);
         $uf = $mysqli->escape_string($_POST['uf']);
@@ -163,6 +163,7 @@
         $vice_presidente = $mysqli->escape_string($_POST['vice_presidente']);
         $email_not = $mysqli->escape_string($_POST['email_not']);
         $email_rec = $mysqli->escape_string($_POST['email_rec']);
+        $idade_min = $mysqli->escape_string($_POST['idade_min']);
         $termos_insc = $mysqli->escape_string($_POST['termos_insc']);
         $dia_fecha_mes = $mysqli->escape_string($_POST['dia_fecha_mes']);        
         $valor_mensalidades = $mysqli->escape_string($_POST['valor_mensalidades']);
@@ -196,6 +197,7 @@
             vice_presidente = '$vice_presidente',
             email_not = '$email_not',
             email_rec = '$email_rec',
+            idade_minima='$idade_min',
             termos_insc = '$termos_insc',
             estatuto_int = '$estatuto_int',
             reg_int = '$reg_int',
@@ -215,10 +217,10 @@
             $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
 
             $sql_code = "INSERT INTO histo_config_admin (data_alteracao, logo, razao, cnpj, uf, cep, cid,rua, numero, bairro, 
-            nome_tesoureiro, presidente, vice_presidente, email_not, email_rec,termos_insc, estatuto_int, reg_int, dia_fecha_mes, 
+            nome_tesoureiro, presidente, vice_presidente, email_not, email_rec,idade_minima, termos_insc, estatuto_int, reg_int, dia_fecha_mes, 
             valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5) 
             VALUES(NOW(), '$nova_logo', '$razao', '$cnpj', '$uf', '$cep', '$cid', '$rua', '$numero', '$bairro', 
-            '$nome_tesoureiro', '$presidente', '$vice_presidente', '$email_not', '$email_rec', '$termos_insc', '$estatuto_int', '$reg_int', '$dia_fecha_mes', 
+            '$nome_tesoureiro', '$presidente', '$vice_presidente', '$email_not', '$email_rec', '$idade_min', '$termos_insc', '$estatuto_int', '$reg_int', '$dia_fecha_mes', 
             '$valor_mensalidades', '$desconto_mensalidades', '$multa', '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
 
             $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
@@ -226,7 +228,7 @@
             if($deu_certo) {
                 echo "<p><b>Dados atualizado com sucesso!!!</b></p>";
                 unset($_POST);
-                //header("refresh: 5; admin_config.php");
+                header("refresh: 5; admin_config.php");
             }
         }
     }

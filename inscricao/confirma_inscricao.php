@@ -29,8 +29,8 @@ function enviarArquivo($error, $name, $tmp_name) {
 
         if(isset($_POST['email'])) {
             //include('upload.php');
-            include('../login/conexao.php');
-            include('../lib/php/enviarEmail.php');
+            include('../login/lib/conexao.php');
+            include('../login/lib/enviarEmail.php');
 
             $nome_completo = $mysqli->escape_string($_POST['nome_completo']);
             $apelido = $mysqli->escape_string($_POST['apelido']);
@@ -77,7 +77,12 @@ function enviarArquivo($error, $name, $tmp_name) {
             //echo $dataFormatada->format('Y-m-d');
             $nasc = $dataFormatada->format('Y-m-d');
             $idade = $hoje->diff($dataFormatada);
-            $idade_minima = 35;
+
+            $id = '1';
+            $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
+            $dadosEscolhido = $dados->fetch_assoc();
+
+            $idade_minima = $dadosEscolhido['idade_minima'];
             $anos_idade = $idade->y;
 
             /*echo "Diferença de " . $idade->d . " dias";
@@ -98,33 +103,71 @@ function enviarArquivo($error, $name, $tmp_name) {
                 $email_registrado = $sql_email->num_rows;
                 //var_dump($_POST);
                 //die();
-                //echo $cpf_registrado ;   
+
                 if(($cpf_registrado) == 0) {
             
                     if(($email_registrado ) == 0) {
                         
-                        $arq = $_FILES['imageInput'];
-                        $path = enviarArquivo($arq['error'], $arq['name'], $arq['tmp_name']);
-                        //echo $path;
-                        $sql_code = "INSERT INTO int_associar (data, foto, apelido, nome, sobrenome, cpf, rg, nascimento, uf, cid_natal, mae, pai, sexo, uf_atual, cep, cid_atual, endereco, nu, bairro, celular1, celular2, email, motivo, termos) 
-                        VALUES (NOW(),'$path','$apelido', '$nome_completo','$cpf','$rg','$nasc', '$uf', '$cid_natal', '$mae', '$pai', '$sexo', '$uf_atual','$cep','$cid_atual','$endereco','$numero','$bairro','$celular1','$celular2','$email', '$motivo', '$termos')";
-                        $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
+                        $sql_cpf_socio = $mysqli->query("SELECT * FROM socios WHERE cpf = '$cpf'");
+                        $result_cpf_socio= $sql_cpf_socio->fetch_assoc();
+                        $cpf_registrado_socio = $sql_cpf_socio->num_rows;
+        
+                        $sql_email_socio = $mysqli->query("SELECT * FROM socios WHERE email = '$email'");
+                        $result_email_socio= $sql_email_socio->fetch_assoc();
+                        $email_registrado_socio = $sql_email_socio->num_rows;
+                        //var_dump($_POST);
+                        //die();
 
-                        if($deu_certo){
-                            $msg = true;
-                            $msg = "Sua solicitação foi enviada e registrada com sucesso.";
+                        if(($cpf_registrado_socio) == 0) {
+                    
+                            if(($email_registrado_socio) == 0) {
+
+                                //falta o codigo para verificar se existe esse socio
+
+
+
+                                $arq = $_FILES['imageInput'];
+                                $path = enviarArquivo($arq['error'], $arq['name'], $arq['tmp_name']);
+                                //echo $path;
+                                $sql_code = "INSERT INTO int_associar (data, foto, apelido, nome_completo, cpf, rg, nascimento, uf, cid_natal, mae, pai, sexo, uf_atual, cep, cid_atual, endereco, nu, bairro, celular1, celular2, email, motivo, termos) 
+                                VALUES (NOW(),'$path','$apelido', '$nome_completo','$cpf','$rg','$nasc', '$uf', '$cid_natal', '$mae', '$pai', '$sexo', '$uf_atual','$cep','$cid_atual','$endereco','$numero','$bairro','$celular1','$celular2','$email', '$motivo', '$termos')";
+                                
+                                $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
+
+                                if($deu_certo){
+                                    $msg = true;
+                                    $msg = "Sua solicitação foi enviada e registrada com sucesso.";
+                                    //echo $msg;
+
+                                    enviar_email($email, "Registro de solicitação de para associação ao Club 40Ribas", "
+                                    <h1>Olá Sr. " . $apelido . "</h1>
+                                    <p>Sua solicitação foi registrada com sucesso. Assim que surgir uma vaga passaremos sua 
+                                    solicitação por votação de aprovação. Lhe avisaremos assim ...</p>
+                                    <p>Menssagem automatica. Não responda!</p>");
+
+                                    unset($_POST);
+
+                                    header("refresh: 5;../index.php"); //Atualiza a pagina em 5s e redireciona apagina
+                                }     
+                            }
+                            if(($email_registrado_socio) != 0) {
+        
+                                $msg = "Já existe uma associado cadastrada com esse e-mail!";
+                                $msg1 = "";
+                                $msg2 = "";
+                                //echo $msg;
+                                header("refresh: 10;../index.php");
+                            }
+                        }
+                        if(($cpf_registrado_socio) != 0) {
+        
+                            $msg = ("Já existe um cadastrado com esse CPF!");
+                            $msg1 = "";
+                            $msg2 = "";
                             //echo $msg;
-
-                            enviar_email($email, "Registro de solicitação de para associação ao Club 40Ribas", "
-                            <h1>Olá Sr. " . $apelido . "</h1>
-                            <p>Sua solicitação foi registrada com sucesso. Assim que surgir uma vaga passaremos sua 
-                            solicitação por votação de aprovação. Lhe avisaremos assim ...</p>
-                            <p>Menssagem automatica. Não responda!</p>");
-
-                            unset($_POST);
-
-                            header("refresh: 5;../index.php"); //Atualiza a pagina em 5s e redireciona apagina
-                        }                
+                            header("refresh: 10;../index.php");
+                        }                                                    
+                                                                                
                     }
                     if(($email_registrado) != 0) {
 

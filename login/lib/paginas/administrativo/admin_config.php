@@ -71,7 +71,7 @@
     <a>Admin <?php echo $usuario['apelido']; ?></a> <br>
     <h1>Configurações do Administrador</h1>
     
-    <form action="admin_altera_dados.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
+    <form id="meuFormulario" action="admin_altera_dados.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
         <fieldset>
             <p>
                 <?php if(isset($dadosEscolhido['logo'])) { ?>
@@ -193,15 +193,15 @@
             <legend>Administrativo:</legend>
             <p>
                 <label for="inome">Nome do Tesoureiro(Admin):</label><br>
-                <input name="nome_tesoureiro" id="inome" type="text" value="<?php echo $dadosEscolhido['nome_tesoureiro']; ?>">           
+                <input required name="nome_tesoureiro" id="inome" type="text" value="<?php echo $dadosEscolhido['nome_tesoureiro']; ?>">           
             </p>            
             <p>
                 <label for="ipresidente">Nome do Presidente:</label><br>
-                <input name="presidente" id="ipresidente" type="text" value="<?php echo $dadosEscolhido['presidente']; ?>">           
+                <input required name="presidente" id="ipresidente" type="text" value="<?php echo $dadosEscolhido['presidente']; ?>">           
             </p>
             <p>
                 <label for="ivicepresidente">Nome do Vice-Presidente:</label><br>
-                <input name="vice_presidente" id="ivicepresidente" type="text" value="<?php echo $dadosEscolhido['vice_presidente']; ?>">           
+                <input required name="vice_presidente" id="ivicepresidente" type="text" value="<?php echo $dadosEscolhido['vice_presidente']; ?>">           
             </p>
 
             <p>
@@ -240,36 +240,44 @@
                 <input required name="parcela_joia" id="iparJoia" type="number" value="<?php echo $dadosEscolhido['parcela_joia']; ?>">  
             </p>
             <p>
-                <label id="" for="imes3">Quantidades de meses em atraso para suspenção das atividades do associado: </label><br>
+                <label for="imes3">Quantidades de meses em atraso para suspenção das atividades do associado: </label><br>
                 <input required name="meses_vence3" id="imes3" type="number" value="<?php echo $dadosEscolhido['meses_vence3']; ?>">  
             </p>
             <p>
                 <label for="imes5">Quantidades de meses em atraso para exclusão do associado: </label><br>
-                <input name="meses_vence5" id="imes5" type="number" value="<?php echo $dadosEscolhido['meses_vence5']; ?>">  
+                <input required name="meses_vence5" id="imes5" type="number" value="<?php echo $dadosEscolhido['meses_vence5']; ?>">  
             </p>
         </fieldset>
-        <p>
-            <label for="">Termos da Inscrição:</label><br>
-            <textarea required type="text" name="termos_insc" id="itermos" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['termos_insc']; ?></textarea><br> 
-        </p>
-        <p>
-            <label for="iEst">Estatuto interno:</label><br>
-            <input type="hidden" name="estatuto" id="iEst" value="<?php echo $dadosEscolhido['estatuto_int']; ?>">
-            <button type="button" id="ibaixar_estatuto" onclick="baixarArq_estatuto()">Baixar Atual</button>
-            <input type="file" accept=".pdf, .doc, .docx" name="novo_estatuto" id="inovo_estatuto"></p>
-        </p>
-        <p>
-            <label for="iReg" for="">Regimento interno:</label><br>
-            <input type="hidden" name="regimento" id="iReg" value="<?php echo $dadosEscolhido['reg_int']; ?>">
-            <button type="button" id="ibaixar_regimento" onclick="baixarArq_regimento()">Baixar Atual</button>
-            <input type="file" accept=".pdf, .doc, .docx" name="novo_regimento" id="inovo_regimento"></p>
-        </p>
-        <p>
-            <span id="imsgAlerta"></span><br>
-            <a href="admin_home.php">Voltar</a>
-            <button type="submit">Salvar</button>
-        </p>
-        
+        <fieldset>
+            <legend>Orientações e Regras</legend>
+            <p>
+                <label for="idade">Idade minima para ser um associado: </label><br>
+                <input required name="idade_min" id="idade" type="number" value="<?php echo $dadosEscolhido['idade_minima']; ?>">  
+            </p>
+            <p>
+                <label for="">Termos da Inscrição:</label><br>
+                <textarea required type="text" name="termos_insc" id="itermos" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['termos_insc']; ?></textarea><br> 
+            </p>
+            <p>
+                <label for="iEst">Estatuto interno:</label><br>
+                <input type="hidden" name="estatuto" id="iEst" value="<?php echo $dadosEscolhido['estatuto_int']; ?>">
+                <button type="button" id="ibaixar_estatuto" onclick="baixarArq_estatuto()">Baixar Estatuto Atual</button>
+                <input type="file" accept=".pdf, .doc, .docx" name="novo_estatuto" id="inovo_estatuto"></p>
+            </p>
+            <p>
+                <label for="iReg" for="">Regimento interno:</label><br>
+                <input type="hidden" name="regimento" id="iReg" value="<?php echo $dadosEscolhido['reg_int']; ?>">
+                <button type="button" id="ibaixar_regimento" onclick="baixarArq_regimento()">Baixar Regimento Atual</button>
+                <input type="file" accept=".pdf, .doc, .docx" name="novo_regimento" id="inovo_regimento"></p>
+            </p>
+            <p>
+                <span id="imsgAlerta"></span><br>
+                <!-- Link de voltar -->
+                <a href="#" onclick="perguntarSalvar(); return false;">Voltar</a>
+
+                <button type="submit">Salvar</button>
+            </p>
+        </fieldset>
         <script src="admin_verifica.js"></script>
     </form>
     

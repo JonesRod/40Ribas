@@ -138,12 +138,51 @@ async function fetchCityByCEP() {
 
 function baixarArq_estatuto() {
     // Obter o conteúdo da textarea
-    var conteudo = document.getElementById("ibaixar_estatuto").value;
+    /*var conteudo = document.getElementById("iEst").value;
 
     // Criar um link de download
     var link = document.createElement('a');
     link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(conteudo);
     link.download = 'Estatuto_interno.txt';
+    link.click();*/
+    //console.log('oi');
+    
+    var nomeArquivo = document.getElementById('iEst').value;
+    var link = document.createElement("a");
+    link.href = nomeArquivo;
+    link.download = nomeArquivo;
+    document.body.appendChild(link);
     link.click();
-    console.log('oi');
+    document.body.removeChild(link);
+}
+function baixarArq_regimento() {
+    // Obter o conteúdo da textarea
+    /*var conteudo = document.getElementById("iEst").value;
+
+    // Criar um link de download
+    var link = document.createElement('a');
+    link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(conteudo);
+    link.download = 'Estatuto_interno.txt';
+    link.click();*/
+    //console.log('oi');
+    
+    var nomeArquivo = document.getElementById('iReg').value;
+    var link = document.createElement("a");
+    link.href = nomeArquivo;
+    link.download = nomeArquivo;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+// Função para perguntar se deseja salvar as alterações
+function perguntarSalvar() {
+    var resposta = confirm("Deseja salvar as informações alteradas?");
+    if (resposta) {
+        // Adicione aqui o código para salvar as informações
+        document.getElementById("meuFormulario").submit();
+        alert("As informações foram salvas!");
+        window.location.href = 'admin_home.php';
+    }else{
+        window.location.href = 'admin_home.php';
+    }
 }
