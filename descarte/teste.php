@@ -1,59 +1,95 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Exemplo de Ícone de Menu Hambúrguer</title>
-    <style>
-        /* Estilos para o botão de menu */
-        .menu-button {
-            display: inline-block;
-            cursor: pointer;
+<?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require ('../vendor/autoload.php');
+require ('../login/lib/src/PHPMailer.php');
+require ('../login/lib/src/Exception.php');
+require ('../login/lib/src/SMTP.php');
+
+//include('conexao.php');
+
+// Host = Endereço do servidor SMTP do hotmail: smtp-mail.outlook.com
+// Username = hotmail SMTP username: Seu endereço completo do hotmail (ex.: nome@hotmail.com)
+// Password = Senha hotmail SMTP: A senha que você usa para fazer login no hotmail
+// Port = Porta hotmail SMTP (TLS): 587
+
+
+
+//function enviar_email($destinatario, $assunto, $mensagemHTML){
+
+
+
+    //$id = '1';
+    //$dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
+    //$dadosEscolhido = $dados->fetch_assoc();
+
+    $destinatario ='batata_jonesrodrigues@hotmail.com';
+    $assunto = 'teste';
+    $mensagemHTML = 'oii';
+
+    //$razao = $dadosEscolhido['razao'];
+    //$email_suporte = $dadosEscolhido['email_suporte'];
+    //$senha = $dadosEscolhido['senha'];
+
+    $razao = 'razao';
+    $email_suporte = 'batatajonesrodrigues@gmail.com';
+    $senha = '#@//Jones?';
+    //  //batata2023
+
+    if (strstr($email_suporte, "@gmail.com")) {
+        //$email = "exemplo@gmail.com"; // Substitua pelo endereço de e-mail que você quer verificar
+        $email_host = 'smtp.gmail.com';
+        $senha ='xqurngdmehhkfhob';
+
+        $num_port = 587;
+        //return "Este é um endereço do Gmail.";
+
+    } elseif (strstr($email_suporte, "@hotmail.com")) {
+        $email_host= 'smtp-mail.outlook.com';
+        $num_port = 587;    
+        //return "Este é um endereço do Hotmail.";
+    }  elseif (strstr($email_suporte, "@yahoo.com")) {
+        $email_host= 'smtp.mail.yahoo.com';
+        $num_port = 587;    
+        //return "Este é um endereço do Hotmail.";
+    } else {
+       return false;
+    }
+    //'batata_jonesrodrigues@hotmail.com'
+    $mail = new PHPMailer(true);
+    try{
+        $mail->isSMTP();
+        //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->Host = $email_host;
+        $mail->Port =  $num_port;
+        $mail->SMTPAuth = true;
+        $mail->Username = $email_suporte;
+        $mail->Password = $senha;
+        //$mail->SMTPSecure = 'tls';//usado no gmail
+        //$mail->SMTPSecure = false;
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+
+        $mail->setFrom($email_suporte, $razao);
+        $mail->addAddress($destinatario);
+        $mail->Subject = $assunto;
+
+        $mail->Body = $mensagemHTML;
+
+        if ($mail->send()) {
+            echo 'E-mail enviado com sucesso!';
+            //return true;
+        } else {
+            echo 'E-mail não enviado!';
+            //return false;
         }
 
-        /* As três barrinhas horizontais */
-        .menu-bar {
-            width: 30px;
-            height: 3px;
-            background-color: #333;
-            margin: 6px 0;
-        }
-    </style>
-</head>
-<body>
-    <form>
-        <textarea id="meuTextarea" rows="4" cols="50">arquivos/64fb658ed01f6.pdf</textarea>
-        <br>
-        <iframe src="https://docs.google.com/viewer?url=http://../arquivos/Duvidas%20do%20NOVO%20REGIMENTO%20INTERNO%2040A%20RIBAS.pdf&embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe><br>
-        <input type="file" name="arquivo" accept=".pdf, .doc, .docx"><br>
-        <button type="button" onclick="imprimirTexto(event)">Imprimir</button>
-        <button type="button" onclick="baixarConteudo()">Baixar</button>
-    </form>
-
-    <script>
-    function imprimirTexto(event) {
-    // console.log('oi');
-        // Evita o envio do formulário
-        event.preventDefault();
-        var conteudo = document.getElementById('meuTextarea').value;
-        var janelaImpressao = window.open('', '_blank');
-        janelaImpressao.document.write('<pre>' + conteudo + '</pre>');
-        //janelaImpressao.document.close();
-            // Adicionar um evento para fechar a janela após a impressão
-            /*janela.onafterprint = function() {
-                janela.close();
-            };*/
-        janelaImpressao.print();
+    } catch (Exception $e){
+        echo "Erro ao enviar o e-mail: {$mail->ErrorInfo}";
     }
-    function baixarConteudo() {
-        // Obter o conteúdo da textarea
-        var conteudo = document.getElementById("meuTextarea").value;
-
-        // Criar um link de download
-        var link = document.createElement('a');
-        link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(conteudo);
-        link.download = 'meu_arquivo.txt';
-        link.click();
-    }
-    </script>
-</body>
-</html>
-
+    //var_dump($email_host);
+//}
+?>

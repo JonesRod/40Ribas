@@ -205,12 +205,10 @@
             </p>
 
             <p>
-                <label for="iEmailNot">E-mail de notificação:</label><br>
-                <input required name="email_not" id="iEmailNot" type="email" value="<?php echo $dadosEscolhido['email_not']; ?>">
-            </p>
-            <p>
-                <label for="iEmailRec">E-mail de recuperação de senha:</label><br>
-                <input name="email_rec" required id="iEmailRec" type="email" value="<?php echo $dadosEscolhido['email_rec']; ?>">           
+                <label for="iEmailSuporte">E-mail de notificação:</label><br>
+                <input required name="email_suporte" id="iEmailSuporte" type="email" value="<?php echo $dadosEscolhido['email_suporte']; ?>">
+                <label for="iSenha">Senha:</label><br>
+                <input required name="senha" id="iSenha" type="text" value="<?php echo $dadosEscolhido['senha']; ?>">
             </p>
         </fieldset>
         <fieldset>

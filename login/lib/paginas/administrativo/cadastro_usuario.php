@@ -31,7 +31,7 @@ if(isset($_POST['nome']) || isset($_POST['email'])) {
             $senha_criptografada = password_hash($senha, PASSWORD_DEFAULT);
             $sql_code = "INSERT INTO socios (nome, email, senha, data) 
             VALUES('$nome','$email','$senha_criptografada', NOW())";
-            $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+            $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
 
             if($deu_certo){
 

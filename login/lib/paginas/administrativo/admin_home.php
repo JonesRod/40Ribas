@@ -69,7 +69,7 @@
     <title>Tela Admin</title>
 </head>
 <body>
-    <a>Admin <?php echo $usuario['apelido']; ?></a> <br>
+    <a>Olá, Admin <?php echo $usuario['apelido']; ?></a> <br>
 
     <button id="menuBtn">Menu</button>
     <ul id="menu" class="escondido">

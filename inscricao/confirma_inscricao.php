@@ -122,10 +122,6 @@ function enviarArquivo($error, $name, $tmp_name) {
                     
                             if(($email_registrado_socio) == 0) {
 
-                                //falta o codigo para verificar se existe esse socio
-
-
-
                                 $arq = $_FILES['imageInput'];
                                 $path = enviarArquivo($arq['error'], $arq['name'], $arq['tmp_name']);
                                 //echo $path;
@@ -137,6 +133,8 @@ function enviarArquivo($error, $name, $tmp_name) {
                                 if($deu_certo){
                                     $msg = true;
                                     $msg = "Sua solicitação foi enviada e registrada com sucesso.";
+                                    $msg1 = "";
+                                    $msg2 = "";
                                     //echo $msg;
 
                                     enviar_email($email, "Registro de solicitação de para associação ao Club 40Ribas", "

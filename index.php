@@ -23,18 +23,19 @@ $msg= false;
 if(isset($_POST['email']) || isset($_POST['senha'])) {
 
     $email = $mysqli->escape_string($_POST['email']);//$mysqli->escape_string SERVE PARA PROTEGER O ACESSO 
+    $cpf = $mysqli->escape_string($_POST['email']);
     $senha = $mysqli->escape_string($_POST['senha']);
+    
 
     //echo "oii";
     if(isset($_SESSION['email'])){
         $email = $_SESSION['email'];
         $senha = password_hash($_SESSION['senha'], PASSWORD_DEFAULT);
-        $mysqli->query("INSERT INTO senha (email, senha) VALUES('$email','$senha')");
-
+        $mysqli->query("INSERT INTO senha (email, senha, cpf) VALUES('$email','$senha','$cpf')");
     }
     if(strlen($_POST['email']) == 0 ) {
         $msg= true;
-        $msg = "Preencha o campo E-mail.";
+        $msg = "Preencha o campo Usuário.";
         //echo $msg;
     } else if(strlen($_POST['senha']) == 0 ) {
         $msg= true;
@@ -68,13 +69,45 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
                 }    
             }else{
                 $msg= true;
-                $msg = "Usúario ou Senha estão inválidos!";    
+                $msg = "Usúario ou Senha estão inválidos!1";    
                 //echo $msg;
             }
         }else{
-            $msg= true;
-            $msg = "O e-mail informado não esta correto ou não está cadastrado!";
-            //echo $msg;
+
+            $sql_cpf = "SELECT * FROM socios WHERE cpf = '$cpf' LIMIT 1";
+            $sql_query =$mysqli->query($sql_cpf) or die("Falha na execução do código SQL: " . $mysqli->$error);
+            $usuario = $sql_query->fetch_assoc();
+            $quantidade_cpf = $sql_query->num_rows;//retorna a quantidade encontrado
+    
+            if(($quantidade_cpf) == 1) {
+    
+                if(password_verify($senha, $usuario['senha'])) {
+    
+                    $admin = $usuario['admin'];
+    
+                    if($admin == 1){
+                        $_SESSION['usuario'] = $usuario['id'];
+                        $_SESSION['admin'] = $admin;
+                        //$msg = "1";
+                        unset($_POST);
+                        header("Location: login/lib/tipo_login.php");
+                    }else if($admin != 1){
+                        $_SESSION['usuario'] = $usuario['id'];
+                        $_SESSION['admin'] = $admin;
+                        //$msg = "2";
+                        unset($_POST);
+                        header("Location: login/lib/paginas/usuario_home.php");
+                    }    
+                }else{
+                    $msg= true;
+                    $msg = "Usúario ou Senha estão inválidos!2";    
+                    //echo $msg;
+                }
+            }else{
+                $msg= true;
+                $msg = "O Usúario informado não esta correto ou não está cadastrado!3";
+                //echo $msg;
+            }
         }
     }
 }   
@@ -98,12 +131,12 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
             <h1 id="titulo">Entrar</h1>
             <span id="msg"><?php echo $msg; ?></span>
             <p>
-                <label id="email" for="iemail">E-mail</label>
-                <input required type="email" name="email" id="iemail" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
+                <label id="email" for="iemail">Usuário</label>
+                <input required type="text" name="email" id="iemail" placeholder="E-mail ou CPF" oninput="formatarCampo(this)" value="<?php //if(isset($_POST['email'])) echo $_POST['email']; ?>">
             </p>
             <p>
                 <label id="senha" for="">Senha</label>
-                <input required type="password" name="senha" value="<?php if(isset($_POST['senha'])) echo $_POST['senha']; ?>">
+                <input required type="password" name="senha" placeholder="Sua Senha" value="<?php //if(isset($_POST['senha'])) echo $_POST['senha']; ?>">
             </p>
             <p> 
                 <a style="margin-right:10px;" href="inscricao/ficha_inscricao.html">Quero ser sócio.</a> 
@@ -113,5 +146,41 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
 
         </form>
     </main>
+    <script>
+        function formatarCampo(input) {
+            let value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+            console.log('oii');
+
+            if (/^[0-9]+$/.test(value)) {
+
+                if (value.length > 9) {
+                    value = value.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3-');
+                } else if (value.length > 6) {
+                    value = value.replace(/(\d{3})(\d{3})/, '$1.$2.');
+                } else if (value.length > 3) {
+                    value = value.replace(/(\d{3})/, '$1.');
+                }
+                input.value = value; 
+                           
+                /*if (valor.length === 11) {
+                    // Formatar como CPF
+
+
+                    const cpfFormatado = valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                    document.getElementById('iemail').textContent = `CPF Formatado: ${cpfFormatado}`;
+                } else if (valor.includes('@')) {
+                    // Formatar como E-mail
+                    document.getElementById('iemail').textContent = `E-mail: ${valor}`;
+                } else {
+                    // Se não se encaixa em nenhum formato conhecido
+                    //document.getElementById('iemail').textContent = 'Formato desconhecido';
+                }*/
+            }
+            if (valor.includes('@')) {
+                // Formatar como E-mail
+                document.getElementById('iemail').textContent = `${valor}`;
+            }
+        }
+    </script>
 </body>
 </html>

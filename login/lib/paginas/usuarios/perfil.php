@@ -168,9 +168,9 @@
                     $sexoFeminino = ($usuario['sexo'] == 2) ? 'checked' : '';
                     $sexoOutro = ($usuario['sexo'] == 3) ? 'checked' : '';
                 ?>
-                <input type="radio" name="sexo" id="imasc" value="1" <?php echo $sexoMasculino; ?>><label for="imasc">Masculino</label> 
-                <input type="radio" name="sexo" id="ifemi" value="2" <?php echo $sexoFeminino; ?>><label for="ifemi">Feminino</label> 
-                <input type="radio" name="sexo" id="iout" value="3" <?php echo $sexoOutro; ?>><label for="iout">Outros</label>
+                <input type="radio" name="sexo" id="imasc" value="masculino" <?php echo $sexoMasculino; ?>><label for="imasc">Masculino</label> 
+                <input type="radio" name="sexo" id="ifemi" value="feminino" <?php echo $sexoFeminino; ?>><label for="ifemi">Feminino</label> 
+                <input type="radio" name="sexo" id="iout" value="outros" <?php echo $sexoOutro; ?>><label for="iout">Outros</label>
 
             </p>
         </fieldset>
