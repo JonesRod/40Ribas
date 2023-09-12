@@ -165,6 +165,7 @@
         $senha = $mysqli->escape_string($_POST['senha']);
         $idade_min = $mysqli->escape_string($_POST['idade_min']);
         $termos_insc = $mysqli->escape_string($_POST['termos_insc']);
+        $validade = $mysqli->escape_string($_POST['validade']);
         $dia_fecha_mes = $mysqli->escape_string($_POST['dia_fecha_mes']);        
         $valor_mensalidades = $mysqli->escape_string($_POST['valor_mensalidades']);
         $desconto_mensalidades = $mysqli->escape_string($_POST['desconto_mensalidades']);
@@ -195,10 +196,11 @@
             nome_tesoureiro = '$nome_tesoureiro',
             presidente = '$presidente',
             vice_presidente = '$vice_presidente',
-            email_not = '$email_suporte',
+            email_suporte = '$email_suporte',
             senha = '$senha',
             idade_minima='$idade_min',
             termos_insc = '$termos_insc',
+            validade = '$validade',
             estatuto_int = '$estatuto_int',
             reg_int = '$reg_int',
             dia_fecha_mes = '$dia_fecha_mes',       
@@ -214,18 +216,20 @@
             //echo $estatuto_int.'4';
             //var_dump($_POST);
 
-            $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
-
-            $sql_code = "INSERT INTO histo_config_admin (data_alteracao, logo, razao, cnpj, uf, cep, cid,rua, numero, bairro, 
-            nome_tesoureiro, presidente, vice_presidente, email_suporte, senha, idade_minima, termos_insc, estatuto_int, reg_int, dia_fecha_mes, 
-            valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5) 
-            VALUES(NOW(), '$nova_logo', '$razao', '$cnpj', '$uf', '$cep', '$cid', '$rua', '$numero', '$bairro', 
-            '$nome_tesoureiro', '$presidente', '$vice_presidente', '$email_suporte', '$senha', '$idade_min', '$termos_insc', '$estatuto_int', '$reg_int', '$dia_fecha_mes', 
-            '$valor_mensalidades', '$desconto_mensalidades', '$multa', '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
-
-            $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
-            //var_dump($_POST);
+            $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+            
             if($deu_certo) {
+
+                $sql_code = "INSERT INTO histo_config_admin (data_alteracao, logo, razao, cnpj, uf, cep, cid,rua, numero, bairro, 
+                nome_tesoureiro, presidente, vice_presidente, email_suporte, senha, idade_minima, termos_insc, validade, estatuto_int, reg_int, dia_fecha_mes, 
+                valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5) 
+                VALUES(NOW(), '$nova_logo', '$razao', '$cnpj', '$uf', '$cep', '$cid', '$rua', '$numero', '$bairro', 
+                '$nome_tesoureiro', '$presidente', '$vice_presidente', '$email_suporte', '$senha', '$idade_min', '$termos_insc', '$validade', '$estatuto_int', '$reg_int', '$dia_fecha_mes', 
+                '$valor_mensalidades', '$desconto_mensalidades', '$multa', '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
+
+                //$deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+                //var_dump($_POST);
+            
                 echo "<p><b>Dados atualizado com sucesso!!!</b></p>";
                 unset($_POST);
                 header("refresh: 5; admin_config.php");

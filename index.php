@@ -100,12 +100,12 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
                     }    
                 }else{
                     $msg= true;
-                    $msg = "Usúario ou Senha estão inválidos!2";    
+                    $msg = "Usúario ou Senha estão inválidos!";    
                     //echo $msg;
                 }
             }else{
                 $msg= true;
-                $msg = "O Usúario informado não esta correto ou não está cadastrado!3";
+                $msg = "O Usúario informado não esta correto ou não está cadastrado!";
                 //echo $msg;
             }
         }

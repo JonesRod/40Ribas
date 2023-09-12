@@ -253,8 +253,12 @@
                 <input required name="idade_min" id="idade" type="number" value="<?php echo $dadosEscolhido['idade_minima']; ?>">  
             </p>
             <p>
-                <label for="">Termos da Inscrição:</label><br>
+                <label for="itermos">Termos da Inscrição:</label><br>
                 <textarea required type="text" name="termos_insc" id="itermos" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['termos_insc']; ?></textarea><br> 
+            </p>
+            <p>
+                <label for="ivalidade">Tempo de validade da Inscrição:</label><br>
+                <label for="ivalidade">Dias: </label><input required type="number" name="validade" id="ivalidade" value="<?php echo $dadosEscolhido['validade']; ?>"><br> 
             </p>
             <p>
                 <label for="iEst">Estatuto interno:</label><br>

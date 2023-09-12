@@ -1,11 +1,12 @@
 <?php
 
+    //require ('../../vendor/autoload.php');
+
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
 function enviar_email($destinatario, $assunto, $mensagemHTML){
 
-    require ('../vendor/autoload.php');
     require ('src/PHPMailer.php');
     require ('src/Exception.php');
     require ('src/SMTP.php');

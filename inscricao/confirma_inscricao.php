@@ -26,7 +26,7 @@ function enviarArquivo($error, $name, $tmp_name) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitação</title>
     <?php
-
+        $erro = false;
         if(isset($_POST['email'])) {
             //include('upload.php');
             include('../login/lib/conexao.php');
@@ -85,6 +85,9 @@ function enviarArquivo($error, $name, $tmp_name) {
             $idade_minima = $dadosEscolhido['idade_minima'];
             $anos_idade = $idade->y;
 
+            $dataAtual = date('Y-m-d'); // Obtém a data atual no formato ano-mês-dia
+            $validade = date('Y-m-d', strtotime($dataAtual . '+'. $dadosEscolhido['validade'].' days')); // Adiciona 365 dias
+
             /*echo "Diferença de " . $idade->d . " dias";
             echo " e " . $idade->m . " mese s";
             echo " e " . $idade->y . " anos.";*/
@@ -101,6 +104,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                 $sql_email = $mysqli->query("SELECT * FROM int_associar WHERE email = '$email'");
                 $result_email= $sql_email->fetch_assoc();
                 $email_registrado = $sql_email->num_rows;
+
                 //var_dump($_POST);
                 //die();
 
@@ -125,8 +129,11 @@ function enviarArquivo($error, $name, $tmp_name) {
                                 $arq = $_FILES['imageInput'];
                                 $path = enviarArquivo($arq['error'], $arq['name'], $arq['tmp_name']);
                                 //echo $path;
-                                $sql_code = "INSERT INTO int_associar (data, foto, apelido, nome_completo, cpf, rg, nascimento, uf, cid_natal, mae, pai, sexo, uf_atual, cep, cid_atual, endereco, nu, bairro, celular1, celular2, email, motivo, termos) 
-                                VALUES (NOW(),'$path','$apelido', '$nome_completo','$cpf','$rg','$nasc', '$uf', '$cid_natal', '$mae', '$pai', '$sexo', '$uf_atual','$cep','$cid_atual','$endereco','$numero','$bairro','$celular1','$celular2','$email', '$motivo', '$termos')";
+
+                                $status = 'ATIVO';
+
+                                $sql_code = "INSERT INTO int_associar (data, foto, apelido, nome_completo, cpf, rg, nascimento, uf, cid_natal, mae, pai, sexo, uf_atual, cep, cid_atual, endereco, nu, bairro, celular1, celular2, email, motivo, termos, validade, status) 
+                                VALUES (NOW(),'$path','$apelido', '$nome_completo','$cpf','$rg','$nasc', '$uf', '$cid_natal', '$mae', '$pai', '$sexo', '$uf_atual','$cep','$cid_atual','$endereco','$numero','$bairro','$celular1','$celular2','$email', '$motivo', '$termos', '$validade', '$status')";
                                 
                                 $deu_certo = $mysqli->query($sql_code) or die($mysqli->$error);
 
@@ -168,21 +175,169 @@ function enviarArquivo($error, $name, $tmp_name) {
                                                                                 
                     }
                     if(($email_registrado) != 0) {
+                        // Obtém a data de hoje
+                        $dataAtual = new DateTime();
+                        $validade = new DateTime($result_email['validade']); 
+                        $status = 'ATIVO';
 
-                        $msg = "Já existe uma Solicitação cadastrada com esse e-mail!";
-                        $msg1 = "";
-                        $msg2 = "";
-                        //echo $msg;
-                        header("refresh: 10;../index.php");
+                        if ($dataAtual < $validade) {
+
+                            $msg = "Já existe uma Solicitação cadastrada com esse e-mail!";
+                            $msg1 = "";
+                            $msg2 = "";
+                            //echo $msg;
+                            header("refresh: 10;../index.php");
+
+                        } elseif ($dataAtual == $validade) {
+
+                            $msg = "Já existe uma Solicitação cadastrada com esse e-mail, mas será incerrada hoje!";
+                            $msg1 = "Atualize sua inscrição novamente a partir de amanhã!";
+                            $msg2 = "";
+                            header("refresh: 15;../index.php");
+
+                        } else {
+                            $msg = "Já existe um cadastro de Solicitação com esse e-mail!";
+                            $msg1 = "Sua inscrição está sendo renovada.";
+                            $msg2 = "";
+
+                            $dataAtual = date('Y-m-d'); // Obtém a data atual no formato ano-mês-dia
+                            $validade = date('Y-m-d', strtotime($dataAtual . '+'. $dadosEscolhido['validade'].' days')); // Adiciona 365 dias
+
+                            $arq = $_FILES['imageInput'];
+                            $path = enviarArquivo($arq['error'], $arq['name'], $arq['tmp_name']);
+
+                            if($erro) {
+                                echo "<p><b>ERRO: $erro</b></p>";
+                            } else {
+                                $id = $result_email['id'];
+
+                                $sql_code = "UPDATE int_associar
+                                SET 
+                                foto = '$path',
+                                apelido = '$apelido',
+                                nome_completo = '$nome_completo',
+                                cpf ='$cpf',
+                                rg = '$rg',
+                                nascimento = '$nasc',
+                                cid_natal = '$cid_natal',
+                                mae = '$mae',
+                                pai = '$pai',
+                                sexo = '$sexo',
+                                uf_atual = '$uf_atual',
+                                cep = '$cep',
+                                cid_atual = '$cid_atual',
+                                endereco = '$endereco',
+                                nu = '$numero',
+                                bairro = '$bairro',
+                                celular1 = '$celular1',
+                                celular2 = '$celular2',
+                                email = '$email',
+                                motivo = '$motivo',
+                                termos ='$termos',
+                                validade = '$validade',
+                                status = '$status'
+                                WHERE id = '$id'";
+
+                                $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+                                if($deu_certo) {
+                                    //echo $estatuto_int.'4';
+                                    //var_dump($_POST);
+
+                                    enviar_email($email, "Sua solicitação de para associação ao Club 40Ribas foi renovada.", "
+                                    <h1>Olá Sr. " . $apelido . "</h1>
+                                    <p>Sua solicitação foi renovada com sucesso. Assim que surgir uma vaga passaremos sua 
+                                    solicitação por votação de aprovação. Lhe avisaremos assim ...</p>
+                                    <p>Menssagem automatica. Não responda!</p>");
+
+                                    header("refresh: 10; ../index.php");
+                                }
+                            }
+                            
+                        }
                     }
                 }
                 if(($cpf_registrado) != 0) {
 
-                    $msg = ("Já existe um Solicitação cadastrada com esse CPF!");
-                    $msg1 = "";
-                    $msg2 = "";
-                    //echo $msg;
-                    header("refresh: 10;../index.php");
+                    // Obtém a data de hoje
+                    $dataAtual = new DateTime();
+                    $validade = new DateTime($result_cpf['validade']); 
+                    $status = 'ATIVO';
+                    //echo $validade;
+                    //die();
+                    if ($dataAtual < $validade) {
+
+                        $msg = "Já existe uma Solicitação cadastrada com esse CPF!";
+                        $msg1 = "";
+                        $msg2 = "";
+                        //echo $msg;
+                        header("refresh: 10;../index.php");
+
+                    } elseif ($dataAtual == $validade) {
+
+                        $msg = "Já existe uma Solicitação cadastrada com esse CPF, mas será incerrada hoje!";
+                        $msg1 = "Atualize sua inscrição novamente a partir de amanhã!";
+                        $msg2 = "";
+                        header("refresh: 15;../index.php");
+
+                    } elseif($dataAtual > $validade) {
+                        $msg = "Já existe um cadastro de Solicitação com esse CPF!";
+                        $msg1 = "Sua inscrição está sendo renovada.";
+                        $msg2 = "";
+
+                        $dataAtual = date('Y-m-d'); // Obtém a data atual no formato ano-mês-dia
+                        $validade = date('Y-m-d', strtotime($dataAtual . '+'. $dadosEscolhido['validade'].' days')); // Adiciona 365 dias
+
+                        $arq = $_FILES['imageInput'];
+                        $path = enviarArquivo($arq['error'], $arq['name'], $arq['tmp_name']);
+
+                        if($erro) {
+                            echo "<p><b>ERRO: $erro</b></p>";
+                        } else {
+                            $id = $result_cpf['id'];
+                            //echo $id;
+
+                            $sql_code = "UPDATE int_associar
+                            SET 
+                            foto = '$path',
+                            apelido = '$apelido',
+                            nome_completo = '$nome_completo',
+                            cpf ='$cpf',
+                            rg = '$rg',
+                            nascimento = '$nasc',
+                            cid_natal = '$cid_natal',
+                            mae = '$mae',
+                            pai = '$pai',
+                            sexo = '$sexo',
+                            uf_atual = '$uf_atual',
+                            cep = '$cep',
+                            cid_atual = '$cid_atual',
+                            endereco = '$endereco',
+                            nu = '$numero',
+                            bairro = '$bairro',
+                            celular1 = '$celular1',
+                            celular2 = '$celular2',
+                            email = '$email',
+                            motivo = '$motivo',
+                            termos ='$termos',
+                            validade = '$validade',
+                            status = '$status'
+                            WHERE id = '$id'";
+                            
+                            $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+                            if($deu_certo) {
+                                //echo $estatuto_int.'4';
+                                //var_dump($_POST);
+
+                                /*enviar_email($email, "Sua solicitação de para associação ao Club 40Ribas foi renovada.", "
+                                <h1>Olá Sr. " . $apelido . "</h1>
+                                <p>Sua solicitação foi renovada com sucesso. Assim que surgir uma vaga passaremos sua 
+                                solicitação por votação de aprovação. Lhe avisaremos assim ...</p>
+                                <p>Menssagem automatica. Não responda!</p>");
+
+                                header("refresh: 10; ../index.php");*/
+                            }
+                        }
+                    }
                 }
             }else{
 
@@ -200,9 +355,9 @@ function enviarArquivo($error, $name, $tmp_name) {
 </head>
 <body>
     <div id="msg">
-    <p><span><?php echo $msg; ?></span></p>
-    <p><span><?php echo $msg1; ?></span></p>
-    <p><span><?php echo $msg2; ?></span></p>
+        <p><span><?php echo $msg; ?></span></p>
+        <p><span><?php echo $msg1; ?></span></p>
+        <p><span><?php echo $msg2; ?></span></p>
     </div>
 </body>
 </html>

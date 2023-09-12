@@ -2,12 +2,11 @@
 
 $msg = false;
 
-
-if(isset($_POST['email'])) {
-
     include('conexao.php');
     include('generateRandomString.php');
     include('enviarEmail.php');
+
+if(isset($_POST['email'])) {
 
     if(strlen($_POST['email']) == 0 ) {
         $msg = "Preencha ocampo E-mail.";
@@ -15,22 +14,25 @@ if(isset($_POST['email'])) {
     } else {
 
         $email = $mysqli->escape_string($_POST['email']);
-        $sql_query = $mysqli->query("SELECT id, nome FROM socios WHERE email = '$email'");
+        $sql_query = $mysqli->query("SELECT * FROM socios WHERE email = '$email'");
         $result = $sql_query->fetch_assoc();
         $registro = $sql_query->num_rows;
 
- //       var_dump($_POST);
+
+
+        //var_dump($_POST);
         if(($registro ) == 1) {
             if($result['id']) {
 
-            $nova_senha = generateRandomString(8);
+            $nova_senha = generateRandomString(6);
             $nova_senha_criptografada = password_hash($nova_senha, PASSWORD_DEFAULT);
             $id_usuario = $result['id'];
+
             $mysqli->query("UPDATE socios SET senha = '$nova_senha_criptografada' WHERE id = '$id_usuario'");
             enviar_email($email, "Sua nova senha do seu site", "
-            <h1>Olá " . $result['nome'] . "</h1>
+            <h1>Olá " . $result['apelido'] . "</h1>
             <p>Uma nova senha foi definida para a sua conta.</p>
-            <p><b>Nova senha: </b> $nova_senha</p>
+            <p><b>Nova senha: </b>$nova_senha</p>
             <p><b>Para redefinir sua senha </b><a href='redefinir_senha.php'>clique aqui.</a></p>
             <p><b>Para entrar </b><a href='../../index.php'>clique aqui.</a></p>");
             

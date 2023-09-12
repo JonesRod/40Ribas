@@ -47,7 +47,7 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
             if(password_verify($senha, $usuario['senha'])) {
 
                 $_SESSION['usuario'] = $usuario['id'];
-                $nome = $usuario['nome'];
+                $nome = $usuario['apelido'];
                 $_SESSION['admin'] = $usuario['admin'];
 
                 $nova_senha_criptografada = password_hash($novaSenha, PASSWORD_DEFAULT);
