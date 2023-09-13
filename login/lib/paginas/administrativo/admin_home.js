@@ -12,3 +12,4 @@ menuBtn.addEventListener('click', function() {
         menu.style.display = 'block';
     }
 });
+

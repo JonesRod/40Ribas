@@ -65,17 +65,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="admin_config.css">
+    <link rel="stylesheet" href="admin_home.css">
+    <script>
+        function abrirNaDiv(link) {
+            var div = document.getElementById('minhaDiv');
+            div.innerHTML = '<object type="text/html" data="' + link + '" style="width:85%; height:100%;">';
+        }
+    </script>
     <title>Tela Admin</title>
 </head>
 <body>
-    <a>Olá, Admin <?php echo $usuario['apelido']; ?></a> <br>
+    <div>
+        <button id="menuBtn">Menu</button><a>Olá, Admin <?php echo $usuario['apelido']; ?></a>
+    </div>
+    <div>
+        <ul id="menu" class="escondido">
+            <li><a href="#" onclick="abrirNaDiv('admin_config.php')">Configurações</a></li>
+            <li><a href="admin_logout.php">Sair</a></li>
+        </ul>   
+    </div>
+    <div id="minhaDiv"></div>
 
-    <button id="menuBtn">Menu</button>
-    <ul id="menu" class="escondido">
-        <li><a href="admin_config.php">Configurações</a></li>
-        <li><a href="admin_logout.php">Sair</a></li>
-    </ul>   
     <script src="admin_home.js"></script>
 </body>
 </html>

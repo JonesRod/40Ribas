@@ -151,7 +151,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                                     <p>Menssagem automatica. Não responda!</p>");
 
                                     unset($_POST);
-
+                                    $mysqli->close();
                                     header("refresh: 5;../index.php"); //Atualiza a pagina em 5s e redireciona apagina
                                 }     
                             }
@@ -161,7 +161,9 @@ function enviarArquivo($error, $name, $tmp_name) {
                                 $msg1 = "";
                                 $msg2 = "";
                                 //echo $msg;
+                                $mysqli->close();
                                 header("refresh: 10;../index.php");
+
                             }
                         }
                         if(($cpf_registrado_socio) != 0) {
@@ -170,6 +172,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                             $msg1 = "";
                             $msg2 = "";
                             //echo $msg;
+                            $mysqli->close();
                             header("refresh: 10;../index.php");
                         }                                                    
                                                                                 
@@ -186,6 +189,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                             $msg1 = "";
                             $msg2 = "";
                             //echo $msg;
+                            $mysqli->close();
                             header("refresh: 10;../index.php");
 
                         } elseif ($dataAtual == $validade) {
@@ -193,9 +197,10 @@ function enviarArquivo($error, $name, $tmp_name) {
                             $msg = "Já existe uma Solicitação cadastrada com esse e-mail, mas será incerrada hoje!";
                             $msg1 = "Atualize sua inscrição novamente a partir de amanhã!";
                             $msg2 = "";
+                            $mysqli->close();
                             header("refresh: 15;../index.php");
 
-                        } else {
+                        } elseif($dataAtual > $validade){
                             $msg = "Já existe um cadastro de Solicitação com esse e-mail!";
                             $msg1 = "Sua inscrição está sendo renovada.";
                             $msg2 = "";
@@ -249,6 +254,8 @@ function enviarArquivo($error, $name, $tmp_name) {
                                     solicitação por votação de aprovação. Lhe avisaremos assim ...</p>
                                     <p>Menssagem automatica. Não responda!</p>");
 
+                                    $mysqli->close();
+
                                     header("refresh: 10; ../index.php");
                                 }
                             }
@@ -270,6 +277,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                         $msg1 = "";
                         $msg2 = "";
                         //echo $msg;
+                        $mysqli->close();
                         header("refresh: 10;../index.php");
 
                     } elseif ($dataAtual == $validade) {
@@ -277,6 +285,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                         $msg = "Já existe uma Solicitação cadastrada com esse CPF, mas será incerrada hoje!";
                         $msg1 = "Atualize sua inscrição novamente a partir de amanhã!";
                         $msg2 = "";
+                        $mysqli->close();
                         header("refresh: 15;../index.php");
 
                     } elseif($dataAtual > $validade) {
@@ -328,13 +337,14 @@ function enviarArquivo($error, $name, $tmp_name) {
                                 //echo $estatuto_int.'4';
                                 //var_dump($_POST);
 
-                                /*enviar_email($email, "Sua solicitação de para associação ao Club 40Ribas foi renovada.", "
+                                enviar_email($email, "Sua solicitação de para associação ao Club 40Ribas foi renovada.", "
                                 <h1>Olá Sr. " . $apelido . "</h1>
                                 <p>Sua solicitação foi renovada com sucesso. Assim que surgir uma vaga passaremos sua 
                                 solicitação por votação de aprovação. Lhe avisaremos assim ...</p>
                                 <p>Menssagem automatica. Não responda!</p>");
 
-                                header("refresh: 10; ../index.php");*/
+                                $mysqli->close();
+                                header("refresh: 10; ../index.php");
                             }
                         }
                     }
@@ -345,7 +355,7 @@ function enviarArquivo($error, $name, $tmp_name) {
                 $msg1 = "Você ainda não tem idade o suficiente para ser sócio!";
                 $msg2 = "Complete a idade minima que é ".$idade_minima ." anos e tente novamente.";
                 unset($_POST);
-
+                $mysqli->close();
                 header("refresh: 10;../index.php");
             }
         }else {
