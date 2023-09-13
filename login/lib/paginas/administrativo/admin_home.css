@@ -1,6 +1,43 @@
-/* Estilos para ocultar o menu inicialmente */
-.escondido {
-    display: none;
+/* Estilos para o corpo e o HTML */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex: 1; /* A div .container vai ocupar o espaço disponível na vertical */
+    justify-content: space-between;
+    align-items: stretch; /* As divs vão esticar para ocupar a altura total */
+}
+
+.left, .center, .right {
+    border: 0px solid #ccc;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.left {
+    width: 10%;
+    height: 100%; /* Agora a div esquerda terá a mesma altura que as outras */
+    display: none; /* Inicia oculta */
+    /*position: absolute;*/
+    top: 0; /* Ajuste a distância do topo conforme necessário */
+    left: 0;
+    background-color: #f0f0f0; /* Cor de fundo (opcional) */
+    z-index: 2; /* Coloca a div à frente das outras */
+}
+.center {
+    flex: 1; /* A div .center vai ocupar todo o espaço disponível na horizontal */
+}
+
+.right {
+    width: 20%;
 }
 
 /* Estilos para o botão */
@@ -17,21 +54,16 @@
     list-style: none;
     padding: 0;
     background-color: #fff;
-    border: 1px solid #ccc;
-    position: absolute;
+    border: 0px solid #ccc;
+    /*position: absolute;*/
     z-index: 1;
-}
-
-#menu li {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
+    margin-top: 0;
 }
 
 #menu li:last-child {
     border-bottom: none;
 }
-
-html, body, #minhaDiv {
-    height: 95%;
-    margin: 0;
+#menu li {
+    list-style-type: none;
+    padding: 5px 10px 5px 10px;
 }

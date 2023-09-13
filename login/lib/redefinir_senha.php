@@ -89,6 +89,44 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>redefinição de senha</title>
+    <script>
+        function ver_senha_atual() {
+            var senhaInput = document.getElementById('isenha_atual');
+            var ver_senha_atual = document.getElementById('ver_senha_atual');
+
+            if (senhaInput.type === 'password') {
+                senhaInput.type = 'text';
+                ver_senha_atual.textContent = '👁️';
+            } else {
+                senhaInput.type = 'password';
+                ver_senha_atual.textContent = '👁️';
+            }
+        }
+        function ver_nova_senha() {
+            var iNova_senha = document.getElementById('iNova_senha');
+            var ver_nova_senha = document.getElementById('ver_nova_senha');
+
+            if (iNova_senha.type === 'password') {
+                iNova_senha.type = 'text';
+                ver_nova_senha.textContent = '👁️';
+            } else {
+                iNova_senha.type = 'password';
+                ver_nova_senha.textContent = '👁️';
+            }
+        }
+        function ver_conf_senha() {
+            var iConf_senha = document.getElementById('iConf_senha');
+            var ver_conf_senha = document.getElementById('ver_conf_senha');
+
+            if (iConf_senha.type === 'password') {
+                iConf_senha.type = 'text';
+                ver_conf_senha.textContent = '👁️';
+            } else {
+                iConf_senha.type = 'password';
+                ver_conf_senha.textContent = '👁️';
+            }
+        }
+    </script>
 </head>
 <body>
     <h2>Redefina sua nova Senha</h2>
@@ -103,16 +141,19 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
             <input value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>" required type="text" name="email">
         </p>
         <p>
-            <label for="">Senha Atual: </label>
-            <input  type="text" name="senhaAtual" value="<?php if(isset($_POST['senhaAtual'])) echo $_POST['senhaAtual']; ?>">
+            <label for="isenha_atual">Senha Atual: </label>
+            <input required type="password" name="senhaAtual" id="isenha_atual" value="<?php if(isset($_POST['senhaAtual'])) echo $_POST['senhaAtual']; ?>">
+            <span id="ver_senha_atual" onclick="ver_senha_atual()">👁️</span>
         </p>
         <p>
-            <label for="">Nova Senha: </label>
-            <input placeholder="Minimo 8 digitos" type="password" name="novaSenha" value="<?php if(isset($_POST['novaSenha'])) echo $_POST['novaSenha']; ?>">
+            <label for="iNova_senha">Nova Senha: </label>
+            <input required placeholder="Minimo 8 digitos" type="password" id="iNova_senha" name="novaSenha" value="<?php if(isset($_POST['novaSenha'])) echo $_POST['novaSenha']; ?>">
+            <span id="ver_nova_senha" onclick="ver_nova_senha()">👁️</span>
         </p>
         <p>
-            <label for="">Confirmar Senha: </label>
-            <input placeholder="Minimo 8 digitos" type="password" name="confSenha" value="<?php if(isset($_POST['confSenha'])) echo $_POST['confSenha']; ?>">
+            <label for="iConf_senha">Confirmar Senha: </label>
+            <input required placeholder="Minimo 8 digitos" type="password" id="iConf_senha" name="confSenha" value="<?php if(isset($_POST['confSenha'])) echo $_POST['confSenha']; ?>">
+            <span id="ver_conf_senha" onclick="ver_conf_senha()">👁️</span>
         </p>
         <a href="paginas/usuarios/usuario_logout.php">Ir para login</a>
         <button type="submit">Salvar</button>

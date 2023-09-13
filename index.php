@@ -123,8 +123,21 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login/style/index.css">
     <link rel="stylesheet" href="login/style/media-query.css">
-
     <title>Entrar</title>
+    <script>
+        function toggleSenha() {
+            var senhaInput = document.getElementById('senhaInput');
+            var toggleSenha = document.getElementById('toggleSenha');
+
+            if (senhaInput.type === 'password') {
+                senhaInput.type = 'text';
+                toggleSenha.textContent = '👁️';
+            } else {
+                senhaInput.type = 'password';
+                toggleSenha.textContent = '👁️';
+            }
+        }
+    </script>
 </head>
 <body>
     <main class="conteiner">   
@@ -137,8 +150,9 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
                 <input required type="text" name="email" id="iemail" placeholder="E-mail ou CPF" oninput="formatarCampo(this)" value="<?php //if(isset($_POST['email'])) echo $_POST['email']; ?>">
             </p>
             <p>
-                <label id="senha" for="">Senha</label>
-                <input required type="password" name="senha" placeholder="Sua Senha" value="<?php //if(isset($_POST['senha'])) echo $_POST['senha']; ?>">
+                <label id="senha" for="senha">Senha</label>
+                <input required type="password" name="senha" id="senhaInput" placeholder="Sua Senha" value="<?php //if(isset($_POST['senha'])) echo $_POST['senha']; ?>">
+                <span id="toggleSenha" onclick="toggleSenha()">👁️</span>
             </p>
             <p> 
                 <a style="margin-right:10px;" href="inscricao/ficha_inscricao.html">Quero ser sócio.</a> 

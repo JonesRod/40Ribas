@@ -46,14 +46,14 @@
             //echo "5";
             session_unset();
             session_destroy(); 
-            header("Location: ../../../index.php");  
+            header("Location: ../../../../index.php");  
         }
     
     }else{
         //echo "6";
         session_unset();
         session_destroy(); 
-        header("Location: ../../../index.php");  
+        header("Location: ../../../../index.php");  
     }
 
     $id = $_SESSION['usuario'];
@@ -66,26 +66,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="admin_home.css">
-    <script>
-        function abrirNaDiv(link) {
-            var div = document.getElementById('minhaDiv');
-            div.innerHTML = '<object type="text/html" data="' + link + '" style="width:85%; height:100%;">';
-        }
-    </script>
     <title>Tela Admin</title>
 </head>
 <body>
     <div>
-        <button id="menuBtn">Menu</button><a>Olá, Admin <?php echo $usuario['apelido']; ?></a>
+        <button id="menuBtn">Menu</button><a> Olá, Admin <?php echo $usuario['apelido']; ?></a><br>
     </div>
-    <div>
-        <ul id="menu" class="escondido">
-            <li><a href="#" onclick="abrirNaDiv('admin_config.php')">Configurações</a></li>
-            <li><a href="admin_logout.php">Sair</a></li>
-        </ul>   
-    </div>
-    <div id="minhaDiv"></div>
+    <div class="container">
+        <div class="left" id="menu">
+            <!-- Conteúdo da div esquerda (opções e configurações) -->
+            <ul class="escondido">
+                <li><a href="admin_config.php">Configurações</a></li>               
+                <!--<li><a href="#" onclick="abrirNaDiv('admin_config.php')">Configurações</a></li>-->
+                <li><a href="admin_logout.php">Sair</a></li>
+            </ul>             
+        </div>
 
+        <div class="center" id="icentro">
+            <!-- Conteúdo central (dados escolhidos) -->
+ 
+        </div>
+        <div class="right">
+            <!-- Conteúdo da div direita (outras atividades) -->
+        </div>
+    </div>
     <script src="admin_home.js"></script>
 </body>
 </html>
