@@ -47,6 +47,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <Style>
         body{
             text-align: center;
@@ -68,59 +69,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Função para atualizar a tabela com base na seleção do botão de rádio
+            function atualizarTabela(status) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'atualizar_tabela.php', // Nome do arquivo PHP que buscará os dados
+                    data: { status: status },
+                    success: function(response) {
+                        $('#tabela-socios').html(response); // Atualiza a tabela com os novos dados
+                    }
+                });
+            }
+
+            // Define um manipulador de eventos para os botões de rádio
+            $('input[name="status"]').change(function() {
+                var statusSelecionado = $(this).val();
+                atualizarTabela(statusSelecionado);
+            });
+
+            // Inicialmente, carrega a tabela com "TODOS" selecionados
+            atualizarTabela('ATIVO');
+        });
+    </script>
+
     <title>Lista de Sócios</title>
 </head>
 <body>
     <h1>Lista de Sócios</h1>
-
-    <?php
-    //echo $id;
-    // Executa a consulta para obter a lista de sócios
-    $sql = "SELECT * FROM socios";
-    $result = $mysqli->query($sql);
-
-    // Verifica se há resultados
-    if ($result->num_rows > 0) {
-        // Exibe o total de sócios
-        echo "<p>Total de Sócios: " . $result->num_rows . "</p>";
-
-        // Exibe os dados em uma tabela
-        echo "<table border='1'>";
-        echo "<tr>
-                <th>Associol</th>
-                <th>Foto</th>
-                <th>Apelido</th>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Celular</th>
-                <th>Status</th>
-                <th>Obs.</th>
-                <th>Alterar</th>
-                
-            </tr>";//<th></th>
-        while($row = $result->fetch_assoc()) {
-            //if($id != $row["id"]){
-                echo "<tr>
-                    <td>" . $row["data"] . "</td>
-                    <td><img src='../usuarios/". $row["foto"] ."' width='70'></td> 
-                    <td>" . $row["apelido"] . "</td>
-                    <td>" . $row["nome_completo"] . "</td>
-                    <td>" . $row["email"] . "</td>
-                    <td>" . $row["celular1"] . " / " . $row["celular2"] . "</td>
-                    <td>" . $row["status"]. "</td>
-                    <td>" . $row["observacao"]. "</td>
-                    <td><a href='editar_socio.php?id=" . $row["id"] . "'>Editar</a></td> 
-                    
-                </tr>";//<td><a href='receber_pagamento.php?id=" . $row["id"] . "'>Receber</a></td>
-            //}
-        }
-        echo "</table>";
-    } else {
-        echo "Nenhum sócio registrado";
-    }
-
-    // Fecha a conexão
-    $mysqli->close();
-    ?>
+    <p>
+        <label for="">BUSCAR: </label>
+        <input type="radio" name="status" id="itodos" checked value="ATIVO"><label for="itodos">TODOS</label> 
+        <input type="radio" name="status" id="iativo" value="ATIVO"><label for="iativo">ATIVOS</label> 
+        <input type="radio" name="status" id="isuspenso" value="SUSPENSO"><label for="isuspenso">SUSPENSOS</label> 
+        <input type="radio" name="status" id="iafastado" value="AFASTADO"><label for="iafastado">AFASTADOS</label> 
+        <input type="radio" name="status" id="iexcluido" value="EXCLUIDO"><label for="iexcluido">EXCLUIDOS</label>
+    </p>
+    <div id="tabela-socios"></div>
 </body>
 </html>

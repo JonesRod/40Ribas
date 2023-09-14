@@ -19,7 +19,7 @@ body {
 .left, .center, .right {
     border: 0px solid #ccc;
     box-sizing: border-box;
-    padding: 5px;
+    padding: 2px;
 }
 
 .left {
@@ -37,10 +37,23 @@ body {
 }
 
 .right {
-    width: 30%;
+    width: 25%;
+    height: 100%; /* Agora a div esquerda terá a mesma altura que as outras */
+    /*display: none; /* Inicia oculta */
+    /*position: absolute;*/
+    top: 0; /* Ajuste a distância do topo conforme necessário */
+    left: 0;
+    background-color: #f0f0f0; /* Cor de fundo (opcional) */
+    z-index: 2; /* Coloca a div à frente das outras */
 }
-.aniver{
+.right .aniver {
+    text-align: center;
     width: 100%;
+}
+table {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Estilos para o botão */
