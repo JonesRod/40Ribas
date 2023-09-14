@@ -218,6 +218,7 @@ function enviarArquivo($error, $name, $tmp_name) {
 
                                 $sql_code = "UPDATE int_associar
                                 SET 
+                                data = NOW(),
                                 foto = '$path',
                                 apelido = '$apelido',
                                 nome_completo = '$nome_completo',

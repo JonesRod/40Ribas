@@ -186,3 +186,9 @@ function perguntarSalvar() {
         window.location.href = 'admin_home.php';
     }
 }
+document.addEventListener('keydown', function(event) {
+    if (event.key === "ArrowLeft") { // Verifica se a tecla pressionada é a seta à esquerda
+        perguntarSalvar(); // Chama a função perguntarSalvar()
+        event.preventDefault(); // Previne o comportamento padrão do navegador (navegar para trás)
+    }
+});
