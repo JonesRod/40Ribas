@@ -42,6 +42,7 @@
     $id = $_SESSION['usuario'];
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
     $usuario = $sql_query->fetch_assoc();
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -96,8 +97,11 @@
                 </h3>
                 <?php
                     // Executa a consulta para obter a lista de sócios
-                    $sql = "SELECT * FROM socios";
-                    $result = $mysqli->query($sql);
+                    //$sql = "SELECT * FROM socios";
+                    //$result = $mysqli->query($sql);
+                    
+                    // Agora, vamos buscar os aniversariantes ordenados pelo mais velho primeiro
+                    $result = $mysqli->query("SELECT * FROM socios ORDER BY nascimento DESC") or die($mysqli->$error);
 
                     // Verifica se há resultados
                     if ($result->num_rows > 0) {
@@ -129,7 +133,7 @@
                         // Verifica se é o aniversário do usuário
                         if ($mesNascimento == $mesAtual) {
                             // Exibe o total de aniversariantes                            
-                            echo "<p>Total de Aniversáriantes Hoje: " . $result->num_rows . "</p>";
+                            echo "<p>Total de Aniversáriantes: " . $result->num_rows . "</p>";
 
                             // Exibe os dados em uma tabela
                             echo "<table border='1'>";
@@ -141,22 +145,21 @@
                                     
                                 </tr>";//<th></th>
                             while($row = $result->fetch_assoc()) {
-
-                                    echo "<tr>
-                                        <td>" . $row["nascimento"] . "</td>
-                                        <td>" . $row["apelido"] . "</td>
-                                        <td>" . $row["nome_completo"] . "</td>
-                                        <td>" . $idade . "</td>
-                                        
-                                    </tr>";//<td><a href='receber_pagamento.php?id=" . $row["id"] . "'>Receber</a></td>
-                                //}
+                                $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
+                                echo "<tr>
+                                    <td>" . $nascimento_formatado. "</td>
+                                    <td>" . $row["apelido"] . "</td>
+                                    <td>" . $row["nome_completo"] . "</td>
+                                    <td>" . $idade . "</td>
+                                    
+                                </tr>";
                             }
                             echo "</table>";
                         } else {
-                            echo "Nenhum Aniversáriante Hoje!";
+                            echo "Nenhum Aniversáriante!";
                         }
                     } else {
-                        echo "Nenhum Aniversáriante Hoje!";
+                        echo "Nenhum Aniversáriante!";
                     }
 
                     // Fecha a conexão
@@ -200,7 +203,7 @@
                         // Verifica se é o aniversário do usuário
                         if ($mesNascimento == $mesAtual && $diaNascimento == $diaAtual) {
                             // Exibe o total de aniversariantes                            
-                            echo "<p>Total de Aniversáriantes Hoje: " . $result->num_rows . "</p>";
+                            echo "<p>Total de Aniversáriantes: " . $result->num_rows . "</p>";
 
                             // Exibe os dados em uma tabela
                             echo "<table border='1'>";
@@ -213,8 +216,9 @@
                                 </tr>";//<th></th>
                             while($row = $result->fetch_assoc()) {
 
-                                    echo "<tr>
-                                        <td>" . $row["nascimento"] . "</td>
+                                $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
+                                echo "<tr>
+                                    <td>" . $nascimento_formatado. "</td>
                                         <td>" . $row["apelido"] . "</td>
                                         <td>" . $row["nome_completo"] . "</td>
                                         <td>" . $idade . "</td>
@@ -224,10 +228,10 @@
                             }
                             echo "</table>";
                         } else {
-                            echo "Nenhum Aniversáriante Hoje!";
+                            echo "Nenhum Aniversáriante!";
                         }
                     } else {
-                        echo "Nenhum Aniversáriante Hoje!";
+                        echo "Nenhum Aniversáriante!";
                     }
 
                     // Fecha a conexão
@@ -271,7 +275,7 @@
                         // Verifica se é o aniversário do usuário
                         if ($mesNascimento == $mesAtual && $diaNascimento == $diaAtual + 1) {
                             // Exibe o total de aniversariantes                            
-                            echo "<p>Total de Aniversáriantes Amanhâ: " . $result->num_rows . "</p>";
+                            echo "<p>Total de Aniversáriantes: " . $result->num_rows . "</p>";
 
                             // Exibe os dados em uma tabela
                             echo "<table border='1'>";
@@ -284,8 +288,9 @@
                                 </tr>";//<th></th>
                             while($row = $result->fetch_assoc()) {
 
-                                    echo "<tr>
-                                        <td>" . $row["nascimento"] . "</td>
+                                $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
+                                echo "<tr>
+                                    <td>" . $nascimento_formatado. "</td>
                                         <td>" . $row["apelido"] . "</td>
                                         <td>" . $row["nome_completo"] . "</td>
                                         <td>" . $idade . "</td>
@@ -295,10 +300,10 @@
                             }
                             echo "</table>";
                         } else {
-                            echo "Nenhum Aniversáriante Amanhâ!";
+                            echo "Nenhum Aniversáriante!";
                         }
                     } else {
-                        echo "Nenhum Aniversáriante Amanhâ!";
+                        echo "Nenhum Aniversáriante!";
                     }
 
                     // Fecha a conexão

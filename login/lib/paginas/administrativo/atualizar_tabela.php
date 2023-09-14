@@ -67,12 +67,11 @@ if (isset($_POST['status'])) {
                 <th>Nome</th>
                 <th>E-mail</th>
                 <th>Celular</th>
-                <th>Obs.</th>
-                <th>Alterar</th>
+                <th>Detalhes</th>
             </tr>";
 
         while ($row = $result->fetch_assoc()) {
-            if($id != $row["id"]){
+            //if($id != $row["id"]){
                 echo "<tr>
                     <td>" . $row["data"] . "</td>
                     <td><img src='../usuarios/" . $row["foto"] . "' width='70'></td>
@@ -80,10 +79,9 @@ if (isset($_POST['status'])) {
                     <td>" . $row["nome_completo"] . "</td>
                     <td>" . $row["email"] . "</td>
                     <td>" . $row["celular1"] . " / " . $row["celular2"] . "</td>
-                    <td>" . $row["observacao"] . "</td>
-                    <td><a href='editar_socio.php?id=" . $row["id"] . "'>Editar</a></td>
+                    <td><a href='detalhes_socio.php?id=" . $row["id"] . "'>Ver</a></td>
                 </tr>";
-            }
+            //}
         }
 
         echo "</table>";
