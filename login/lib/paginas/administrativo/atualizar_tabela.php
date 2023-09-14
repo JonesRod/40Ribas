@@ -74,7 +74,7 @@ if (isset($_POST['status'])) {
             //if($id != $row["id"]){
                 echo "<tr>
                     <td>" . $row["data"] . "</td>
-                    <td><img src='../usuarios/" . $row["foto"] . "' width='70'></td>
+                    <td><img src='../usuarios/" . $row["foto"] . "' width='50'></td>
                     <td>" . $row["apelido"] . "</td>
                     <td>" . $row["nome_completo"] . "</td>
                     <td>" . $row["email"] . "</td>

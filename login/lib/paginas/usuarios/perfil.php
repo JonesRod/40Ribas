@@ -164,9 +164,9 @@
             <p>
                 <?php
                     // Suponha que $usuario seja um array contendo os dados do banco de dados, incluindo o campo "sexo"
-                    $sexoMasculino = ($usuario['sexo'] == 1) ? 'checked' : '';
-                    $sexoFeminino = ($usuario['sexo'] == 2) ? 'checked' : '';
-                    $sexoOutro = ($usuario['sexo'] == 3) ? 'checked' : '';
+                    $sexoMasculino = ($usuario['sexo'] == 'MASCULINO') ? 'checked' : '';
+                    $sexoFeminino = ($usuario['sexo'] == 'FEMININO') ? 'checked' : '';
+                    $sexoOutro = ($usuario['sexo'] == 'OUTROS') ? 'checked' : '';
                 ?>
                 <input type="radio" name="sexo" id="imasc" value="masculino" <?php echo $sexoMasculino; ?>><label for="imasc">Masculino</label> 
                 <input type="radio" name="sexo" id="ifemi" value="feminino" <?php echo $sexoFeminino; ?>><label for="ifemi">Feminino</label> 

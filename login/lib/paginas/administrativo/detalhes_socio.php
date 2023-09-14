@@ -51,27 +51,25 @@
     <title>Descrição do Sócio</title>
 </head>
 <body>
-    <form action="alterar_dados_perfil.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
+    <form action="alterar_dados_perfil.php" method="POST" enctype="multipart/form-data">
         <p>
             <img id="ifoto" style="max-width: 200px;" src= "<?php echo '../usuarios/'. $usuario['foto']; ?>" name="foto" alt=""><br>
         </p>  
-        
-        <input id="" value="<?php echo $usuario['id']; ?>" name="id" type="hidden">
         <p>
             <label for="iapelido" >Apelido: </label>
-            <input id="iapelido" value="<?php echo $usuario['apelido']; ?>" name="apelido" type="text"><br>
+            <input disabled ="false" id="iapelido" value="<?php echo $usuario['apelido']; ?>" name="apelido" type="text"><br>
         </p>        
         <p>
             <label for="inome_completo" >Nome Completo: </label>
-            <input id="inome_completo" value="<?php echo $usuario['nome_completo']; ?>" name="nome_completo" type="text"><br>
+            <input disabled ="false" id="inome_completo" value="<?php echo $usuario['nome_completo']; ?>" name="nome_completo" type="text"><br>
         </p>
         <p>
             <label for="icpf" >CPF: </label>
-            <input id="icpf" value="<?php echo $usuario['cpf']; ?>" name="cpf" type="text" oninput="formatCPF(this)" onblur="verificaCpf()"><br>
+            <input disabled ="false" id="icpf" value="<?php echo $usuario['cpf']; ?>" name="cpf" type="text"><br>
         </p>
         <p>
             <label for="irg" >RG: </label>
-            <input id="irg" value="<?php echo $usuario['rg']; ?>" name="rg" type="text" oninput="formatRG(this)" onblur="verificaRG()"><br>
+            <input disabled ="false" id="irg" value="<?php echo $usuario['rg']; ?>" name="rg" type="text"><br>
         </p>
         <p>
             <label for="inascimento" >Data de Nascimento: </label>
@@ -82,70 +80,109 @@
                 // Formate a data para o formato brasileiro (dd/mm/yyyy)
                 $dataNascimentoFormatada = date('d/m/Y', strtotime($dataNascimento));
             ?>
-            <input id="inascimento" value="<?php echo $dataNascimentoFormatada; ?>" name="nascimento" type="text"  oninput="formatarData(this)" onblur="verificaData()"><br>
+            <input disabled ="false" id="inascimento" value="<?php echo $dataNascimentoFormatada; ?>" name="nascimento" type="text"><br>
         </p>
         <p>
-            <label id="iuf">Estado Natal: </label>
-            <input id="iuf" value="<?php echo $usuario['uf']; ?>" name="uf" type="text"><br>   
+            <label for="iuf">Estado Natal: </label>
+            <input disabled ="false" id="iuf" value="<?php echo $usuario['uf']; ?>" name="uf" type="text"><br>   
         </p>
         <p>
             <label for="icid_natal" >Cidade Natal: </label>
-            <input id="icid_natal" value="<?php echo $usuario['cid_natal']; ?>" name="cidnatal" type="text"><br>
+            <input disabled ="false" id="icid_natal" value="<?php echo $usuario['cid_natal']; ?>" name="cidnatal" type="text"><br>
         </p>
         <p>
-            <label id="" for="imae">Nome da Mãe: </label>
-            <input id="imae" value="<?php echo $usuario['mae']; ?>" name="mae" type="text"><br>
+            <label for="imae">Nome da Mãe: </label>
+            <input disabled ="false" id="imae" value="<?php echo $usuario['mae']; ?>" name="mae" type="text"><br>
         </p>
         <p>
-            <label id="" for="ipai">Nome do Pai: </label>
-            <input id="ipai" value="<?php echo $usuario['pai']; ?>" name="pai" type="text"><br>
+            <label for="ipai">Nome do Pai: </label>
+            <input disabled ="false" id="ipai" value="<?php echo $usuario['pai']; ?>" name="pai" type="text"><br>
         </p>
         <p>
-            <label id="" for="isexo">Sexo: </label>
-            <input id="isexo" value="<?php echo $usuario['sexo']; ?>" name="sexo" type="text"><br>
+            <label for="isexo">Sexo: </label>
+            <input disabled ="false" id="isexo" value="<?php echo $usuario['sexo']; ?>" name="sexo" type="text"><br>
         </p>
         <fieldset>
             <legend>Endereço Atual</legend>
             <p> 
                 <label for="iuf_atual">Estado Atual: </label>
-                <input value="<?php echo $usuario['uf_atual']; ?>" name="uf_atual" id="iuf_atual" type="text"><br>
+                <input disabled ="false" value="<?php echo $usuario['uf_atual']; ?>" name="uf_atual" id="iuf_atual" type="text"><br>
             </p>
             <p>
                 <label for="icep">CEP: </label><br>
-                <input value="<?php echo $usuario['cep']; ?>" name="cep" id="icep" type="text"><br>
+                <input disabled ="false" value="<?php echo $usuario['cep']; ?>" name="cep" id="icep" type="text"><br>
             </p>
             <p>
                 <label for="icid_atual">Cidade Atual: </label><br>
-                <input value="<?php echo $usuario['cid_atual']; ?>" name="cid_atual" id="icid_atual" type="text"><br>
+                <input disabled ="false" value="<?php echo $usuario['cid_atual']; ?>" name="cid_atual" id="icid_atual" type="text"><br>
             </p>
             <p>
                 <label for="iendereco">Logradouro: AV/RUA </label><br>
-                <input value="<?php echo $usuario['endereco']; ?>" name="endereco" id="iendereco" type="text"><br>
+                <input disabled ="false" value="<?php echo $usuario['endereco']; ?>" name="endereco" id="iendereco" type="text"><br>
             </p>
             <p>
                 <label id="" for="inum">N°: </label><br>
-                <input value="<?php echo $usuario['numero']; ?>" name="numero" id="inum" type="text"><br>
+                <input disabled ="false" value="<?php echo $usuario['numero']; ?>" name="numero" id="inum" type="text"><br>
             </p>
             <p>
                 <label id="" for="ibairro">Bairro: </label><br>
-                <input value="<?php echo $usuario['bairro']; ?>" name="bairro" id="ibairro" type="text"><br>
+                <input disabled ="false" value="<?php echo $usuario['bairro']; ?>" name="bairro" id="ibairro" type="text"><br>
             </p>
         </fieldset>
         <fieldset>
             <legend>Contatos</legend>
             <p>
                 <label id="" for="icelular1">Celular 1: </label><br>
-                <input value="<?php echo $usuario['celular1']; ?>" name="celular1" id="icelular1" type="text" size=""><br>
+                <input disabled ="false" value="<?php echo $usuario['celular1']; ?>" name="celular1" id="icelular1" type="text" size=""><br>
             </p>
             <p>
                 <label id="" for="icelular2">Celular 2: Opcional </label><br>
-                <input value="<?php echo $usuario['celular2']; ?>" name="celular2" id="icelular2" type="text" size=""><br>
+                <input disabled ="false" value="<?php echo $usuario['celular2']; ?>" name="celular2" id="icelular2" type="text" size=""><br>
             </p>
             <p>
                 <label id="" for="iemail">E-mail:</label><br>
-                <input value="<?php echo $usuario['email']; ?>" name="email" id="iemail" type="email"><br>
+                <input disabled ="false" value="<?php echo $usuario['email']; ?>" name="email" id="iemail" type="email"><br>
             </p>
         </fieldset>
+        <p>
+            <label for="idata" >Data de Registro: </label>
+            <?php
+                // Suponha que $usuario seja um array contendo os dados do banco de dados, incluindo o campo "data_nascimento"
+                $data = $usuario['data'];
+
+                // Formate a data para o formato brasileiro (dd/mm/yyyy)
+                $dataFormatada = date('d/m/Y', strtotime($data));
+            ?>
+            <input disabled ="false" id="idata" value="<?php echo $dataFormatada; ?>" name="data" type="text"><br>
+        </p>
+        <fieldset>
+            <legend>Sexo</legend>
+            <p>
+                <?php
+                    // Suponha que $usuario seja um array contendo os dados do banco de dados, incluindo o campo "sexo"
+                    $ativo = ($usuario['status'] == 'ATIVO') ? 'checked' : '';
+                    $suspenso = ($usuario['status'] == 'SUSPENSO') ? 'checked' : '';
+                    $afastado = ($usuario['status'] == 'AFASTADO') ? 'checked' : '';
+                    $excluido = ($usuario['status'] == 'EXCLUIDO') ? 'checked' : '';
+                ?>
+                <input type="radio" name="status" id="iativo" value="ATIVO"<?php echo $ativo; ?>><label for="iativo">ATIVO</label> 
+                <input type="radio" name="status" id="isuspenso" value="SUSPENSO"<?php echo $suspenso; ?>><label for="isuspenso">SUSPENSO</label> 
+                <input type="radio" name="status" id="iafastado" value="AFASTADO"<?php echo $afastado; ?>><label for="iafastado">AFASTADO</label> 
+                <input type="radio" name="status" id="iexcluido" value="EXCLUIDO"<?php echo $excluido; ?>><label for="iexcluido">EXCLUIDO</label>
+            </p>
+        </fieldset>
+        <p>
+            <label for="istatus">Status: </label>
+            <input disabled ="false" id="istatus" value="<?php echo $usuario['status'] ?>" name="status" type="text"><br>
+        </p>
+        <p>
+            <label for="imotivo">Motivo ao qual quiz se associar: </label><br>
+            <textarea disabled ="false" rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="motivo" id="imotivo" ><?php echo $usuario['motivo']; ?></textarea>
+        </p>
+        <p>
+            <label for="itermos">Termos: </label><br>
+            <textarea disabled ="false" rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="termos" id="itermos" ><?php echo $usuario['termos']; ?></textarea>
+        </p>
         <p>
             <span id="imgAlerta"></span><br>
             <span id="imgAlerta2" type="hidden"></span><br>
