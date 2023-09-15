@@ -5,10 +5,11 @@
 
     if(!isset($_SESSION))
         session_start();
-        
+
     if(!isset($_SESSION['usuario'])){
-        header("Location: ../../../../index.php");
-    }   
+        header("Location: ../../../../../index.php");
+    } 
+
     function enviarArquivo($error, $name, $tmp_name) {
         if ($error) {
             echo "Falha ao enviar o arquivo. Código de erro: " . $error;
@@ -150,6 +151,7 @@
         }    
 
         $id= 1; 
+        $admin = $mysqli->escape_string($_POST['admin']);
         $razao = $mysqli->escape_string($_POST['razao']);
         $cnpj = $mysqli->escape_string($_POST['cnpj']);
         $uf = $mysqli->escape_string($_POST['uf']);
@@ -165,7 +167,7 @@
         $senha = $mysqli->escape_string($_POST['senha']);
         $idade_min = $mysqli->escape_string($_POST['idade_min']);
         $termos_insc = $mysqli->escape_string($_POST['termos_insc']);
-        $validade = $mysqli->escape_string($_POST['validade']);
+        $validade_insc = $mysqli->escape_string($_POST['validade_insc']);
         $dia_fecha_mes = $mysqli->escape_string($_POST['dia_fecha_mes']);        
         $valor_mensalidades = $mysqli->escape_string($_POST['valor_mensalidades']);
         $desconto_mensalidades = $mysqli->escape_string($_POST['desconto_mensalidades']);
@@ -183,6 +185,7 @@
         //, 
             $sql_code = "UPDATE config_admin
             SET 
+            admin = '$admin',
             data_alteracao = NOW(),
             logo = '$nova_logo',
             razao = '$razao',
@@ -193,14 +196,14 @@
             rua = '$rua',
             numero = '$numero',
             bairro = '$bairro',
-            nome_tesoureiro = '$nome_tesoureiro',
             presidente = '$presidente',
             vice_presidente = '$vice_presidente',
+            nome_tesoureiro = '$nome_tesoureiro',
             email_suporte = '$email_suporte',
             senha = '$senha',
             idade_minima='$idade_min',
             termos_insc = '$termos_insc',
-            validade = '$validade',
+            validade_insc = '$validade_insc',
             estatuto_int = '$estatuto_int',
             reg_int = '$reg_int',
             dia_fecha_mes = '$dia_fecha_mes',       
@@ -213,39 +216,30 @@
             meses_vence5 = '$meses_vence5'
             WHERE id = '$id'";
 
+            $deu_certo = $mysqli->query($sql_code) or die($mysqli->$erro);
+            
             //echo $estatuto_int.'4';
             //var_dump($_POST);
-
-            $deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
             
-            if($deu_certo) {
 
-                $sql_code = "INSERT INTO histo_config_admin (data_alteracao, logo, razao, cnpj, uf, cep, cid,rua, numero, bairro, 
-                nome_tesoureiro, presidente, vice_presidente, email_suporte, senha, idade_minima, termos_insc, validade, estatuto_int, reg_int, dia_fecha_mes, 
-                valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5) 
-                VALUES(NOW(), '$nova_logo', '$razao', '$cnpj', '$uf', '$cep', '$cid', '$rua', '$numero', '$bairro', 
-                '$nome_tesoureiro', '$presidente', '$vice_presidente', '$email_suporte', '$senha', '$idade_min', '$termos_insc', '$validade', '$estatuto_int', '$reg_int', '$dia_fecha_mes', 
-                '$valor_mensalidades', '$desconto_mensalidades', '$multa', '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
+            $deu_certo_inserte = "INSERT INTO histo_config_admin (admin, data_alteracao, logo, razao, cnpj, uf, cep, cid, rua, numero, bairro, presidente, vice_presidente, nome_tesoureiro, email_suporte, senha, idade_minima, termos_insc, validade_insc, estatuto_int, reg_int, dia_fecha_mes, valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5)
+            VALUES('$admin', NOW(), '$nova_logo', '$razao', '$cnpj', '$uf', '$cep', '$cid', '$rua', '$numero', '$bairro', '$presidente', '$vice_presidente', '$nome_tesoureiro', '$email_suporte', '$senha', '$idade_min', '$termos_insc', '$validade_insc', '$estatuto_int', '$reg_int', '$dia_fecha_mes', '$valor_mensalidades', '$desconto_mensalidades', '$multa', '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
+            
+            $deu_certo_inserte = $mysqli->query($deu_certo_inserte) or die($mysqli->error);
 
-                //$deu_certo = $mysqli->query($sql_code) or die($mysqli->error);
+            if($deu_certo_inserte) {
+            
                 //var_dump($_POST);
-            
+
                 echo "<p><b>Dados atualizado com sucesso!!!</b></p>";
                 unset($_POST);
-                header("refresh: 5; admin_config.php");
+                header("refresh: 3; admin_config.php");
+            } else {
+                //echo "<p><b>ERRO: $erro</b></p>";
             }
+
+
         }
     }
 ?>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alterar Dados</title>
 
-</head>
-<body>
-
-</body>
-</html>

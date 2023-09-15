@@ -81,7 +81,8 @@
                 <label for="imageInput">Alterar Logo</label>
                 <input type="file" id="imageInput" name="imageInput" accept=".png, .jpg, .jpeg" onchange="imgLogo(event)">
                 <input type="hidden" name="end_logo" value= "<?php echo $dadosEscolhido['logo']; ?>">
-            </p>  
+            </p> 
+            <input type="hidden" value="<?php echo $usuario['nome_completo']; ?>" name="admin">
             <p>
                 <label for="irazao">Razão Social:</label><br>
                 <input required name="razao" id="irazao" type="text" value="<?php echo $dadosEscolhido['razao']; ?>">           
@@ -258,7 +259,7 @@
             </p>
             <p>
                 <label for="ivalidade">Tempo de validade da Inscrição:</label><br>
-                <label for="ivalidade">Dias: </label><input required type="number" name="validade" id="ivalidade" value="<?php echo $dadosEscolhido['validade']; ?>"><br> 
+                <label for="ivalidade">Dias: </label><input required type="number" name="validade_insc" id="ivalidade" value="<?php echo $dadosEscolhido['validade_insc']; ?>"><br> 
             </p>
             <p>
                 <label for="iEst">Estatuto interno:</label><br>
