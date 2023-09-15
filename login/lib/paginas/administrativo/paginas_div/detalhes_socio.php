@@ -1,5 +1,5 @@
 <?php
-    include('../../conexao.php');
+    include('../../../conexao.php');
 
     if(!isset($_SESSION)){
         session_start(); 
@@ -16,7 +16,7 @@
                     $usuario = $_SESSION['usuario'];
                     $admin = $_SESSION['admin'];
                     //echo "1";
-                    header("Location: ../usuarios/usuario_home.php");      
+                    header("Location: ../../usuarios/usuario_home.php");      
                 }else{
                     $usuario = $_SESSION['usuario'];
                     $admin = $_SESSION['admin'];
@@ -29,14 +29,14 @@
             //echo "5";
             session_unset();
             session_destroy(); 
-            header("Location: ../../../../index.php");  
+            header("Location: ../../../../../index.php");  
         }
     
     }else{
         //echo "6";
         session_unset();
         session_destroy(); 
-        header("Location: ../../../../index.php");  
+        header("Location: ../../../../../index.php");  
     }
     $id = $_SESSION['usuario'];
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
@@ -182,6 +182,10 @@
         <p>
             <label for="itermos">Termos: </label><br>
             <textarea disabled ="false" rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="termos" id="itermos" ><?php echo $usuario['termos']; ?></textarea>
+        </p>
+        <p>
+            <label for="iobs">Obs.: </label><br>
+            <textarea rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="obs" id="iobs" ><?php echo $usuario['observacao']; ?></textarea>
         </p>
         <p>
             <span id="imgAlerta"></span><br>

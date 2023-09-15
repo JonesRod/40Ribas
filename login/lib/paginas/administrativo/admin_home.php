@@ -61,8 +61,8 @@
             <!-- Conteúdo da div esquerda (opções e configurações) -->
             <ul class="escondido">
                 <li><a href="admin_config.php">Configurações</a></li> 
-                <li><a href="#" onclick="abrirNaDiv('listaSocios.php')">Lista de Sócios</a></li>              
-                <li><a href="#" onclick="abrirNaDiv('GerarMensalidades.php')">Gerar Mensalidades</a></li>
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/listaSocios.php')">Lista de Sócios</a></li>              
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/GerarMensalidades.php')">Gerar Mensalidades</a></li>
                 <li><a href="admin_logout.php">Sair</a></li>
             </ul>             
         </div>
