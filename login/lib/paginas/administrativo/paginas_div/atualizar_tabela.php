@@ -38,31 +38,36 @@
         session_destroy(); 
         header("Location: ../../../../../index.php");  
     }
+
     $id = $_SESSION['usuario'];
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
     $usuario = $sql_query->fetch_assoc();
 
-// Verifique se a variável 'status' foi enviada via POST
-if (isset($_POST['status'])) {
-    $status = $_POST['status'];
+    // Verifique se a variável 'status' foi enviada via POST
+    if (isset($_POST['status'])) {
+        $status = $_POST['status'];
 
-    // Construa a consulta SQL com base no valor do botão de rádio
-    $sql = "SELECT * FROM socios";
+        // Construa a consulta SQL com base no valor do botão de rádio
+        $sql = "SELECT * FROM socios";
 
-    if ($status !== 'TODOS') {
-        $sql .= " WHERE status = '$status'";
-    }
+        if($status != 'TODOS') {
+            $sql .= " WHERE status = '$status'";
+        }
 
-    // Execute a consulta SQL
-    $result = $mysqli->query($sql);
+        // Agora, vamos buscar os sócios ordenados pelo nome em ordem alfabética
+        $sql .= " ORDER BY nome_completo ASC";
 
-    // Construa a tabela HTML com os dados
-    if ($result->num_rows > 0) {
-        echo "<p>Total de Sócios: " . $result->num_rows . "</p>";
-        echo "<table border='1'>";
-        echo "<tr>
+        // Execute a consulta SQL
+        $result = $mysqli->query($sql);
+
+        // Construa a tabela HTML com os dados
+        if ($result->num_rows > 0) {
+            echo "<p>Total de Sócios: " . $result->num_rows . "</p>";
+            echo "<table border='1'>";
+            echo "<tr>
                 <th>Associol</th>
                 <th>Foto</th>
+                <th>ID</th>
                 <th>Apelido</th>
                 <th>Nome</th>
                 <th>E-mail</th>
@@ -71,17 +76,20 @@ if (isset($_POST['status'])) {
             </tr>";
 
         while ($row = $result->fetch_assoc()) {
-            //if($id != $row["id"]){
+            if($id != $row["id"]){
                 echo "<tr>
                     <td>" . $row["data"] . "</td>
-                    <td><img src='../usuarios/" . $row["foto"] . "' width='50'></td>
+                    <td><img src='../../usuarios/" . $row["foto"] . "' width='50'></td>
+                    <td>" . $row["id"] . "</td>
                     <td>" . $row["apelido"] . "</td>
                     <td>" . $row["nome_completo"] . "</td>
                     <td>" . $row["email"] . "</td>
                     <td>" . $row["celular1"] . " / " . $row["celular2"] . "</td>
-                    <td><a href='detalhes_socio.php?id=" . $row["id"] . "'>Ver</a></td>
+
+                    <td><a href='detalhes_socio.php?id_sessao=<?php echo $id; ?>&id_socio=" . $row["id"] ."'>Ver</a></td>
+
                 </tr>";
-            //}
+            }
         }
 
         echo "</table>";

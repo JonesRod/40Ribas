@@ -71,9 +71,10 @@
  
         </div>
         <div class="right">
+
             <!-- Conteúdo da div direita (outras atividades) -->
             <div class="aniver">
-                <h3>Aniversáriantes do mês de 
+                <h3>Aniversariantes do mês de 
                     <?php
                         $meses = [
                             1 => 'Janeiro',
@@ -96,74 +97,38 @@
                     ?>
                 </h3>
                 <?php
-                    // Executa a consulta para obter a lista de sócios
-                    //$sql = "SELECT * FROM socios";
-                    //$result = $mysqli->query($sql);
-                    
-                    // Agora, vamos buscar os aniversariantes ordenados pelo mais velho primeiro
-                    $result = $mysqli->query("SELECT * FROM socios ORDER BY nascimento DESC") or die($mysqli->$error);
+                    // Agora, vamos buscar os aniversariantes do mês
+                    $result = $mysqli->query("SELECT * FROM socios WHERE MONTH(nascimento) = $mes_atual ORDER BY DAY(nascimento)") or die($mysqli->error);
 
                     // Verifica se há resultados
                     if ($result->num_rows > 0) {
+                        echo "<p>Total de Aniversariantes: " . $result->num_rows . "</p>";
+                        echo "<table border='1'>";
+                        echo "<tr>
+                                <th>Data Nasc.</th>
+                                <th>Apelido</th>
+                                <th>Nome</th>
+                                <th>Idade</th>
+                            </tr>";
 
-                        $nasc = $usuario['nascimento'];
-                        $dataAtual = date('Y-m-d');
-                        //echo $dataAtual;
-                        // Converte a data de nascimento em um objeto DateTime
-                        $dataNascimento = new DateTime($nasc);
-                        //echo $dataNascimento;
-                        // Obtém o mês e o dia da data de nascimento
-                        $mesNascimento = $dataNascimento->format('m');
-                        $diaNascimento = $dataNascimento->format('d');
+                        while($row = $result->fetch_assoc()) {
+                            $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
+                            $dataNascimento = new DateTime($row["nascimento"]);
+                            $intervalo = $dataNascimento->diff(new DateTime());
+                            $idade = $intervalo->y;
 
-                        // Obtém o mês e o dia da data atual
-                        $mesAtual = date('m');
-                        $diaAtual = date('d');
-
-                        // Obtém a data atual
-                        $dataAtual = new DateTime();
-
-                        // Calcula a diferença entre a data atual e a data de nascimento
-                        $intervalo = $dataNascimento->diff($dataAtual);
-
-                        // Obtém o ano de diferença
-                        $idade = $intervalo->y;
-
-                        //echo "A idade do usuário é: " . $idade . " anos.";
-                        // Verifica se é o aniversário do usuário
-                        if ($mesNascimento == $mesAtual) {
-                            // Exibe o total de aniversariantes                            
-                            echo "<p>Total de Aniversáriantes: " . $result->num_rows . "</p>";
-
-                            // Exibe os dados em uma tabela
-                            echo "<table border='1'>";
                             echo "<tr>
-                                    <th>Data Nasc.</th>
-                                    <th>Apalido</th>
-                                    <th>Nome</th>
-                                    <th>Idade</th>
-                                    
-                                </tr>";//<th></th>
-                            while($row = $result->fetch_assoc()) {
-                                $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
-                                echo "<tr>
-                                    <td>" . $nascimento_formatado. "</td>
-                                    <td>" . $row["apelido"] . "</td>
-                                    <td>" . $row["nome_completo"] . "</td>
-                                    <td>" . $idade . "</td>
-                                    
-                                </tr>";
-                            }
-                            echo "</table>";
-                        } else {
-                            echo "Nenhum Aniversáriante!";
+                                <td>" . $nascimento_formatado . "</td>
+                                <td>" . $row["apelido"] . "</td>
+                                <td>" . $row["nome_completo"] . "</td>
+                                <td>" . $idade . "</td>
+                            </tr>";
                         }
-                    } else {
-                        echo "Nenhum Aniversáriante!";
-                    }
 
-                    // Fecha a conexão
-                    //$mysqli->close();
+                        echo "</table>";
+                    } else {
+                        echo "Nenhum Aniversariante!";
+                    }
                 ?>
             </div>
             <div class="aniver">

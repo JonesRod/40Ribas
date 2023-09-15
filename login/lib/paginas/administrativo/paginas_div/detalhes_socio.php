@@ -38,9 +38,29 @@
         session_destroy(); 
         header("Location: ../../../../../index.php");  
     }
-    $id = $_SESSION['usuario'];
-    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-    $usuario = $sql_query->fetch_assoc();
+
+
+    // Verifique se o ID da sessão e o ID do sócio foram passados na URL
+    if(isset($_GET['id_sessao']) && isset($_GET['id_socio'])) {
+        $id_sessao = $_SESSION['usuario'];
+        $id_socio = intval($_GET['id_socio']);
+
+        // Agora você pode usar $id_sessao e $id_socio como desejar
+        // Por exemplo, para exibir os valores:
+        //echo "ID da Sessão: $id_sessao<br>";
+        //echo "ID do Sócio: $id_socio";
+    } else {
+        // Caso os IDs não tenham sido passados na URL
+        echo "IDs não encontrados na URL.";
+    }
+
+    $id_sessao = $_SESSION['usuario'];
+    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id_sessao'") or die($mysqli->$error);
+    $usuario_sessao = $sql_query->fetch_assoc();
+
+    $id_socio = intval($_GET['id_socio']);
+    $sql_socio = $mysqli->query("SELECT * FROM socios WHERE id = '$id_socio'") or die($mysqli->$error);
+    $socio = $sql_socio->fetch_assoc();
 
 ?>
 <!DOCTYPE html>
@@ -51,31 +71,33 @@
     <title>Descrição do Sócio</title>
 </head>
 <body>
-    <form action="alterar_dados_perfil.php" method="POST" enctype="multipart/form-data">
+    <form action="detalhe_altera.php" method="POST" enctype="multipart/form-data" autocomplete="on">
+        
         <p>
-            <img id="ifoto" style="max-width: 200px;" src= "<?php echo '../usuarios/'. $usuario['foto']; ?>" name="foto" alt=""><br>
-        </p>  
+            <img id="ifoto" style="max-width: 200px;" src= "<?php echo '../../usuarios/'. $socio['foto']; ?>" name="foto" alt=""><br>
+        </p>
+        <input type="hidden" value="<?php echo $socio['id']; ?>" name="id" ><br>  
         <p>
             <label for="iapelido" >Apelido: </label>
-            <input disabled ="false" id="iapelido" value="<?php echo $usuario['apelido']; ?>" name="apelido" type="text"><br>
+            <input disabled ="false" id="iapelido" value="<?php echo $socio['apelido']; ?>" name="apelido" type="text"><br>
         </p>        
         <p>
             <label for="inome_completo" >Nome Completo: </label>
-            <input disabled ="false" id="inome_completo" value="<?php echo $usuario['nome_completo']; ?>" name="nome_completo" type="text"><br>
+            <input disabled ="false" id="inome_completo" value="<?php echo $socio['nome_completo']; ?>" name="nome_completo" type="text"><br>
         </p>
         <p>
             <label for="icpf" >CPF: </label>
-            <input disabled ="false" id="icpf" value="<?php echo $usuario['cpf']; ?>" name="cpf" type="text"><br>
+            <input disabled ="false" id="icpf" value="<?php echo $socio['cpf']; ?>" name="cpf" type="text"><br>
         </p>
         <p>
             <label for="irg" >RG: </label>
-            <input disabled ="false" id="irg" value="<?php echo $usuario['rg']; ?>" name="rg" type="text"><br>
+            <input disabled ="false" id="irg" value="<?php echo $socio['rg']; ?>" name="rg" type="text"><br>
         </p>
         <p>
             <label for="inascimento" >Data de Nascimento: </label>
             <?php
                 // Suponha que $usuario seja um array contendo os dados do banco de dados, incluindo o campo "data_nascimento"
-                $dataNascimento = $usuario['nascimento'];
+                $dataNascimento = $socio['nascimento'];
 
                 // Formate a data para o formato brasileiro (dd/mm/yyyy)
                 $dataNascimentoFormatada = date('d/m/Y', strtotime($dataNascimento));
@@ -84,71 +106,71 @@
         </p>
         <p>
             <label for="iuf">Estado Natal: </label>
-            <input disabled ="false" id="iuf" value="<?php echo $usuario['uf']; ?>" name="uf" type="text"><br>   
+            <input disabled ="false" id="iuf" value="<?php echo $socio['uf']; ?>" name="uf" type="text"><br>   
         </p>
         <p>
             <label for="icid_natal" >Cidade Natal: </label>
-            <input disabled ="false" id="icid_natal" value="<?php echo $usuario['cid_natal']; ?>" name="cidnatal" type="text"><br>
+            <input disabled ="false" id="icid_natal" value="<?php echo $socio['cid_natal']; ?>" name="cidnatal" type="text"><br>
         </p>
         <p>
             <label for="imae">Nome da Mãe: </label>
-            <input disabled ="false" id="imae" value="<?php echo $usuario['mae']; ?>" name="mae" type="text"><br>
+            <input disabled ="false" id="imae" value="<?php echo $socio['mae']; ?>" name="mae" type="text"><br>
         </p>
         <p>
             <label for="ipai">Nome do Pai: </label>
-            <input disabled ="false" id="ipai" value="<?php echo $usuario['pai']; ?>" name="pai" type="text"><br>
+            <input disabled ="false" id="ipai" value="<?php echo $socio['pai']; ?>" name="pai" type="text"><br>
         </p>
         <p>
             <label for="isexo">Sexo: </label>
-            <input disabled ="false" id="isexo" value="<?php echo $usuario['sexo']; ?>" name="sexo" type="text"><br>
+            <input disabled ="false" id="isexo" value="<?php echo $socio['sexo']; ?>" name="sexo" type="text"><br>
         </p>
         <fieldset>
             <legend>Endereço Atual</legend>
             <p> 
                 <label for="iuf_atual">Estado Atual: </label>
-                <input disabled ="false" value="<?php echo $usuario['uf_atual']; ?>" name="uf_atual" id="iuf_atual" type="text"><br>
+                <input disabled ="false" value="<?php echo $socio['uf_atual']; ?>" name="uf_atual" id="iuf_atual" type="text"><br>
             </p>
             <p>
                 <label for="icep">CEP: </label><br>
-                <input disabled ="false" value="<?php echo $usuario['cep']; ?>" name="cep" id="icep" type="text"><br>
+                <input disabled ="false" value="<?php echo $socio['cep']; ?>" name="cep" id="icep" type="text"><br>
             </p>
             <p>
                 <label for="icid_atual">Cidade Atual: </label><br>
-                <input disabled ="false" value="<?php echo $usuario['cid_atual']; ?>" name="cid_atual" id="icid_atual" type="text"><br>
+                <input disabled ="false" value="<?php echo $socio['cid_atual']; ?>" name="cid_atual" id="icid_atual" type="text"><br>
             </p>
             <p>
                 <label for="iendereco">Logradouro: AV/RUA </label><br>
-                <input disabled ="false" value="<?php echo $usuario['endereco']; ?>" name="endereco" id="iendereco" type="text"><br>
+                <input disabled ="false" value="<?php echo $socio['endereco']; ?>" name="endereco" id="iendereco" type="text"><br>
             </p>
             <p>
                 <label id="" for="inum">N°: </label><br>
-                <input disabled ="false" value="<?php echo $usuario['numero']; ?>" name="numero" id="inum" type="text"><br>
+                <input disabled ="false" value="<?php echo $socio['numero']; ?>" name="numero" id="inum" type="text"><br>
             </p>
             <p>
                 <label id="" for="ibairro">Bairro: </label><br>
-                <input disabled ="false" value="<?php echo $usuario['bairro']; ?>" name="bairro" id="ibairro" type="text"><br>
+                <input disabled ="false" value="<?php echo $socio['bairro']; ?>" name="bairro" id="ibairro" type="text"><br>
             </p>
         </fieldset>
         <fieldset>
             <legend>Contatos</legend>
             <p>
                 <label id="" for="icelular1">Celular 1: </label><br>
-                <input disabled ="false" value="<?php echo $usuario['celular1']; ?>" name="celular1" id="icelular1" type="text" size=""><br>
+                <input disabled ="false" value="<?php echo $socio['celular1']; ?>" name="celular1" id="icelular1" type="text" size=""><br>
             </p>
             <p>
                 <label id="" for="icelular2">Celular 2: Opcional </label><br>
-                <input disabled ="false" value="<?php echo $usuario['celular2']; ?>" name="celular2" id="icelular2" type="text" size=""><br>
+                <input disabled ="false" value="<?php echo $socio['celular2']; ?>" name="celular2" id="icelular2" type="text" size=""><br>
             </p>
             <p>
                 <label id="" for="iemail">E-mail:</label><br>
-                <input disabled ="false" value="<?php echo $usuario['email']; ?>" name="email" id="iemail" type="email"><br>
+                <input disabled ="false" value="<?php echo $socio['email']; ?>" name="email" id="iemail" type="email"><br>
             </p>
         </fieldset>
         <p>
             <label for="idata" >Data de Registro: </label>
             <?php
-                // Suponha que $usuario seja um array contendo os dados do banco de dados, incluindo o campo "data_nascimento"
-                $data = $usuario['data'];
+                // Suponha que $socio seja um array contendo os dados do banco de dados, incluindo o campo "data_nascimento"
+                $data = $socio['data'];
 
                 // Formate a data para o formato brasileiro (dd/mm/yyyy)
                 $dataFormatada = date('d/m/Y', strtotime($data));
@@ -156,44 +178,56 @@
             <input disabled ="false" id="idata" value="<?php echo $dataFormatada; ?>" name="data" type="text"><br>
         </p>
         <fieldset>
-            <legend>Sexo</legend>
+            <legend>Status</legend>
             <p>
                 <?php
-                    // Suponha que $usuario seja um array contendo os dados do banco de dados, incluindo o campo "sexo"
-                    $ativo = ($usuario['status'] == 'ATIVO') ? 'checked' : '';
-                    $suspenso = ($usuario['status'] == 'SUSPENSO') ? 'checked' : '';
-                    $afastado = ($usuario['status'] == 'AFASTADO') ? 'checked' : '';
-                    $excluido = ($usuario['status'] == 'EXCLUIDO') ? 'checked' : '';
+                    // Suponha que $socio seja um array contendo os dados do banco de dados, incluindo o campo "sexo"
+                    $ativo = ($socio['status'] == 'ATIVO') ? 'checked' : '';
+                    $suspenso = ($socio['status'] == 'SUSPENSO') ? 'checked' : '';
+                    $afastado = ($socio['status'] == 'AFASTADO') ? 'checked' : '';
+                    $excluido = ($socio['status'] == 'EXCLUIDO') ? 'checked' : '';
                 ?>
                 <input type="radio" name="status" id="iativo" value="ATIVO"<?php echo $ativo; ?>><label for="iativo">ATIVO</label> 
                 <input type="radio" name="status" id="isuspenso" value="SUSPENSO"<?php echo $suspenso; ?>><label for="isuspenso">SUSPENSO</label> 
                 <input type="radio" name="status" id="iafastado" value="AFASTADO"<?php echo $afastado; ?>><label for="iafastado">AFASTADO</label> 
                 <input type="radio" name="status" id="iexcluido" value="EXCLUIDO"<?php echo $excluido; ?>><label for="iexcluido">EXCLUIDO</label>
             </p>
+            <p>
+                <label for="iobs">Obs.: </label><br>
+                <textarea required rows="10" cols="50" minlength="10" maxlength="1500" type="text" name="obs" id="iobs" ><?php echo $socio['observacao']; ?></textarea>
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Torná-lo administrador</legend>
+            <p>
+                <p>Caso você, <?php echo $usuario_sessao['apelido']; ?>, adicionar o <?php echo $socio['apelido']; ?> como administrador, você será desconectado e não sera mais administrador 
+                    ao confirmar e salvar. Você só podera ser administrador novamente se o <?php echo $socio['apelido']; ?> te colocar de volta na 
+                    administração.
+                </p>
+                <?php
+                    // Suponha que $socio seja um array contendo os dados do banco de dados, incluindo o campo 
+                    //echo $usuario['admin'];
+                    $usuario_normal = ($socio['admin'] == 0) ? 'checked' : '';
+                    $administrador = ($socio['admin'] == 1) ? 'checked' : '';
+                ?>
+                <input type="radio" name="admin" id="iusuario" value="0" <?php echo $usuario_normal; ?>><label for="iusuario">Usuário</label>
+                <input type="radio" name="admin" id="iadmin" value="1" <?php echo $administrador; ?>><label for="iadmin">Administrador</label> 
+            </p>
         </fieldset>
         <p>
-            <label for="istatus">Status: </label>
-            <input disabled ="false" id="istatus" value="<?php echo $usuario['status'] ?>" name="status" type="text"><br>
-        </p>
-        <p>
             <label for="imotivo">Motivo ao qual quiz se associar: </label><br>
-            <textarea disabled ="false" rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="motivo" id="imotivo" ><?php echo $usuario['motivo']; ?></textarea>
+            <textarea disabled ="false" rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="motivo" id="imotivo" ><?php echo $socio['motivo']; ?></textarea>
         </p>
         <p>
             <label for="itermos">Termos: </label><br>
-            <textarea disabled ="false" rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="termos" id="itermos" ><?php echo $usuario['termos']; ?></textarea>
-        </p>
-        <p>
-            <label for="iobs">Obs.: </label><br>
-            <textarea rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="obs" id="iobs" ><?php echo $usuario['observacao']; ?></textarea>
+            <textarea disabled ="false" rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="termos" id="itermos" ><?php echo $socio['termos']; ?></textarea>
         </p>
         <p>
             <span id="imgAlerta"></span><br>
             <span id="imgAlerta2" type="hidden"></span><br>
-            <a href="usuario_home.php" style="margin-left: 10px; margin-right: 10px;">Voltar</a><a href="../../redefinir_senha.php" style="margin-left: 10px; margin-right: 10px;">Redefinir Senha</a>
+            <a href="usuario_home.php" style="margin-left: 10px; margin-right: 10px;">Voltar</a>
             <button id="" type="submit" style="margin-left: 10px;">Salvar</button>
         </p>
-        <script src="perfil_verifica_dados.js"></script>
     </form>
 </body>
 </html>

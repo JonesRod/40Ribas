@@ -91,7 +91,7 @@
             });
 
             // Inicialmente, carrega a tabela com "TODOS" selecionados
-            atualizarTabela('ATIVO');
+            atualizarTabela('TODOS');
         });
     </script>
 
@@ -101,7 +101,7 @@
     <h1>Lista de Sócios</h1>
     <p>
         <label for="">BUSCAR: </label>
-        <input type="radio" name="status" id="itodos" checked value="ATIVO"><label for="itodos">TODOS</label> 
+        <input type="radio" name="status" id="itodos" checked value="TODOS"><label for="itodos">TODOS</label> 
         <input type="radio" name="status" id="iativo" value="ATIVO"><label for="iativo">ATIVOS</label> 
         <input type="radio" name="status" id="isuspenso" value="SUSPENSO"><label for="isuspenso">SUSPENSOS</label> 
         <input type="radio" name="status" id="iafastado" value="AFASTADO"><label for="iafastado">AFASTADOS</label> 
