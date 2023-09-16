@@ -225,7 +225,7 @@
         <p>
             <span id="imgAlerta"></span><br>
             <span id="imgAlerta2" type="hidden"></span><br>
-            <a href="usuario_home.php" style="margin-left: 10px; margin-right: 10px;">Voltar</a>
+            <a href="listaSocios.php" style="margin-left: 10px; margin-right: 10px;">Voltar</a>
             <button id="" type="submit" style="margin-left: 10px;">Salvar</button>
         </p>
     </form>
