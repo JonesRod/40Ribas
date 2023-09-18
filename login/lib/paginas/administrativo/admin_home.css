@@ -89,3 +89,16 @@ table {
     list-style-type: none;
     padding: 5px 10px 5px 10px;
 }
+
+a {
+    text-decoration: none; /* Remove o sublinhado */
+}
+a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: #000; /* Cor do texto padrão */
+}
+
+/* Estilo quando o mouse passa por cima */
+a:hover {
+    color: #00F; /* Cor do texto quando o mouse passa por cima */
+}

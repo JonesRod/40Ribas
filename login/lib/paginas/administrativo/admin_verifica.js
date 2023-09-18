@@ -29,24 +29,6 @@ function validateForm() {
     // Aqui você pode adicionar mais validações conforme necessário
     return true; // Permite o envio do formulário
 }
-/*function handleImageUpload(event) {
-    const file = event.target.files[0];
-
-    if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
-        const reader = new FileReader();
-        reader.onload = function() {
-            const preview = document.getElementById('preview');
-            preview.src = reader.result;
-        };
-        reader.readAsDataURL(file);
-        document.querySelector('#imsgAlerta').textContent = "";
-    } else {
-        //alert('Por favor, selecione uma imagem PNG ou JPG.');
-        document.getElementById('preview').src= "../arquivos/IMG-20230811-WA0040.jpg"
-        document.getElementById('imageInput').value = null;
-        //document.querySelector('#imgAlerta').textContent = "Por favor, selecione uma imagem PNG ou JPG.";
-    }
-} */
 function imgLogo(event) {
     const file = event.target.files[0];
     var minhaLogo = document.getElementById('ilogo');
@@ -186,9 +168,23 @@ function perguntarSalvar() {
         window.location.href = 'admin_home.php';
     }
 }
+
+window.addEventListener('popstate', function(event) {
+    history.pushState(null, document.title, location.href);
+  });
+
+window.onbeforeunload = function() {
+    return "Tem certeza que deseja sair sem salvar?";
+};
+
 document.addEventListener('keydown', function(event) {
     if (event.key === "ArrowLeft") { // Verifica se a tecla pressionada é a seta à esquerda
-        perguntarSalvar(); // Chama a função perguntarSalvar()
-        event.preventDefault(); // Previne o comportamento padrão do navegador (navegar para trás)
+        var confirmacao = confirm("Tem certeza que deseja sair sem salvar?");
+        if (confirmacao) {
+            window.onbeforeunload = null; // Remove a mensagem de confirmação
+        } else {
+            event.preventDefault(); // Previne o comportamento padrão do navegador (navegar para trás)
+        }
     }
 });
+

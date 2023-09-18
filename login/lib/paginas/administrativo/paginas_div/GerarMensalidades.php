@@ -39,28 +39,67 @@
         header("Location: ../../../../../index.php");  
     }
 
+    $sql_dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '1'") or die($mysqli->$error);
+    $dados = $sql_dados->fetch_assoc();
+
     $id = $_SESSION['usuario'];
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
     $usuario = $sql_query->fetch_assoc();
+    $usuario_admin = $usuario['apelido'];
 
-    $sql_ultimo_mes = $mysqli->query("SELECT id FROM mensalidades_geradas ORDER BY data DESC LIMIT 1") or die($mysqli->error);
+    $sql_ultimo_mes = $mysqli->query("SELECT id, mensalidade_mes, mensalidade_ano FROM mensalidades_geradas ORDER BY id DESC LIMIT 1") or die($mysqli->error);
     $ultimo_mes = $sql_ultimo_mes->fetch_assoc();
+
     if ($ultimo_mes) {
+        $ultimo_id = $ultimo_mes['id'];
         $ultima_mensalidade = $ultimo_mes['mensalidade_mes'];
+        //$ultima_mensalidade = $ultima_mensalidade + 1;
+        $ultimo_ano = $ultimo_mes['mensalidade_ano'];
         //echo "O ID da última entrada é: $ultimo_id";
     } else {
         //echo "Não foi possível encontrar a última entrada.";
         $mes_atual = date('n');
+        $ano_atual = date('Y');
         //echo $mes_atual;
         //date('n', strtotime('+1 month'))
-        $ultima_mensalidade = $mes_atual;
+        $ultima_mensalidade = $mes_atual - 1;
+        $ultimo_ano = $ano_atual;
+        if($ultima_mensalidade < 1){
+            $ultima_mensalidade = 12;
+            $ultimo_ano = $ano_atual - 1;
+        }
+        
         //echo $ultima_mensalidade;
     }
 
-    $sql_dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '1'") or die($mysqli->$error);
-    $dados = $sql_dados->fetch_assoc();
+   /*if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $qtmes = $_POST['qtmes'];
+        $valormes = $dados['valor_mensalidades'];
+        $diavenc = $dados['dia_fecha_mes'];
+        $desc = $dados['desconto_mensalidades'];
+        $multa = $dados['multa'];
+        $ano = date('Y');
 
-    // Fecha a conexão
+        // Se não existir mensalidades geradas, assumimos que a próxima será o próximo mês
+        if (!$ultima_mensalidade) {
+            $ultima_mensalidade = date('n');
+        }
+
+        for ($i = 1; $i <= $qtmes; $i++) {
+            $mes = $ultima_mensalidade + $i;
+            if ($mes > 12) $mes -= 12;
+                $ano = date('Y + 1');
+        
+        
+            $data_vencimento = date("Y-$mes-$diavenc");
+            $sql_code = "INSERT INTO mensalidades_geradas (data, admin, mensalidade_dia, mensalidade_mes, mensalidade_ano, data_vencimento, valor, desconto, multa)
+            VALUES (NOW(), '$usuario_admin', '$diavenc', '$mes', '$ano', '$data_vencimento', '$valormes', '$desc', '$multa')";
+            $mysqli->query($sql_code) or die($mysqli->error);
+        }
+        
+            echo "<p><b>Mensalidades geradas com sucesso!</b></p>";
+    }*/
+    //fecha a conexão
     $mysqli->close();
 ?>
 <!DOCTYPE html>
@@ -68,28 +107,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function validarQuantidadeMeses() {
+            var qtmes = document.getElementById("iqtmes").value;
+            if (qtmes < 1 || qtmes > 6) {
+                alert("A quantidade de meses deve estar entre 1 e 6.");
+                return false; // Impede o envio do formulário
+            }
+            return true; // Permite o envio do formulário
+        }
+    </script>
     <title>Gerador de Mensalidades</title>
 </head>
 <body>
     <h2>Gerador de Mensalidades</h2>
-    <form action="">
+    <form action="gerar.php" method="POST" onsubmit="return validarQuantidadeMeses()">
         <label for="iultmes">Ultima mensalidade gerada foi do mês: </label>
-        <input disabled="false" id="iultmes" name="ultmes" type="text" value="<?php echo $ultima_mensalidade; ?>"><br>
+        <input readonly id="iultmes" name="ultmes" type="text" value="<?php echo $ultima_mensalidade; ?>"><br>
+
+        <label for="iultano">Ultimo Ano: </label>
+        <input readonly id="iultano" name="ultano" type="text" value="<?php echo $ultimo_ano; ?>"><br>
 
         <label for="iqtmes">Quantidade de meses que você pretende gerar: </label>
-        <input id="iqtmes" name="qtmes" type="number" value="1"><br>
+        <input required id="iqtmes" name="qtmes" type="number" value="1"><br>
 
         <label for="ivalormes">Valor da Mensalidade: R$</label>
-        <input disabled="false" type="text" id="ivalormes" name="valormes" value="<?php echo $dados['valor_mensalidades']; ?>"><br>
+        <input readonly type="text" id="ivalormes" name="valormes" value="<?php echo $dados['valor_mensalidades']; ?>"><br>
 
         <label for="idiavenc">Dia de vencimento: </label>
-        <input disabled="false" type="text" id="idiavenc" name="diavenc" value="<?php echo $dados['dia_fecha_mes']; ?>"><br>
+        <input readonly type="text" id="idiavenc" name="diavenc" value="<?php echo $dados['dia_fecha_mes']; ?>"><br>
 
         <label for="idesc">Desconto: R$</label>
-        <input disabled="false" type="text" id="idesc" name="desc" value="<?php echo $dados['desconto_mensalidades']; ?>"><br>
+        <input readonly type="text" id="idesc" name="desc" value="<?php echo $dados['desconto_mensalidades']; ?>"><br>
 
         <label for="imulta">Multa: R$</label>
-        <input disabled="false" type="text" id="imulta" name="multa" value="<?php echo $dados['multa']; ?>"><br>
+        <input readonly type="text" id="imulta" name="multa" value="<?php echo $dados['multa']; ?>"><br>
 
         <button type="submit">Gerar Mensalidades</button>
     </form>

@@ -283,7 +283,5 @@
         </fieldset>
         <script src="admin_verifica.js"></script>
     </form>
-    
-
 </body>
 </html>
