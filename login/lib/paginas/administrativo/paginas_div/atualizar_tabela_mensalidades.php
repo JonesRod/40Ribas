@@ -81,25 +81,28 @@
 
             $valor_total_a_receber = 0;
             while ($row = $result->fetch_assoc()) {
-                $valor_mensalidade = $row["valor_mensalidade"];
-                $desconto_mensalidade = ($row["data_vencimento"] >= date('Y-m-d')) ? $row["desconto_mensalidade"] : 0;
-                $multa_mensalidade = ($row["data_vencimento"] < date('Y-m-d')) ? $row["multa_mensalidade"] : 0;
-        
-                $data_vencimento_formatada = date('d/m/Y', strtotime($row["data_vencimento"]));
-                $valor_a_receber = $valor_mensalidade - $desconto_mensalidade + $multa_mensalidade;
-                $valor_total_a_receber += $valor_a_receber;
-        
-                echo "<tr>
-                    <td>" . $row["apelido"] . "</td>
-                    <td>" . $row["nome_completo"] . "</td>
-                    <td>" . $row["mensalidade_mes"] . "/" . $row["mensalidade_ano"] ."</td>
-                    <td>" . $valor_mensalidade . ",00"."</td>
-                    <td>" . $desconto_mensalidade . ",00"."</td>
-                    <td>" . $multa_mensalidade . ",00"."</td>
-                    <td>" . $data_vencimento_formatada . "</td>
-                    <td>" . $valor_a_receber . ",00"."</td>
-                    <td><a href='detalhes_socio.php?id_sessao=" . $id . "&id_socio=" . $row["id"] ."'>Receber</a></td>
-                </tr>";
+                //if($id != $row["id"]){
+                    $valor_mensalidade = $row["valor_mensalidade"];
+                    $desconto_mensalidade = ($row["data_vencimento"] >= date('Y-m-d')) ? $row["desconto_mensalidade"] : 0;
+                    $multa_mensalidade = ($row["data_vencimento"] < date('Y-m-d')) ? $row["multa_mensalidade"] : 0;
+            
+                    $data_vencimento_formatada = date('d/m/Y', strtotime($row["data_vencimento"]));
+                    $valor_a_receber = $valor_mensalidade - $desconto_mensalidade + $multa_mensalidade;
+                    $valor_total_a_receber += $valor_a_receber;
+            
+                    echo "<tr>
+                        <td>" . $row["apelido"] . "</td>
+                        <td>" . $row["nome_completo"] . "</td>
+                        <td>" . $row["mensalidade_mes"] . "/" . $row["mensalidade_ano"] ."</td>
+                        <td>" . $valor_mensalidade . ",00"."</td>
+                        <td>" . $desconto_mensalidade . ",00"."</td>
+                        <td>" . $multa_mensalidade . ",00"."</td>
+                        <td>" . $data_vencimento_formatada . "</td>
+                        <td>" . $valor_a_receber . ",00"."</td>
+                        <td><a href='receber.php?id_sessao=" . $id . "&id_socio=" . $row["id"] ."'target='_blank'>Receber</a></td>
+
+                    </tr>";
+                //}
             }
 
             echo "</table>";
@@ -113,6 +116,31 @@
 
     $mysqli->close();
 ?>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        a {
+    text-decoration: none; /* Remove o sublinhado */
+}
+a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: #000; /* Cor do texto padrão */
+}
+
+/* Estilo quando o mouse passa por cima */
+a:hover {
+    color: #00F; /* Cor do texto quando o mouse passa por cima */
+}
+    </style>
+    <title></title>
+</head>
+<body>
+    
+</body>
+</html>
 
 
 
