@@ -99,8 +99,7 @@
                         <td>" . $multa_mensalidade . ",00"."</td>
                         <td>" . $data_vencimento_formatada . "</td>
                         <td>" . $valor_a_receber . ",00"."</td>
-                        <td><a href='receber.php?id_sessao=" . $id . "&id_socio=" . $row["id"] ."'target='_blank'>Receber</a></td>
-
+                        <td><a href='receber.php?id_sessao=" . $id . "&id_mensalidade=" . $row["id"] ."'target='_blank'>Receber</a></td>
                     </tr>";
                 //}
             }

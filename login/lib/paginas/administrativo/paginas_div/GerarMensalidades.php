@@ -72,34 +72,6 @@
         //echo $ultima_mensalidade;
     }
 
-   /*if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $qtmes = $_POST['qtmes'];
-        $valormes = $dados['valor_mensalidades'];
-        $diavenc = $dados['dia_fecha_mes'];
-        $desc = $dados['desconto_mensalidades'];
-        $multa = $dados['multa'];
-        $ano = date('Y');
-
-        // Se não existir mensalidades geradas, assumimos que a próxima será o próximo mês
-        if (!$ultima_mensalidade) {
-            $ultima_mensalidade = date('n');
-        }
-
-        for ($i = 1; $i <= $qtmes; $i++) {
-            $mes = $ultima_mensalidade + $i;
-            if ($mes > 12) $mes -= 12;
-                $ano = date('Y + 1');
-        
-        
-            $data_vencimento = date("Y-$mes-$diavenc");
-            $sql_code = "INSERT INTO mensalidades_geradas (data, admin, mensalidade_dia, mensalidade_mes, mensalidade_ano, data_vencimento, valor, desconto, multa)
-            VALUES (NOW(), '$usuario_admin', '$diavenc', '$mes', '$ano', '$data_vencimento', '$valormes', '$desc', '$multa')";
-            $mysqli->query($sql_code) or die($mysqli->error);
-        }
-        
-            echo "<p><b>Mensalidades geradas com sucesso!</b></p>";
-    }*/
-    //fecha a conexão
     $mysqli->close();
 ?>
 <!DOCTYPE html>

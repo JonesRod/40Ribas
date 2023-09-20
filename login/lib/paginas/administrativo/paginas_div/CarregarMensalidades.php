@@ -85,12 +85,11 @@
             }
 
             $('input[name="situacao"]').change(function() {
+                $('input[name="socio"]').val(''); // Define o valor do campo de busca como vazio
                 var situacaoSelecionado = $(this).val();
                 var nomeSocio = $('input[name="socio"]').val();
-                $('input[name="socio"]').val(''); // Define o valor do campo de busca como vazio
                 atualizarTabela(situacaoSelecionado, nomeSocio);
             });
-
 
             // Define um manipulador de eventos para o botão de busca por nome de sócio
             $('#buscarSocio').click(function() {

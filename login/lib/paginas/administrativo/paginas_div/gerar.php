@@ -109,14 +109,14 @@
                 $status = $socio['status'];
 
                 // Inserir na tabela mensalidades
-                $sql_mensalidade = "INSERT INTO mensalidades (id, data, admin, apelido, nome_completo, status, mensalidade_dia, 
+                $sql_mensalidade = "INSERT INTO mensalidades (id_socio, data, admin, apelido, nome_completo, status, mensalidade_dia, 
                 mensalidade_mes, mensalidade_ano, valor_mensalidade, data_vencimento, desconto_mensalidade, multa_mensalidade)
                 VALUES ('$id_socio', NOW(), '$usuario_admin', '$apelido', '$nome_completo', '$status', '$diavenc','$mensalidade', 
                 '$ultimo_ano', '$valormes', '$data_vencimento',  '$desc', '$multa')";
                 $mysqli->query($sql_mensalidade) or die($mysqli->error);
 
                 // Inserir no histórico de mensalidades
-                $sql_historico = "INSERT INTO historico_mensalidades (id, data, admin, apelido, nome_completo, status, mensalidade_dia, 
+                $sql_historico = "INSERT INTO historico_mensalidades (id_socio, data, admin, apelido, nome_completo, status, mensalidade_dia, 
                 mensalidade_mes, mensalidade_ano, valor_mensalidade, data_vencimento, desconto_mensalidade, multa_mensalidade)
                 VALUES ('$id_socio', NOW(), '$usuario_admin', '$apelido', '$nome_completo', '$status', '$diavenc','$mensalidade', 
                 '$ultimo_ano', '$valormes', '$data_vencimento',  '$desc', '$multa')";
