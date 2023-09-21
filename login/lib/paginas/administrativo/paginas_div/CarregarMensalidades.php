@@ -60,17 +60,12 @@
             margin-right: auto;
         }
     </Style>
-    <title>Lista de Sócios</title>
-</head>
-<body>
-    
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        //atualiza a pagian a cada 10 seg
+        setTimeout(function() {
+            location.reload();
+        }, 100000);
+
         $(document).ready(function() {
             // Função para atualizar a tabela com base na seleção do botão de rádio
             function atualizarTabela(data_vencimento, nomeSocio) {
@@ -99,7 +94,7 @@
             });
 
             // Inicialmente, carrega a tabela com "TODOS" selecionados
-            atualizarTabela('TODOS', '');
+            atualizarTabela('ATRASADOS', '');
         });
 
     </script>
@@ -109,9 +104,9 @@
     <h1>Relatório de Mensalidades</h1>
     <p>
         <label for="">BUSCAR: </label>
-        <input type="radio" name="situacao" id="itodos" checked value="TODOS"><label for="itodos">TODOS</label> 
+        <input type="radio" name="situacao" id="iatrasados" checked value="ATRASADOS"><label for="iatrasados">ATRASADOS</label>
         <input type="radio" name="situacao" id="iEmDia" value="EM_DIA"><label for="iEmDia">EM DIA</label>
-        <input type="radio" name="situacao" id="iatrasados" value="ATRASADOS"><label for="iatrasados">ATRASADOS</label><br> 
+        <input type="radio" name="situacao" id="itodos" value="TODOS"><label for="itodos">TODAS GERADAS</label> <br> 
         
         <label for="">BUSCAR POR SOCIO: </label><input type="text" name="socio"><button id="buscarSocio">Buscar</button>
     </p>

@@ -39,16 +39,11 @@
         header("Location: ../../../../../index.php");  
     }
 
-
     // Verifique se o ID da sessão e o ID do sócio foram passados na URL
     if(isset($_GET['id_sessao']) && isset($_GET['id_socio'])) {
         $id_sessao = $_SESSION['usuario'];
         $id_socio = intval($_GET['id_socio']);
 
-        // Agora você pode usar $id_sessao e $id_socio como desejar
-        // Por exemplo, para exibir os valores:
-        //echo "ID da Sessão: $id_sessao<br>";
-        //echo "ID do Sócio: $id_socio";
     } else {
         // Caso os IDs não tenham sido passados na URL
         echo "IDs não encontrados na URL.";

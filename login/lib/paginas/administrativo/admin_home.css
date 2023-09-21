@@ -23,7 +23,7 @@ body {
 }
 
 .left {
-    width: 10%;
+    width: 20%;
     height: 100%; /* Agora a div esquerda terá a mesma altura que as outras */
     display: none; /* Inicia oculta */
     /*position: absolute;*/

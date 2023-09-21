@@ -45,31 +45,43 @@
 
     $id_mensalidade = $_GET['id_mensalidade'];
     $sql_mensalidade = $mysqli->query("SELECT * FROM mensalidades WHERE id = '$id_mensalidade'") or die($mysqli->error);
-    $mensalidade = $sql_mensalidade->fetch_assoc();
 
-    // Obtém os valores e formata para string com duas casas decimais
-    $valor_mensalidade = number_format($mensalidade['valor_mensalidade'], 2, ',', '.');
-    $desconto = number_format($mensalidade['desconto_mensalidade'], 2, ',', '.');
-    $multa = number_format($mensalidade['multa_mensalidade'], 2, ',', '.');
+    if ($sql_mensalidade && $sql_mensalidade->num_rows > 0) {
+        $mensalidade = $sql_mensalidade->fetch_assoc();
 
-    // Formata a data de vencimento no formato brasileiro
-    $data_vencimento_formatada = date('d/m/Y', strtotime($mensalidade['data_vencimento']));
-    $vencimento = date('Y-m-d', strtotime($mensalidade['data_vencimento']));
+        // Obtém os valores e formata para string com duas casas decimais
+        $valor_mensalidade = number_format($mensalidade['valor_mensalidade'], 2, ',', '.');
+        $desconto = number_format($mensalidade['desconto_mensalidade'], 2, ',', '.');
+        $multa = number_format($mensalidade['multa_mensalidade'], 2, ',', '.');
+        $valor_recebido = number_format($mensalidade['valor_recebido'], 2, ',', '.');
+        //echo $valor_recebido;
+        // Formata a data de vencimento no formato brasileiro
+        $data_vencimento_formatada = date('d/m/Y', strtotime($mensalidade['data_vencimento']));
+        $vencimento = date('Y-m-d', strtotime($mensalidade['data_vencimento']));
 
-    // Define o valor a receber inicial como o valor da mensalidade
-    $valor = $mensalidade['valor_mensalidade'];
+        // Define o valor a receber inicial como o valor da mensalidade
+        $valor = $mensalidade['valor_mensalidade'];
 
-    // Verifica se a data de vencimento é maior que a data atual
-    if (strtotime($vencimento) > strtotime(date('Y-m-d'))) {
-        // Se sim, aplica o desconto
-        $valor_receber = $valor - $mensalidade['desconto_mensalidade'];
-        //$desconto = "0,00";  // Define o desconto como zero
-        $multa = "0,00";  // Define a multa como zero
+        // Verifica se a data de vencimento é maior que a data atual
+        if (strtotime($vencimento) > strtotime(date('Y-m-d'))) {
+            // Se sim, aplica o desconto
+            $valor_receber = $valor - floatval($valor_recebido) - $mensalidade['desconto_mensalidade'];
+            //$desconto = "0,00";  // Define o desconto como zero
+            $multa = "0,00";  // Define a multa como zero
+        } else {
+            // Se não, aplica a multa
+            $valor_receber = $valor -$valor_recebido + $mensalidade['multa_mensalidade'];
+            $desconto = "0,00";  // Define o desconto como zero
+            //$multa = "0,00";  // Define a multa como zero
+        }
     } else {
-        // Se não, aplica a multa
-        $valor_receber = $valor + $mensalidade['multa_mensalidade'];
-        $desconto = "0,00";  // Define o desconto como zero
-        //$multa = "0,00";  // Define a multa como zero
+        echo "Mensalidade não encontrada. Por favor, atualize a pagian anterior e tente novamente. <br>";
+        echo "<script>
+            setTimeout(function() {
+                window.close();
+            }, 5000);
+        </script>";
+        die();
     }
 ?>
 
@@ -78,9 +90,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-
-    </script>
     <title>Tela de Recebimento</title>
 </head>
 <body>
@@ -112,6 +121,9 @@
         <label for="ivence">Vencimento: </label>
         <input readonly name="vence" id="ivence" type="text" value="<?php echo $data_vencimento_formatada; ?>"><br>
 
+        <label for="irecebido">Valor Recebido: </label>
+        <input readonly name="recebido" id="irecebido" type="text" value="<?php echo $valor_recebido; ?>"><br>
+
         <label for="ireceber">Valor á Receber: </label>
         <input name="receber" id="ireceber" type="text" value="<?php echo $valor_receber.",00"; ?>" onchange="calcularRestante()" oninput="validarNumero(this)"><br>
 
@@ -135,15 +147,17 @@
             var valorMensalidade = parseFloat(document.getElementById("ivalor").value.replace(',', '.'));
             var desconto = parseFloat(document.getElementById("idesconto").value.replace(',', '.'));
             var multa = parseFloat(document.getElementById("imulta").value.replace(',', '.'));
+            var valor_recebido = parseFloat(document.getElementById("irecebido").value.replace(',', '.'));
             var valorReceber = parseFloat(document.getElementById("ireceber").value.replace(',', '.'));
 
             if (isNaN(valorMensalidade)) valorMensalidade = 0;
             if (isNaN(desconto)) desconto = 0;
             if (isNaN(multa)) multa = 0;
+            if (isNaN(valor_recebido)) valor_recebido = 0;
             if (isNaN(valorReceber)) valorReceber = 0;
 
 
-            var restante = valorMensalidade - desconto + multa - valorReceber;
+            var restante = valorMensalidade - valor_recebido - desconto + multa - valorReceber;
 
             if (restante < 0) {
                 alert("O valor a receber não pode ser maior que o valor da mensalidade.");

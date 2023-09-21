@@ -46,36 +46,65 @@
     // Verifique se a variável 'status' foi enviada via POST
     if (isset($_POST['status'])) {
         $status = $_POST['status'];
+        
+        // Obtenha o valor de validade_insc do config_admin
+        $result_config = $mysqli->query("SELECT validade_insc FROM config_admin WHERE Id = 1");
+        $row_config = $result_config->fetch_assoc();
+        $validade_insc = $row_config['validade_insc'];
 
         // Construa a consulta SQL com base no valor do botão de rádio
-        $sql = "SELECT * FROM socios";
+        $sql = "SELECT * FROM int_associar";
 
         if($status != 'TODOS') {
             $sql .= " WHERE status = '$status'";
         }
 
-        // Agora, vamos buscar os sócios ordenados pelo nome em ordem alfabética
-        $sql .= " ORDER BY nome_completo ASC";
+        // Agora, vamos buscar os sócios ordenados pela data em ordem alfabética
+        $sql .= " ORDER BY data ASC";
 
+        $validade = $mysqli->query("SELECT id, validade FROM int_associar");
+
+        while ($row = $validade->fetch_assoc()) {
+            $id_insc = $row['id'];
+            $data_validade = $row['validade'];
+        
+            // Calcule a data de expiração
+            $data_expiracao = date('Y-m-d');
+        
+            // Verifique se a data atual é posterior à data de expiração
+            if (strtotime($data_expiracao) < strtotime($data_validade)) {
+                // Atualize o status para "EXPIRADO" na tabela int_associar
+                $mysqli->query("UPDATE int_associar SET status = 'EXPIRADO' WHERE id = '$id_insc'");
+            }else{
+                // Atualize o status para "EXPIRADO" na tabela int_associar
+                $mysqli->query("UPDATE int_associar SET status = 'ATIVO' WHERE id = '$id_insc'");
+            }
+        }
+        
         // Execute a consulta SQL
         $result = $mysqli->query($sql);
 
         // Construa a tabela HTML com os dados
         if ($result->num_rows > 0) {
-            echo "<p>Total de Sócios: " . $result->num_rows . "</p>";
+            echo "<p>Total de Inscritos: " . $result->num_rows . "</p>";
             echo "<table border='1'>";
             echo "<tr>
-                <th>Cadastrado</th>
+                <th>Inscrito</th>
                 <th>Foto</th>
                 <th>Apelido</th>
                 <th>Nome</th>
                 <th>Idade</th>
                 <th>E-mail</th>
-                <th>Celular</th>
-                <th>Detalhes</th>
-            </tr>";
+                <th>Celular</th>";
+
+                if ($status == 'ATIVO') {
+                    echo "<th>Asceitação</th>";
+                }
+                
+                echo "</tr>";
 
             while ($row = $result->fetch_assoc()) {
+                
                 //if($id != $row["id"]){
                     // Calcula a idade a partir da data de nascimento
                     $dataNascimento = new DateTime($row["nascimento"]);
@@ -89,17 +118,20 @@
                         <td>" . $row["nome_completo"] . "</td>
                         <td>" . $idade . "</td>
                         <td>" . $row["email"] . "</td>
-                        <td>" . $row["celular1"] . " / " . $row["celular2"] . "</td>
-
-                        <td><a href='detalhes_socio.php?id_sessao=<?php echo $id; ?>&id_socio=" . $row["id"] ."'>Ver</a></td>
-
-                    </tr>";
+                        <td>" . $row["celular1"] . " / " . $row["celular2"] . "</td>";
+        
+                        // Verifica se o status é ATIVO antes de exibir a coluna "Aceitação"
+                        if ($status == 'ATIVO') {
+                            echo "<td><a href='em_votacao.php?id_sessao=<?php echo $id; ?>&id_socio=" . $row["id"] ."'>Por em Votação</a></td>";
+                        }
+                        
+                        echo "</tr>";
                 //}
             }
 
         echo "</table>";
         } else {
-            echo "Nenhum sócio registrado";
+            echo "Nenhum inscrito";
         }
 
     // Fecha a conexão

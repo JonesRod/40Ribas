@@ -55,12 +55,17 @@
         if ($situacao == 'ATRASADOS') {
             $sql .= " AND data_vencimento < CURDATE()";
         } elseif ($situacao == 'EM_DIA') {
-            $sql .= " AND data_vencimento >= CURDATE()";
+            $sql .= " AND (data_vencimento >= CURDATE() AND mensalidade_mes <= MONTH(CURDATE()) AND mensalidade_ano <= YEAR(CURDATE()))";
         }
 
         if (!empty($nome_socio)) {
             $sql .= " AND nome_completo LIKE '%$nome_socio%'";
         }
+
+        // Adicionando a cláusula ORDER BY
+        $sql .= " ORDER BY data_vencimento ASC, nome_completo ASC";
+
+       // $sql .= " ";
 
         $result = $mysqli->query($sql);
 
@@ -75,6 +80,7 @@
                 <th>Desconto</th>
                 <th>Multa</th>
                 <th>Vencimento</th>
+                <th>Valor Recebido</th>
                 <th>Valor á Receber</th>
                 <th>Detalhes</th>
             </tr>";
@@ -87,7 +93,8 @@
                     $multa_mensalidade = ($row["data_vencimento"] < date('Y-m-d')) ? $row["multa_mensalidade"] : 0;
             
                     $data_vencimento_formatada = date('d/m/Y', strtotime($row["data_vencimento"]));
-                    $valor_a_receber = $valor_mensalidade - $desconto_mensalidade + $multa_mensalidade;
+                    $valor_recebido = $row["valor_recebido"];
+                    $valor_a_receber = $valor_mensalidade - $valor_recebido - $desconto_mensalidade + $multa_mensalidade;
                     $valor_total_a_receber += $valor_a_receber;
             
                     echo "<tr>
@@ -98,6 +105,7 @@
                         <td>" . $desconto_mensalidade . ",00"."</td>
                         <td>" . $multa_mensalidade . ",00"."</td>
                         <td>" . $data_vencimento_formatada . "</td>
+                        <td>" . $valor_recebido . ",00"."</td>
                         <td>" . $valor_a_receber . ",00"."</td>
                         <td><a href='receber.php?id_sessao=" . $id . "&id_mensalidade=" . $row["id"] ."'target='_blank'>Receber</a></td>
                     </tr>";

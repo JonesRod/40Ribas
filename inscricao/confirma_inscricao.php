@@ -5,13 +5,13 @@ function enviarArquivo($error, $name, $tmp_name) {
         //echo("Falha ao enviar arquivo");
         return false;
 
-    $pasta = "../arquivos/foto_perfil/";
+    $pasta = "arquivos/foto_perfil/";
     $nomeDoArquivo = $name;
     $novoNomeDoArquivo = uniqid();
     $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
 
     $path = $pasta . $novoNomeDoArquivo . "." . $extensao;
-    $deu_certo = move_uploaded_file($tmp_name, $path);
+    $deu_certo = move_uploaded_file($tmp_name, "../".$path);
     if ($deu_certo) {
         return $path;
     } else

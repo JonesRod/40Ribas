@@ -38,6 +38,7 @@
         session_destroy(); 
         header("Location: ../../../../../index.php");  
     }
+
     $id = $_SESSION['usuario'];
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
     $usuario = $sql_query->fetch_assoc();
@@ -60,17 +61,16 @@
             margin-right: auto;
         }
     </Style>
-    <title>Lista de Sócios</title>
     <script>
         $(document).ready(function() {
             // Função para atualizar a tabela com base na seleção do botão de rádio
             function atualizarTabela(status) {
                 $.ajax({
                     type: 'POST',
-                    url: 'atualizar_tabela.php', // Nome do arquivo PHP que buscará os dados
+                    url: 'atualizar_tabela_inscritos.php', // Nome do arquivo PHP que buscará os dados
                     data: { status: status },
                     success: function(response) {
-                        $('#tabela-socios').html(response); // Atualiza a tabela com os novos dados
+                        $('#tabela-inscritos').html(response); // Atualiza a tabela com os novos dados
                     }
                 });
             }
@@ -82,20 +82,51 @@
             });
 
             // Inicialmente, carrega a tabela com "TODOS" selecionados
-            atualizarTabela('TODOS');
+            atualizarTabela('ATIVO');
+
+            function atualizarTabela_aceitacao() {
+                $.ajax({
+                    type: 'POST',
+                    url: 'atualizar_tabela_aceitacao.php', // Nome do arquivo PHP que buscará os dados
+                    success: function(response) {
+                        $('#tabela-em-votacao').html(response); // Atualiza a tabela com os novos dados
+                    }
+                });
+            }
+
+            // Define um manipulador de eventos para os botões de rádio
+            $('input[name="status"]').change(function() {
+                var statusSelecionado = $(this).val();
+                atualizarTabela(statusSelecionado);
+            });
+
+            // Inicialmente, carrega a tabela com aquele que estão para votação
+            atualizarTabela_aceitacao();
+            
         });
     </script>
+
+    <title>Lista de Inscritos</title>
 </head>
 <body>
-    <h1>Lista de Sócios</h1>
-    <p>
-        <label for="">BUSCAR: </label>
-        <input type="radio" name="status" id="itodos" checked value="TODOS"><label for="itodos">TODOS</label> 
-        <input type="radio" name="status" id="iativo" value="ATIVO"><label for="iativo">ATIVOS</label> 
-        <input type="radio" name="status" id="isuspenso" value="SUSPENSO"><label for="isuspenso">SUSPENSOS</label> 
-        <input type="radio" name="status" id="iafastado" value="AFASTADO"><label for="iafastado">AFASTADOS</label> 
-        <input type="radio" name="status" id="iexcluido" value="EXCLUIDO"><label for="iexcluido">EXCLUIDOS</label>
-    </p>
-    <div id="tabela-socios"></div>
+    <div id="tabela-em-votacao">
+
+    </div>
+
+    <h2>Lista de Inscritos</h2>
+
+    <!-- Adicionados os botões de rádio -->
+    <label>
+        <input type="radio" name="status" checked value="ATIVO">ATIVOS
+    </label>
+    <label>
+        <input type="radio" name="status" value="EXPIRADO">EXPIRADOS
+    </label>
+    <label>
+        <input type="radio" name="status" value="TODOS">TODOS
+    </label>
+
+    <div id="tabela-inscritos"></div>
 </body>
 </html>
+
