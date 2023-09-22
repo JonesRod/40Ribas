@@ -60,6 +60,18 @@
             margin-left: auto;
             margin-right: auto;
         }
+        a {
+            text-decoration: none; /* Remove o sublinhado */
+        }
+        a {
+            text-decoration: none; /* Remove o sublinhado */
+            color: #000; /* Cor do texto padrão */
+        }
+
+        /* Estilo quando o mouse passa por cima */
+        a:hover {
+            color: #00F; /* Cor do texto quando o mouse passa por cima */
+        }
     </Style>
     <script>
         $(document).ready(function() {
@@ -84,10 +96,11 @@
             // Inicialmente, carrega a tabela com "TODOS" selecionados
             atualizarTabela('ATIVO');
 
-            function atualizarTabela_aceitacao() {
+            function atualizarTabela_aceitacao(situacao) {
                 $.ajax({
                     type: 'POST',
                     url: 'atualizar_tabela_aceitacao.php', // Nome do arquivo PHP que buscará os dados
+                    data: { situacao: situacao },
                     success: function(response) {
                         $('#tabela-em-votacao').html(response); // Atualiza a tabela com os novos dados
                     }
@@ -95,23 +108,35 @@
             }
 
             // Define um manipulador de eventos para os botões de rádio
-            $('input[name="status"]').change(function() {
-                var statusSelecionado = $(this).val();
-                atualizarTabela(statusSelecionado);
+            $('input[name="situacao"]').change(function() {
+                var situacaoSelecionado = $(this).val();
+                atualizarTabela_aceitacao(situacaoSelecionado);
+                //console.log(situacaoSelecionado);
             });
 
             // Inicialmente, carrega a tabela com aquele que estão para votação
-            atualizarTabela_aceitacao();
-            
+            atualizarTabela_aceitacao('todos');
+
         });
     </script>
 
     <title>Lista de Inscritos</title>
 </head>
 <body>
-    <div id="tabela-em-votacao">
+    <h2>Para votação</h2>
 
-    </div>
+    <!-- Adicionados os botões de rádio -->
+    <label>
+        <input type="radio" name="situacao" checked value="todos">TODOS
+    </label>
+    <label>
+        <input type="radio" name="situacao" value="votacao">EM VOTAÇÃO
+    </label>
+    <label>
+        <input type="radio" name="situacao" value="encerrados">ENCERRADOS
+    </label>
+    <p></p><br>
+    <div id="tabela-em-votacao"></div>
 
     <h2>Lista de Inscritos</h2>
 
@@ -125,7 +150,7 @@
     <label>
         <input type="radio" name="status" value="TODOS">TODOS
     </label>
-
+    <p></p><br>
     <div id="tabela-inscritos"></div>
 </body>
 </html>

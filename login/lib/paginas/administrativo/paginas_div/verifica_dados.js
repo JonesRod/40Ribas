@@ -1,33 +1,42 @@
 function validateForm() {
-    /*var uf =document.getElementById('iuf').value;
-    var ufAtual =document.getElementById('iuf_atual').value;
-    var sem_escolha ="Escolha";
+    var data_ini = document.getElementById('idata_ini').value;
+    var hora_ini = document.getElementById('ihora_ini').value;
+    var data_final = document.getElementById('idata_final').value;
+    var hora_final = document.getElementById('ihora_final').value;
 
-    /*if (arqFoto.files.length === 0) {
-        //alert('Por favor, preencha todos os campos.');
-        document.querySelector('#imgAlerta2').textContent = "Adicione uma foto.";
-        return false; // Impede o envio do formulário
+    if (!validarData(data_ini)) {
+        alert("Data inicial inválida! Preencha o campo corretamente.");
+        return false;
     }
-    if(uf === sem_escolha){
-        document.querySelector('#imgAlerta2').textContent = "Selecione o Estado!";
-        document.getElementById('iuf').focus();
-        console.log(apelido);
 
-        return false; // Impede o envio do formulário
+    if (!validarHora(hora_ini)) {
+        alert("Hora inicial inválida! Preencha o campo corretamente.");
+        return false;
     }
-    if(ufAtual === sem_escolha){
-        document.querySelector('#imgAlerta2').textContent = "Selecione seu Estado atual!";
-        document.getElementById('iuf_atual').focus();
-        return false; // Impede o envio do formulário
-    }
-        document.querySelector('#imgAlerta2').textContent = "";
-        //console.log('2');
 
-    // Aqui você pode adicionar mais validações conforme necessário
-    return true; // Permite o envio do formulário*/
+    if (!validarData(data_final)) {
+        alert("Data final inválida! Preencha o campo corretamente.");
+        return false;
+    }
+
+    if (!validarHora(hora_final)) {
+        alert("Hora final inválida! Preencha o campo corretamente.");
+        return false;
+    }
+
+    return true;
 }
 
- 
+function validarData(data) {
+    var regexData = /^\d{2}\/\d{2}\/\d{4}$/;
+    return regexData.test(data);
+}
+
+function validarHora(hora) {
+    var regexHora = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
+    return regexHora.test(hora);
+}
+
 function formatarData_ini(input) {
     let value = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
     if (value.length > 8) {
@@ -116,7 +125,7 @@ function compararHorarios() {
     } else {
         document.querySelector('#imgAlerta').textContent = ""; // Limpa a mensagem se os horários estiverem corretos
     }
-    console.log("oii");
+    //console.log("oii");
 }
 
 

@@ -56,14 +56,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuração da Votação</title>
+    <title>Indicado para Votação</title>
 </head>
 <body>
-    <h2>Configure conforme desejado</h2>
+    <h2>Configure aqui o dia da votação para o inscrito</h2>
 
-    <form action="" method="post" onsubmit="return validateForm()">
+    <form action="gravar_dia_votacao.php" method="post" onsubmit="return validateForm()">
 
         <img src="<?php echo "../../usuarios/".$inscrito['foto']; ?>" alt="" style="max-width: 200px;"><br>
+        
+        <input id="iidinscrito" value="<?php echo $inscrito['id']; ?>" name="inscrito" type="hidden">
 
         <label for="iapelido" >Apelido: </label>
         <input readonly id="iapelido" value="<?php echo $inscrito['apelido']; ?>" name="apelido" type="text"><br>
@@ -86,7 +88,7 @@
         <label for="icid_atual">Cidade Atual: </label>
         <input readonly value="<?php echo $inscrito['cid_atual']; ?>" name="cid_atual" id="icid_atual" type="text"><br>
 
-        <label for="idata_ini">Data da votação: </label>
+        <label for="idata_ini">Data inicial da votação: </label>
         <input value="" name="data_ini" id="idata_ini" type="text"  oninput="formatarData_ini(this)" onblur="compararDatas()"><br>
 
         <label for="ihora_ini">Hora inicial: </label>

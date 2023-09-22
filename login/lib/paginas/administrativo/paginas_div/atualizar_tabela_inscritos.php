@@ -64,6 +64,9 @@
 
         $validade = $mysqli->query("SELECT id, validade FROM int_associar");
 
+        // Inicializa o contador
+        $totalCarregados = 0;
+
         while ($row = $validade->fetch_assoc()) {
             $id_insc = $row['id'];
             $data_validade = $row['validade'];
@@ -72,12 +75,14 @@
             $data_expiracao = date('Y-m-d');
         
             // Verifique se a data atual é posterior à data de expiração
-            if (strtotime($data_expiracao) < strtotime($data_validade)) {
+            if (strtotime($data_expiracao) > strtotime($data_validade)) {
                 // Atualize o status para "EXPIRADO" na tabela int_associar
                 $mysqli->query("UPDATE int_associar SET status = 'EXPIRADO' WHERE id = '$id_insc'");
+                //echo $id_insc;
             }else{
                 // Atualize o status para "EXPIRADO" na tabela int_associar
                 $mysqli->query("UPDATE int_associar SET status = 'ATIVO' WHERE id = '$id_insc'");
+                //echo 'oii';
             }
         }
         
@@ -86,7 +91,6 @@
 
         // Construa a tabela HTML com os dados
         if ($result->num_rows > 0) {
-            echo "<p>Total de Inscritos: " . $result->num_rows . "</p>";
             echo "<table border='1'>";
             echo "<tr>
                 <th>Inscrito</th>
@@ -104,37 +108,40 @@
                 echo "</tr>";
 
             while ($row = $result->fetch_assoc()) {
-                
-                //if($id != $row["id"]){
-                    // Calcula a idade a partir da data de nascimento
+                $sim = 'SIM';
+                if($sim != $row['em_votacao']){
+
                     $dataNascimento = new DateTime($row["nascimento"]);
                     $hoje = new DateTime();
                     $idade = $dataNascimento->diff($hoje)->y;
 
                     echo "<tr>
-                        <td>" . $row["data"] . "</td>
-                        <td><img src='../../usuarios/" . $row["foto"] . "' width='50'></td>
-                        <td>" . $row["apelido"] . "</td>
-                        <td>" . $row["nome_completo"] . "</td>
-                        <td>" . $idade . "</td>
-                        <td>" . $row["email"] . "</td>
-                        <td>" . $row["celular1"] . " / " . $row["celular2"] . "</td>";
-        
-                        // Verifica se o status é ATIVO antes de exibir a coluna "Aceitação"
-                        if ($status == 'ATIVO') {
-                            echo "<td><a href='em_votacao.php?id_sessao=<?php echo $id; ?>&id_socio=" . $row["id"] ."'>Por em Votação</a></td>";
-                        }
-                        
-                        echo "</tr>";
-                //}
+                    <td>" . $row["data"] . "</td>
+                    <td><img src='../../usuarios/" . $row["foto"] . "' width='50'></td>
+                    <td>" . $row["apelido"] . "</td>
+                    <td>" . $row["nome_completo"] . "</td>
+                    <td>" . $idade . "</td>
+                    <td>" . $row["email"] . "</td>
+                    <td>" . $row["celular1"] . " / " . $row["celular2"] . "</td>";
+    
+                    // Verifica se o status é ATIVO antes de exibir a coluna "Aceitação"
+                    if ($status == 'ATIVO') {
+                        echo "<td><a href='em_votacao.php?id_sessao=<?php echo $id; ?>&id_socio=" . $row["id"] ."'>Por em Votação</a></td>";
+                    }
+                    
+                    echo "</tr>";
+                    // Incrementa o contador
+                    $totalCarregados++;
+                }
             }
 
         echo "</table>";
+        echo "<p>Total de Inscritos: " . $totalCarregados . "</p>";
         } else {
             echo "Nenhum inscrito";
         }
 
     // Fecha a conexão
     $mysqli->close();
-}
+    }
 ?>
