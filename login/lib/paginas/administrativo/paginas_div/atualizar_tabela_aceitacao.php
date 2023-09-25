@@ -248,7 +248,7 @@
                 // Exibe o total de registros carregados
                 echo "<p>Total em Votação: " . $totalCarregados . "</p>";
             } else {
-                echo "Nenhum inscrito encerrado.";
+                echo "Nenhum votação encerrada.";
             }
         }
         // Fecha a conexão
