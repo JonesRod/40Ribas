@@ -53,26 +53,37 @@
     <title>Tela Admin</title>
 </head>
 <body>
-    <div id="divMenu">
-        <button id="menuBtn">Menu</button><a> Olá, Admin <?php echo $usuario['apelido']; ?></a><br>
+    <div>
+        <div id="idivMenu">
+            <div id="imenuBtn" onclick="toggleMenu()">
+                <div class="iconeMenu"></div>
+                <div class="iconeMenu"></div>
+                <div class="iconeMenu"></div>
+            </div>  
+            <a> Olá, <?php echo $usuario['apelido']; ?></a>  
+        </div>
     </div>
-    <div class="container">
-        <div class="left" id="menu">
-            <!-- Conteúdo da div esquerda (opções e configurações) -->
-            <ul class="escondido">
+    <div class="titulo">
+        <div class="menu" id="imenu">
+            <ul id="ilista" class="lista">
                 <li><a href="admin_config.php">Configurações</a></li> 
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/inicio.php')">Inicío</a></li> 
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/integrarSocio.php')">Integrar de Sócios</a></li>  
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/incluir_joia.php')">Incluir Jóia</a></li>  
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/incluir_joia.php')">Incluir Jóia</a></li> 
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/joia_para_receber.php')">Jóia á Receber</a></li>
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/listaSocios.php')">Lista de Sócios</a></li>              
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/GerarMensalidades.php')">Gerar Mensalidades</a></li>
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/CarregarMensalidades.php')">Carregar Mensalidades</a></li>
                 <li><a href="admin_logout.php">Sair</a></li>
-            </ul>             
-        </div>
-        <div class="center" id="icentro">
+            </ul> 
+        </div> 
+        <div id="ititulo">
+           <H1>Associação 40Ribas</H1> 
+        </div>      
+    </div>
+    <div class="container">
+        <div class="conteudo" id="iconteudo">
             <!-- Conteúdo central (dados escolhidos) -->
- 
         </div>
         <div class="right">
 
@@ -107,7 +118,7 @@
                     // Verifica se há resultados
                     if ($result->num_rows > 0) {
                         echo "<p>Total de Aniversariantes: " . $result->num_rows . "</p>";
-                        echo "<table border='1'>";
+                        echo "<table border='0'>";
                         echo "<tr>
                                 <th>Data Nasc.</th>
                                 <th>Apelido</th>

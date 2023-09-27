@@ -40,17 +40,6 @@
         header("Location: ../../../../../index.php");  
     }
 
-   /*$id = $_SESSION['usuario'];
-    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-    $usuario = $sql_query->fetch_assoc();*/
-
-    /*$id_joia_config = '1';
-    $sql_joia_config = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id_joia_config'") or die($mysqli->$error);
-    $valor_joia = $sql_joia_config->fetch_assoc();
-
-    $joia =$valor_joia['joia'];
-    $parcelas = $valor_joia['parcela_joia'];*/
-
     if(isset($_GET['pesquisa'])) {
         $id_socio = '';
         $nome_socio = $_GET['pesquisa'];

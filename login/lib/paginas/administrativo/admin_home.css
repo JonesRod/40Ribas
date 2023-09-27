@@ -1,104 +1,148 @@
-/* Estilos para o corpo e o HTML */
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
+/* Estilos para todos os dispositivos */
 body {
-    display: flex;
-    flex-direction: column;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f8f8f8;
 }
 
-.container {
+#idivMenu{
+    background-color: #057733;
+    border-radius: 5px 5px 0px 0px;
+    margin: 2px 2px 0px 2px;
     display: flex;
-    flex: 1; /* A div .container vai ocupar o espaço disponível na vertical */
     justify-content: space-between;
-    align-items: stretch; /* As divs vão esticar para ocupar a altura total */
+    align-items: center;
+    color: #fff;
+    padding: 10px 10px;
 }
-
-.left, .center, .right {
-    border: 0px solid #ccc;
-    box-sizing: border-box;
-    padding: 2px;
+#idivMenu a {
+    color: #fff;
+    text-decoration: none;
+    flex-grow: 1; /* Faz o link ocupar o espaço restante */
+    text-align: right; /* Alinha o texto à direita */
 }
-
-.left {
-    width: 20%;
-    height: 100%; /* Agora a div esquerda terá a mesma altura que as outras */
-    display: none; /* Inicia oculta */
-    /*position: absolute;*/
-    top: 0; /* Ajuste a distância do topo conforme necessário */
-    left: 0;
-    background-color: #f0f0f0; /* Cor de fundo (opcional) */
-    z-index: 2; /* Coloca a div à frente das outras */
-}
-.center {
-    flex: 1; /* A div .center vai ocupar todo o espaço disponível na horizontal */
-}
-
-.right {
-    width: 25%;
-    height: 100%; /* Agora a div esquerda terá a mesma altura que as outras */
-    /*display: none; /* Inicia oculta */
-    /*position: absolute;*/
-    top: 0; /* Ajuste a distância do topo conforme necessário */
-    left: 0;
-    background-color: #f0f0f0; /* Cor de fundo (opcional) */
-    z-index: 2; /* Coloca a div à frente das outras */
-}
-.right .aniver {
-    text-align: center;
-    width: 100%;
-}
-table {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Estilos para o botão */
-#menuBtn {
-    background-color: #007bff;
+#imenuBtn {
+    background-color: #1bd343; /* Cor azul */
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    margin: 0px  2px 0px 2px;
+    padding: 5px 5px;
     cursor: pointer;
-    border-radius: 5PX;
+    border-radius: 5px;
+    transition: background-color 0.5s; /* Adicionando a transição */
 }
-#divMenu{
-    margin: 5px;
+#imenuBtn:hover {
+    background-color: #65af16; /* Cor azul mais escura ao passar o mouse */
 }
-/* Estilos para o menu suspenso */
-#menu {
-    list-style: none;
-    padding: 0;
-    background-color: #fff;
-    border: 0px solid #ccc;
-    /*position: absolute;*/
-    z-index: 1;
-    margin-top: 0;
+.iconeMenu{
+    background-color: #131414;
+    padding: 1px;
+    border-radius: 3px;
+    margin: 3px;
+    width: 25px; /* Define a largura para 300 pixels */
+
+}
+.menu {
+    display: none;
+}
+#ititulo{
+    background-color: #057733;
+    margin: 0px 2px 0px 2px;
+    padding-top: 15px;
+    padding-bottom: 35px;
+    text-align: center; /* Alinha o texto ao centro */
 }
 
-#menu li:last-child {
-    border-bottom: none;
+#ititulo h1 {
+    display: inline-block; /* Faz o elemento se comportar como um bloco em linha */
+    color: #fff;
 }
-#menu ul {
-    padding: 0px;
-}
-#menu li {
-    list-style-type: none;
-    padding: 5px 10px 5px 10px;
-}
-
-a {
-    text-decoration: none; /* Remove o sublinhado */
-}
-a {
-    text-decoration: none; /* Remove o sublinhado */
-    color: #000; /* Cor do texto padrão */
+#imenu {
+    position: absolute;
+    top: 0;
+    left: -300px; /* Inicia fora da tela à esquerda */
+    width: 250px; /* Largura do menu */
+    height: 100%;
+    background-color: #fff; /* Cor de fundo do menu */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para o menu */
+    transition: 0.3s; /* Adiciona uma transição suave */
+    z-index: 2; /* Coloca o menu acima do conteúdo */
 }
 
-/* Estilo quando o mouse passa por cima */
-a:hover {
-    color: #00F; /* Cor do texto quando o mouse passa por cima */
+#imenu.aberto {
+    left: 0; /* Move o menu para dentro da tela quando aberto */
 }
+
+/*.titulo {
+    display: flex; /* Ativa o layout flexível */
+    /*align-items: center; /* Alinha os elementos verticalmente ao centro (opcional) */
+/*}
+
+
+
+
+/*.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+/* Estilos para Computador */
+/*@media screen and (min-width: 1025px) {
+    #imenuBtn {
+        /*display: none;*/
+        /*margin: 3px;*/
+    /*}
+    #idivMenu {
+        /*flex-direction: column;
+        /*align-items: flex-start;*/
+        /*display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .menu {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .lista li {
+        display: inline-block;*/
+        /*margin-right: 20px;
+        border-bottom: none;
+    }
+}*/
+/* Estilos para iPhone */
+/*@media screen and (max-width: 767px) {
+    #idivMenu {
+        /*flex-direction: column;
+        /*align-items: flex-start;*/
+        /*display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #imenuBtn {
+        margin: 5px;
+    }
+
+    .menu {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .lista li {
+        border-bottom: none;
+    }
+
+    .lista a {
+        padding: 3px 0;
+    }
+}
+
+/* Estilos para Tablet */
+/*@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .menu {
+        width: 70%;
+    }
+}*/
+
+

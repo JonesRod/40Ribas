@@ -60,40 +60,56 @@
             margin-right: auto;
         }
     </Style>
-    <title>Lista de Sócios</title>
     <script>
+        //atualiza a pagian a cada 10 seg
+        setTimeout(function() {
+            location.reload();
+        }, 100000);
+
         $(document).ready(function() {
             // Função para atualizar a tabela com base na seleção do botão de rádio
-            function atualizarTabela(status) {
+            function atualizarTabela(vencimento, nomeSocio) {
                 $.ajax({
                     type: 'POST',
-                    url: 'aptos.php', // Nome do arquivo PHP que buscará os dados
-                    data: { status: status },
+                    url: 'atualizar_tabela_joia.php', // Nome do arquivo PHP que buscará os dados
+                    data: { situacao: vencimento, nome_socio: nomeSocio },
                     success: function(response) {
-                        $('#tabela-socios').html(response); // Atualiza a tabela com os novos dados
+                        $('#tabela-joia').html(response); // Atualiza a tabela com os novos dados
                     }
                 });
             }
 
-            // Define um manipulador de eventos para os botões de rádio
-            $('input[name="status"]').change(function() {
-                var statusSelecionado = $(this).val();
-                atualizarTabela(statusSelecionado);
+            $('input[name="situacao"]').change(function() {
+                $('input[name="socio"]').val(''); // Define o valor do campo de busca como vazio
+                var situacaoSelecionado = $(this).val();
+                var nomeSocio = $('input[name="socio"]').val();
+                atualizarTabela(situacaoSelecionado, nomeSocio);
+            });
+
+            // Define um manipulador de eventos para o botão de busca por nome de sócio
+            $('#buscarSocio').click(function() {
+                var situacaoSelecionado = $('input[name="situacao"]:checked').val();
+                var nomeSocio = $('input[name="socio"]').val();
+                atualizarTabela(situacaoSelecionado, nomeSocio);
             });
 
             // Inicialmente, carrega a tabela com "TODOS" selecionados
-            atualizarTabela('ATIVO');
+            atualizarTabela('ATRASADOS', '');
         });
+
     </script>
+    <title>Jóia á receber</title>
 </head>
 <body>
-    <h1>Lista de Sócios Aptos para treinar</h1>
+    <h1>Relatório de Jóias á receber</h1>
     <p>
-        <input type="hidden" name="status" id="iativo" value="ATIVO">
+        <label for="">BUSCAR: </label>
+        <input type="radio" name="situacao" id="iatrasados" checked value="ATRASADOS"><label for="iatrasados">ATRASADOS</label>
+        <input type="radio" name="situacao" id="iEmDia" value="EM_DIA"><label for="iEmDia">EM DIA</label>
+        <input type="radio" name="situacao" id="itodos" value="TODOS"><label for="itodos">TODAS GERADAS</label> <br> 
+        
+        <label for="">BUSCAR POR SOCIO: </label><input type="text" name="socio"><button id="buscarSocio">Buscar</button>
     </p>
-    <div id="tabela-socios"></div>
-    <p>
-        Os demais que não estiver nessa lista, não estão aptos á participarem das atividades. Procure o tesoureiro para mais informações!
-    </p>
+    <div id="tabela-joia"></div>
 </body>
 </html>

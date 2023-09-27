@@ -165,36 +165,22 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
     <script>
         function formatarCampo(input) {
             let value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-            console.log('oii');
 
             if (/^[0-9]+$/.test(value)) {
-
                 if (value.length > 9) {
-                    value = value.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3-');
+                    value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
                 } else if (value.length > 6) {
-                    value = value.replace(/(\d{3})(\d{3})/, '$1.$2.');
+                    value = value.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3');
                 } else if (value.length > 3) {
-                    value = value.replace(/(\d{3})/, '$1.');
+                    value = value.replace(/(\d{3})(\d{3})/, '$1.$2');
                 }
                 input.value = value; 
-                           
-                /*if (valor.length === 11) {
-                    // Formatar como CPF
-
-
-                    const cpfFormatado = valor.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-                    document.getElementById('iemail').textContent = `CPF Formatado: ${cpfFormatado}`;
-                } else if (valor.includes('@')) {
-                    // Formatar como E-mail
-                    document.getElementById('iemail').textContent = `E-mail: ${valor}`;
-                } else {
-                    // Se não se encaixa em nenhum formato conhecido
-                    //document.getElementById('iemail').textContent = 'Formato desconhecido';
-                }*/
             }
-            if (valor.includes('@')) {
-                // Formatar como E-mail
-                document.getElementById('iemail').textContent = `${valor}`;
+
+            if (value.includes('@')) {
+                // Se o valor contiver '@', formatar como E-mail
+                let emailElement = document.getElementById('iemail');
+                emailElement.textContent = value;
             }
         }
     </script>

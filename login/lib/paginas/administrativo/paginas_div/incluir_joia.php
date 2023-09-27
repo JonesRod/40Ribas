@@ -57,6 +57,8 @@
         $socio = $sql_joia_receber->fetch_assoc();
 
         $admin = $usuario['apelido'];
+        $id_socio = $socio['id'];
+        //echo $id_socio;
         $apelido = $socio['apelido'];
         $nome = $socio['nome_completo'];
         $celular1 = $socio['celular1'];
@@ -64,35 +66,15 @@
         $email = $socio['email'];
 
     } else {
-        $admin = $usuario['apelido'];
+       
+        $admin = $usuario['apelido']; 
+        $id_socio = '';
         $apelido = '';
         $nome = '';
         $celular1 = '';
         $celular2 = '';
         $email = '';
     }
-
-    /*if(isset($_GET['pesquisa'])) {
-        $id_socio = '';
-        $nome_socio = $_GET['pesquisa'];
-
-        $sql = "SELECT * FROM socios WHERE nome_completo LIKE '%$nome_socio%' LIMIT 1";
-        $result = $mysqli->query($sql);
-
-        if ($result->num_rows > 0) {
-            $result_pesquisa = $result->fetch_assoc();
-        
-            $admin = $usuario['apelido'];
-            $apelido = $result_pesquisa['apelido'];
-            $nome = $result_pesquisa['nome_completo'];
-            $celular1 = $result_pesquisa['celular1'];
-            $celular2 = $result_pesquisa['celular2'];
-            $email = $result_pesquisa['email'];
-            echo json_encode($result_pesquisa); // Retorna os dados como JSON
-        } else {
-            //echo json_encode(['error' => 'Nenhum sócio encontrado']); // Retorna uma mensagem de erro em JSON
-        }
-    }*/
 
 ?>
 <!DOCTYPE html>
@@ -104,9 +86,12 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
+
         $(document).ready(function() {
+           // calcularValorParcelas();
             // Função para buscar os dados do sócio pelo nome
             function buscarDadosSocio(nomeSocio) {
+                //console.log('oii');
                 $.ajax({
                     type: 'GET',
                     url: 'buscar_dados.php',
@@ -122,19 +107,16 @@
                             $('#icelular1').val(dados.celular1);
                             $('#icelular2').val(dados.celular2);
                             $('#iemail').val(dados.email);
+                            //console.log('oii');
                         }
                     },
                 });
-            }
+            } 
+            $('#buscarSocio').click(function() {
+                var nomeSocio = $('#ipesquisa').val();
+                buscarDadosSocio(nomeSocio);
+            }); 
 
-                $('#buscarSocio').click(function() {
-                    var nomeSocio = $('#ipesquisa').val();
-                    buscarDadosSocio(nomeSocio);
-                    //console.log('oii');
-                });
-
-                // Inicialmente, carrega a tabela com "TODOS" selecionados
-                //buscarDadosSocio('');
         });
 
     </script>
@@ -148,9 +130,11 @@
         <input id="ipesquisa" name="pesquisa" type="text">
         <button id="buscarSocio">Buscar</button>
         <span id="imsg"></span>
-        <form action="" method="post">
 
-            <input id="" value="<?php echo $usuario['id']; ?>" name="admin" type="hidden">
+        <form action="parcelamento_joia.php" method="post">
+
+            <input id="" value="<?php echo $admin ?>" name="admin" type="hidden">
+            <input id="" value="<?php echo $id_socio; ?>" name="id_socio" type="hidden">
             <p>
                 <label for="iapelido" >Apelido: </label>
                 <input readonly id="iapelido" value="<?php echo $apelido; ?>" name="apelido" type="text"><br>
@@ -161,39 +145,40 @@
             </p>
             <p>
                 <label for="icelular1">Celular 1:</label>
-                <input readonly id="icelular1" type="text" value="<?php echo $celular1; ?>" >
+                <input readonly id="icelular1" type="text" name="celular1" value="<?php echo $celular1; ?>" >
             </p>
             <p>
                 <label for="icelular2">Celular 2:</label>
-                <input readonly id="icelular2" type="text" value="<?php echo $celular2; ?>" >
+                <input readonly id="icelular2" type="text" name="celular2" value="<?php echo $celular2; ?>" >
             </p>
             <p>
                 <label for="iemail">E-mail:</label>
-                <input readonly id="iemail" type="text" value="<?php echo $email; ?>" >
+                <input readonly id="iemail" type="text" name="email" value="<?php echo $email; ?>" >
             </p>
             <p>
                 <label for="ijoia">Valor da Joia:</label>
-                <input readonly id="ijoia" type="text" value="<?php echo $joia . ',00'; ?>" >
+                <input readonly id="ijoia" type="text" name="valor_joia" value="<?php echo number_format($joia, 2, ',', '.'); ?>" >
             </p>
             <p>
                 <label for="ientrada">Entrada:</label>
-                <input id="ientrada" type="text" value="0,00" >
+                <input required id="ientrada" type="text" name="entrada" value="0,00"  oninput="formatarEntrada(this)" onblur="calcularValorParcelas()">
             </p>
             <p>
                 <label for="irest">Restante:</label>
-                <input readonly id="irest" type="text" value="<?php echo $joia . ',00'; ?>" >
+                <input readonly id="irest" type="text" name="restante" value="<?php echo number_format($joia, 2, ',', '.'); ?>" >
             </p>
             <p>
                 <label for="iparcelas">Quantidade de Parcelas:</label>
-                <input  id="iparcelas" type="number" value="<?php echo $parcelas; ?>" >
+                <input required id="iparcelas" type="text" name="qt_parcelas" value="<?php echo $parcelas; ?>" oninput="formatarParcela(this)" onblur="calcularValorParcelas()">
             </p>
             <p>
                 <label for="ivalor_parcelas">Valor da Parcelas:</label>
-                <input  readonly id="ivalor_parcelas" value="<?php echo $valor_parcelas; ?>" >
+                <input  readonly id="ivalor_parcelas" name="valor_parcela" value="<?php echo number_format($joia/$parcelas, 2, ',', '.'); ?>" >
             </p>
+            <a href="inicio.php" style="margin-right: 10px;"> Voltar</a><button type="submit">Registrar</button>
 
         </form>
-
+        <script src="calcular.js"></script>
     </div>
     
 </body>
