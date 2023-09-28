@@ -49,6 +49,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="admin_home.css">
     <title>Tela Admin</title>
 </head>
@@ -67,13 +68,13 @@
         <div class="menu" id="imenu">
             <ul id="ilista" class="lista">
                 <li><a href="admin_config.php">Configurações</a></li> 
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/inicio.php')">Inicío</a></li> 
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/integrarSocio.php')">Integrar de Sócios</a></li>  
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/incluir_joia.php')">Incluir Jóia</a></li> 
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/joia_para_receber.php')">Jóia á Receber</a></li>
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/listaSocios.php')">Lista de Sócios</a></li>              
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/GerarMensalidades.php')">Gerar Mensalidades</a></li>
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/CarregarMensalidades.php')">Carregar Mensalidades</a></li>
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/inicio.php');toggleMenu()">Inicío</a></li> 
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/integrarSocio.php');toggleMenu()">Integrar de Sócios</a></li>  
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/incluir_joia.php');toggleMenu()">Incluir Jóia</a></li> 
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/joia_para_receber.php');toggleMenu()">Jóia á Receber</a></li>
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/listaSocios.php');toggleMenu()">Lista de Sócios</a></li>              
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/GerarMensalidades.php');toggleMenu()">Gerar Mensalidades</a></li>
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/CarregarMensalidades.php');toggleMenu()">Carregar Mensalidades</a></li>
                 <li><a href="admin_logout.php">Sair</a></li>
             </ul> 
         </div> 
@@ -82,11 +83,7 @@
         </div>      
     </div>
     <div class="container">
-        <div class="conteudo" id="iconteudo">
-            <!-- Conteúdo central (dados escolhidos) -->
-        </div>
-        <div class="right">
-
+        <div class="left">
             <!-- Conteúdo da div direita (outras atividades) -->
             <div class="aniver">
                 <h3>Aniversariantes do mês de 
@@ -118,7 +115,7 @@
                     // Verifica se há resultados
                     if ($result->num_rows > 0) {
                         echo "<p>Total de Aniversariantes: " . $result->num_rows . "</p>";
-                        echo "<table border='0'>";
+                        echo "<table border='1'>";
                         echo "<tr>
                                 <th>Data Nasc.</th>
                                 <th>Apelido</th>
@@ -290,6 +287,10 @@
                     $mysqli->close();
                 ?>
             </div>
+
+        </div>
+        <div class="conteudo" id="iconteudo">
+            <!-- Conteúdo central (dados escolhidos) -->
         </div>
     </div>
     <script src="admin_home.js"></script>
