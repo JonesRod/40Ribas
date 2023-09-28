@@ -56,9 +56,18 @@
         body #table{
             text-align: center;
         }
+        img{
+            border-radius: 50%; /* Define um raio de borda de 50% (forma circular) */
+            width: 50px; /* Defina a largura desejada para a imagem */
+            height: 50px; /* Defina a altura desejada para a imagem */
+            object-fit: cover; /* Garante que a imagem cubra completamente a área */
+        }
         table {
             margin-left: auto;
             margin-right: auto;
+            width: 100%; /* A tabela ocupará 100% da largura do contêiner pai */
+            max-width: 100%; /* A tabela não irá além de 100% da largura do contêiner pai */
+            border-collapse: collapse; /* Combina as bordas das células */
         }
         a {
             text-decoration: none; /* Remove o sublinhado */

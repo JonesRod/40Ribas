@@ -58,27 +58,28 @@
     $id = '1';
     $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
     $dadosEscolhido = $dados->fetch_assoc();
-//hidden esconde o input
+//hidden esconde o input    
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin_config.css">
     <title>Configuração</title>
 </head>
 <body>
-    <a>Admin <?php echo $usuario['apelido']; ?></a> <br>
-    <h1>Configurações do Administrador</h1>
+
+    <h1 id="ititulo" >Configurações do Administrador</h1>
     
     <form id="meuFormulario" action="admin_altera_dados.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
-        <fieldset>
+        <fieldset class="partes">
             <p>
                 <?php if(isset($dadosEscolhido['logo'])) { ?>
-                <img id="ilogo" style="max-width: 200px;" src= "<?php echo $dadosEscolhido['logo']; ?>" name="logo_antiga" alt=""><br>
+                <img class="imagens" id="ilogo" style="max-width: 200px;" src= "<?php echo $dadosEscolhido['logo']; ?>" name="logo_antiga" alt=""><br>
                 <?php } ?>
-                <img id="ilogoNova" style="max-width: 200px;" alt=""><br>
-                <label for="imageInput">Alterar Logo</label>
+                <img class="imagens" id="ilogoNova" style="max-width: 200px;" alt=""><br>
+                <label for="imageInput">Alterar Logo</label><br>
                 <input type="file" id="imageInput" name="imageInput" accept=".png, .jpg, .jpeg" onchange="imgLogo(event)">
                 <input type="hidden" name="end_logo" value= "<?php echo $dadosEscolhido['logo']; ?>">
             </p> 
@@ -92,7 +93,7 @@
                 <input required name="cnpj" id="icnpj" type="text" oninput="formataCNPJ(this)" onblur="verificaCnpj()" value="<?php echo $dadosEscolhido['cnpj']; ?>">           
             </p>
         </fieldset>
-        <fieldset>
+        <fieldset class="partes">
             <legend>Localização:</legend>
             <p> 
                 <label for="iuf">Estado: </label><br>
@@ -190,7 +191,7 @@
             </p>
         
         </fieldset>
-        <fieldset>
+        <fieldset class="partes">
             <legend>Administrativo:</legend>
             <p>
                 <label for="inome">Nome do Tesoureiro(Admin):</label><br>
@@ -207,12 +208,12 @@
 
             <p>
                 <label for="iEmailSuporte">E-mail de notificação:</label><br>
-                <input required name="email_suporte" id="iEmailSuporte" type="email" value="<?php echo $dadosEscolhido['email_suporte']; ?>">
+                <input required name="email_suporte" id="iEmailSuporte" type="email" value="<?php echo $dadosEscolhido['email_suporte']; ?>"><br>
                 <label for="iSenha">Senha:</label><br>
                 <input required name="senha" id="iSenha" type="text" value="<?php echo $dadosEscolhido['senha']; ?>">
             </p>
         </fieldset>
-        <fieldset>
+        <fieldset class="partes">
             <legend>Config. Financeira:</legend>
             <p>
                 <label for="idia">Dia de vencimento das Mensalidades:</label><br>
@@ -247,7 +248,7 @@
                 <input required name="meses_vence5" id="imes5" type="number" value="<?php echo $dadosEscolhido['meses_vence5']; ?>">  
             </p>
         </fieldset>
-        <fieldset>
+        <fieldset class="partes">
             <legend>Orientações e Regras</legend>
             <p>
                 <label for="idade">Idade minima para ser um associado: </label><br>
@@ -255,7 +256,7 @@
             </p>
             <p>
                 <label for="itermos">Termos da Inscrição:</label><br>
-                <textarea required type="text" name="termos_insc" id="itermos" cols="50" rows="10" minlength="10"><?php echo $dadosEscolhido['termos_insc']; ?></textarea><br> 
+                <textarea required type="text" name="termos_insc" id="itermos" cols="40" rows="10" minlength="10"><?php echo $dadosEscolhido['termos_insc']; ?></textarea><br> 
             </p>
             <p>
                 <label for="ivalidade">Tempo de validade da Inscrição:</label><br>
@@ -264,19 +265,19 @@
             <p>
                 <label for="iEst">Estatuto interno:</label><br>
                 <input type="hidden" name="estatuto" id="iEst" value="<?php echo $dadosEscolhido['estatuto_int']; ?>">
-                <button type="button" id="ibaixar_estatuto" onclick="baixarArq_estatuto()">Baixar Estatuto Atual</button>
+                <button type="button" id="ibaixar_estatuto" onclick="baixarArq_estatuto()">Baixar Estatuto Atual</button><br>
                 <input type="file" accept=".pdf, .doc, .docx" name="novo_estatuto" id="inovo_estatuto"></p>
             </p>
             <p>
                 <label for="iReg" for="">Regimento interno:</label><br>
                 <input type="hidden" name="regimento" id="iReg" value="<?php echo $dadosEscolhido['reg_int']; ?>">
-                <button type="button" id="ibaixar_regimento" onclick="baixarArq_regimento()">Baixar Regimento Atual</button>
+                <button type="button" id="ibaixar_regimento" onclick="baixarArq_regimento()">Baixar Regimento Atual</button><br>
                 <input type="file" accept=".pdf, .doc, .docx" name="novo_regimento" id="inovo_regimento"></p>
             </p>
             <p>
                 <span id="imsgAlerta"></span><br>
                 <!-- Link de voltar -->
-                <a href="#" onclick="perguntarSalvar(); return false;">Voltar</a>
+                <a href="#" onclick="perguntarSalvar(); return false;" style="margin-left: 10px; margin-right: 10px;">Voltar</a>
 
                 <button type="submit">Salvar</button>
             </p>

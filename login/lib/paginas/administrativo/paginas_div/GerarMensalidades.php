@@ -89,32 +89,59 @@
             return true; // Permite o envio do formulário
         }
     </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /*margin: 0;*/
+            background-color: #f8f8f8;
+            align-items: center;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        h2{
+            margin-top: 30px;
+        }
+        form{
+            margin-top: 30px;
+        }
+        input{
+            text-align: center;
+            width: 30px;
+        }
+    </style>
     <title>Gerador de Mensalidades</title>
 </head>
 <body>
     <h2>Gerador de Mensalidades</h2>
     <form action="gerar.php" method="POST" onsubmit="return validarQuantidadeMeses()">
-        <label for="iultmes">Ultima mensalidade gerada foi do mês: </label>
-        <input readonly id="iultmes" name="ultmes" type="text" value="<?php echo $ultima_mensalidade; ?>"><br>
-
-        <label for="iultano">Ultimo Ano: </label>
-        <input readonly id="iultano" name="ultano" type="text" value="<?php echo $ultimo_ano; ?>"><br>
-
-        <label for="iqtmes">Quantidade de meses que você pretende gerar: </label>
-        <input required id="iqtmes" name="qtmes" type="number" value="1"><br>
-
-        <label for="ivalormes">Valor da Mensalidade: R$</label>
-        <input readonly type="text" id="ivalormes" name="valormes" value="<?php echo $dados['valor_mensalidades']; ?>"><br>
-
-        <label for="idiavenc">Dia de vencimento: </label>
-        <input readonly type="text" id="idiavenc" name="diavenc" value="<?php echo $dados['dia_fecha_mes']; ?>"><br>
-
-        <label for="idesc">Desconto: R$</label>
-        <input readonly type="text" id="idesc" name="desc" value="<?php echo $dados['desconto_mensalidades']; ?>"><br>
-
-        <label for="imulta">Multa: R$</label>
-        <input readonly type="text" id="imulta" name="multa" value="<?php echo $dados['multa']; ?>"><br>
-
+        <p>
+            <label for="iultmes">Ultima mensalidade gerada foi do mês: </label><br>
+            <input readonly id="iultmes" name="ultmes" type="text" value="<?php echo $ultima_mensalidade; ?>">
+        </p>
+        <p>
+            <label for="iultano">Ultimo Ano: </label><br>
+            <input readonly id="iultano" name="ultano" type="text" value="<?php echo $ultimo_ano; ?>"><br>
+        </p>
+        <p>
+            <label for="iqtmes">Quantidade de meses que você pretende gerar: </label><br>
+            <input required id="iqtmes" name="qtmes" type="number" value="1"><br>
+        </p>
+        <p>
+            <label for="ivalormes">Valor da Mensalidade: R$</label><br>
+            <input readonly type="text" id="ivalormes" name="valormes" value="<?php echo $dados['valor_mensalidades']; ?>"><br>
+        </p>
+        <p>
+            <label for="idiavenc">Dia de vencimento: </label><br>
+            <input readonly type="text" id="idiavenc" name="diavenc" value="<?php echo $dados['dia_fecha_mes']; ?>"><br>
+        </p>
+        <p> 
+            <label for="idesc">Desconto: R$</label><br>
+            <input readonly type="text" id="idesc" name="desc" value="<?php echo $dados['desconto_mensalidades']; ?>"><br>
+        </p>
+        <p>
+            <label for="imulta">Multa: R$</label><br>
+            <input readonly type="text" id="imulta" name="multa" value="<?php echo $dados['multa']; ?>"><br>            
+        </p>
         <button type="submit">Gerar Mensalidades</button>
     </form>
 </body>

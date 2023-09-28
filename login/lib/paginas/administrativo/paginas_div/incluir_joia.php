@@ -84,7 +84,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carregar Jóia</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script>
 
         $(document).ready(function() {
@@ -120,13 +119,41 @@
         });
 
     </script>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            align-items: center;   
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        #idiv {
+            position: absolute; /* Define a posição como absoluta */
+            top: 55%; /* Ajusta a distância do topo para 50% da altura do elemento pai (body) */
+            left: 50%; /* Ajusta a distância da esquerda para 50% da largura do elemento pai (body) */
+            transform: translate(-50%, -50%);
+            border: 1px solid black;
+            width: 40%;
+            max-width: 40%; /* A tabela não irá além de 100% da largura do contêiner pai */
+            padding-bottom: 10px;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
+        #idiv label{
+            margin-left: 20px;
+        }
+        input {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div>
+    <div id="idiv">
         <h2>Carregar Jóia</h2>
 
-        <label for="ipesquisa">Pesquisar por Nome: </label>
+        <label for="ipesquisa">Pesquisar por Nome: </label><br>
         <input id="ipesquisa" name="pesquisa" type="text">
         <button id="buscarSocio">Buscar</button>
         <span id="imsg"></span>
@@ -136,46 +163,47 @@
             <input id="" value="<?php echo $admin ?>" name="admin" type="hidden">
             <input id="" value="<?php echo $id_socio; ?>" name="id_socio" type="hidden">
             <p>
-                <label for="iapelido" >Apelido: </label>
-                <input readonly id="iapelido" value="<?php echo $apelido; ?>" name="apelido" type="text"><br>
+                <label for="iapelido" >Apelido: </label><br>
+                <input readonly id="iapelido" value="<?php echo $apelido; ?>" name="apelido" type="text">
             </p>
             <p>
-                <label for="inome" >Nome Completo: </label>
-                <input readonly id="inome" value="<?php echo $nome; ?>" name="nome" type="text"><br>
+                <label for="inome" >Nome Completo: </label><br>
+                <input readonly id="inome" value="<?php echo $nome; ?>" name="nome" type="text">
             </p>
             <p>
-                <label for="icelular1">Celular 1:</label>
+                <label for="icelular1">Celular 1:</label><br>
                 <input readonly id="icelular1" type="text" name="celular1" value="<?php echo $celular1; ?>" >
             </p>
             <p>
-                <label for="icelular2">Celular 2:</label>
+                <label for="icelular2">Celular 2:</label><br>
                 <input readonly id="icelular2" type="text" name="celular2" value="<?php echo $celular2; ?>" >
             </p>
             <p>
-                <label for="iemail">E-mail:</label>
+                <label for="iemail">E-mail:</label><br>
                 <input readonly id="iemail" type="text" name="email" value="<?php echo $email; ?>" >
             </p>
             <p>
-                <label for="ijoia">Valor da Joia:</label>
+                <label for="ijoia">Valor da Joia:</label><br>
                 <input readonly id="ijoia" type="text" name="valor_joia" value="<?php echo number_format($joia, 2, ',', '.'); ?>" >
             </p>
             <p>
-                <label for="ientrada">Entrada:</label>
+                <label for="ientrada">Entrada:</label><br>
                 <input required id="ientrada" type="text" name="entrada" value="0,00"  oninput="formatarEntrada(this)" onblur="calcularValorParcelas()">
             </p>
             <p>
-                <label for="irest">Restante:</label>
+                <label for="irest">Restante:</label><br>
                 <input readonly id="irest" type="text" name="restante" value="<?php echo number_format($joia, 2, ',', '.'); ?>" >
             </p>
             <p>
-                <label for="iparcelas">Quantidade de Parcelas:</label>
+                <label for="iparcelas">Quantidade de Parcelas:</label><br>
                 <input required id="iparcelas" type="text" name="qt_parcelas" value="<?php echo $parcelas; ?>" oninput="formatarParcela(this)" onblur="calcularValorParcelas()">
             </p>
             <p>
-                <label for="ivalor_parcelas">Valor da Parcelas:</label>
+                <label for="ivalor_parcelas">Valor da Parcelas:</label><br>
                 <input  readonly id="ivalor_parcelas" name="valor_parcela" value="<?php echo number_format($joia/$parcelas, 2, ',', '.'); ?>" >
             </p>
-            <a href="inicio.php" style="margin-right: 10px;"> Voltar</a><button type="submit">Registrar</button>
+
+            <a href="inicio.php" style="margin-right: 20px;"> Voltar</a><button type="submit">Registrar</button>
 
         </form>
         <script src="calcular.js"></script>

@@ -43,6 +43,7 @@
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
     $usuario = $sql_query->fetch_assoc();
 
+
     $id_mensalidade = $_GET['id_mensalidade'];
     $sql_mensalidade = $mysqli->query("SELECT * FROM mensalidades WHERE id = '$id_mensalidade'") or die($mysqli->error);
 
@@ -91,6 +92,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Recebimento</title>
+    <style>
+        body h2{
+            text-align: center;
+        }
+        body form{
+            /*text-align: center;*/
+            border: 1px solid black;
+            /*width: 200px;*/
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px;
+        }
+        form label{
+            margin: 10px;
+            /*padding: 50px;*/
+        }
+        form label,
+        form input {
+            margin-bottom: 10px;
+            max-width: 100%;
+        }
+
+        form input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input{
+            margin: 5px;
+        }
+        a{
+            margin-left: 100px; 
+            margin-right: 40px;
+        }
+    </style>
 </head>
 <body>
     <h2>Receber</h2>

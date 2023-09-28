@@ -48,9 +48,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <Style>
+    <Style>  
         body{
+            font-family: Arial, sans-serif;
+            margin: 0;
             text-align: center;
+            margin: 10px;
+        }
+        img{
+            border-radius: 50%; /* Define um raio de borda de 50% (forma circular) */
+            width: 50px; /* Defina a largura desejada para a imagem */
+            height: 50px; /* Defina a altura desejada para a imagem */
+            object-fit: cover; /* Garante que a imagem cubra completamente a área */
         }
         body #table{
             text-align: center;
@@ -58,6 +67,28 @@
         table {
             margin-left: auto;
             margin-right: auto;
+        }
+   
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%; /* A tabela ocupará 100% da largura do contêiner pai */
+            max-width: 100%; /* A tabela não irá além de 100% da largura do contêiner pai */
+            border-collapse: collapse; /* Combina as bordas das células */
+        }
+
+        /* Estilos para iPhone menor*/
+        @media screen and (min-width: 320px) and (max-width: 620px)  {
+            table {
+                font-size: 40%;
+            }
+        }
+
+        /* Estilos para Tablet */
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            table {
+                font-size: 70%;
+            }
         }
     </Style>
     <title>Lista de Sócios</title>
