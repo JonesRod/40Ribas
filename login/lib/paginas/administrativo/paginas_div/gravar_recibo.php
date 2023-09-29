@@ -102,15 +102,24 @@
         '$mensalidade_mes', '$mensalidade_ano', '$valor_mensalidade', '$data_vencimento', '$desconto_mensalidade', 
         '$multa_mensalidade', '$valor_receber', '$valor_recebido', '$data_recebida', '$restante')") or die($mysqli->error);
     }
-    echo 'Mensalidade recebida com sucesso.';
+    $msg= 'Mensalidade recebida com sucesso.';
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        body {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
     <title></title>
 </head>
 <body>
+    <span><?php echo $msg; ?></span>
     <script>
         setTimeout(function() {
             window.close();

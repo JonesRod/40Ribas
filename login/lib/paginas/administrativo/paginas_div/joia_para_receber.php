@@ -84,7 +84,7 @@
         //atualiza a pagian a cada 10 seg
         setTimeout(function() {
             location.reload();
-        }, 100000);
+        }, 30000);
 
         $(document).ready(function() {
             // Função para atualizar a tabela com base na seleção do botão de rádio

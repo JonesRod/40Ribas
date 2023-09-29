@@ -60,7 +60,7 @@
     $data_final_formatada = date('Y-m-d', strtotime(str_replace('/', '-', $data_final)));
 
     $hora_final = $_POST['hora_final'];
-//var_dump('_POST');
+    //var_dump('_POST');
     $sql_code = "UPDATE int_associar
     SET 
     em_votacao = '$votacao',
@@ -74,10 +74,27 @@
     $deu_certo = $mysqli->query($sql_code) or die($mysqli->$erro);
 
     if($deu_certo) {
-        echo "<p><b>Registrado!!!</b></p>";
+       $msg = "Registrado com sucesso!";
+
         unset($_POST);
         header("refresh: 3; integrarSocio.php");
     } else {
         //echo "<p><b>ERRO: $erro</b></p>";
     }
 ?>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+    <span><?php echo $msg; ?></span>
+</body>
+</html>

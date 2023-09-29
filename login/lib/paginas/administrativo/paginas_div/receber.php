@@ -101,7 +101,7 @@
             border: 1px solid black;
             /*width: 200px;*/
             position: absolute;
-            top: 35%;
+            top: 55%;
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 15px;
@@ -133,9 +133,9 @@
     </style>
 </head>
 <body>
-    <h2>Receber</h2>
+    
     <form action="gravar_recibo.php" method="POST" onsubmit="return verificarRecebimento()">
-
+        <h2>Receber</h2>
         <!-- Campos ocultos para enviar o ID do usuário e o ID da mensalidade -->
         <input type="hidden" name="id_usuario" value="<?php echo $id; ?>">
         <input type="hidden" name="id_mensalidade" value="<?php echo $id_mensalidade; ?>">

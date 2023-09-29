@@ -67,10 +67,10 @@
     $vencimento = $parcela['vencimento']; //echo $mensalidade_mes;
     $desconto = $parcela['desconto_parcela'];
     $desconto_parcela = $_POST['desconto'];
-    $desconto_total = $desconto_parcela + $desconto; //echo $mensalidade_ano;
+    $desconto_total = floatval($desconto_parcela) + floatval($desconto); //echo $mensalidade_ano;
     $recebido = $parcela['recebido']; //echo $valor_mensalidade;
     $recebi_parcela = $_POST['receber'];
-    $recebimento_total = $recebi_parcela + $recebido;
+    $recebimento_total = floatval($recebi_parcela) + floatval($recebido);
     $data_recebi = date('Y-m-d');
 
     $restante = $_POST['restante']; //echo $desconto_mensalidade;
@@ -120,7 +120,7 @@
         '$num_parcela', '$qt_parcelas','$valor_parcelas','$vencimento', '$desconto_parcela', '$recebi_parcela', NOW(), '$proximo_valor_receber')";
         $mysqli->query($sql_historico_joia) or die($mysqli->error);
     }
-    echo 'Parcela recebida com sucesso.';
+    $msg  = 'Parcela recebida com sucesso.';
 
 ?>
 <!DOCTYPE html>
@@ -129,6 +129,7 @@
     <title></title>
 </head>
 <body>
+    <span>?<php echo $msg; ?></span>
     <script>
         setTimeout(function() {
             window.close();

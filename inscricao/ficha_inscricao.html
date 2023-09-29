@@ -3,7 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    
+    <style>
+        body h1{
+            text-align: center;
+        }
+        body form{
+            text-align: center;
+            /*border: 1px solid black;*/
+            width: 98%;
+            /*position: absolute;*/
+            /*top: 50%;
+            left: 50%;
+            /*transform: translate(-50%, -50%);*/
+            padding: 10px;
+            margin: 10px;
+        }
+        fieldset{
+            text-align: center;
+            border: 1px solid black;
+            width: 50%;
+            margin-left: 25%;
+        }
+        img{
+            width: 50%;
+            /*text-align: center;*/
+            border-radius: 10px;
+        }
+        form .dados input {
+            text-align: center;
+            border: 1px solid black;
+            width: 50%;
+            padding: 5px;
+            border-radius: 4px;
+            box-sizing: border-box; 
+            text-align: center;
+        }
+        form .dados label {
+            display: inline-block;
+            width: 100%; /* Faz a label ocupar 100% da largura do contêiner pai */
+            max-width: 20%; /* Define a largura máxima desejada */
+            box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
+        }
+        form .endereco input {
+            text-align: center;
+            border: 1px solid black;
+            width: 50%;
+            padding: 5px;
+            border-radius: 4px;
+            box-sizing: border-box; 
+            text-align: center;
+        }
+        form .endereco label {
+            display: inline-block;
+            width: 100%; /* Faz a label ocupar 100% da largura do contêiner pai */
+            max-width: 20%; /* Define a largura máxima desejada */
+            box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
+        }
+        form .contatos input {
+            text-align: center;
+            border: 1px solid black;
+            width: 50%;
+            padding: 5px;
+            border-radius: 4px;
+            box-sizing: border-box; 
+            text-align: center;
+        }
+        form .contatos label {
+            display: inline-block;
+            width: 100%; /* Faz a label ocupar 100% da largura do contêiner pai */
+            max-width: 20%; /* Define a largura máxima desejada */
+            box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
+        }
+        .motivo{
+            margin-top: 10px;
+        }
+        textarea{
+            width: 90%;
+            height: 150px; /* Defina a altura desejada em pixels */
+        }
+
+    </style>
     <title>Ficha de Inscrição</title>
 </head>
 <body>
@@ -14,7 +94,7 @@
         <span id="imgAlerta"></span><br>
         <input required type="file" id="imageInput" name="imageInput" accept=".png, .jpg, .jpeg" onchange="handleImageUpload(event)">
         <br>
-        <fieldset>
+        <fieldset class="dados">
             <legend>Dados Pessoais</legend>
             <p>
                 <label for="inome_completo">Nome ompleto: </label><br>
@@ -83,7 +163,7 @@
                 <input name="pai" id="ipai" type="text"><br>
             </p>
         </fieldset>
-        <fieldset>
+        <fieldset class="sexo">
             <legend>Sexo</legend>
             <p>
                 <input type="radio" name="sexo" id="imasc" checked value="MASCULINO"><label for="imasc">Masculino</label> 
@@ -91,7 +171,7 @@
                 <input type="radio" name="sexo" id="iout" value="OUTROS"><label for="iout">Outros</label>
             </p>
         </fieldset>
-        <fieldset>
+        <fieldset class="endereco">
             <legend>Endereço Atual</legend>
             <p> 
                 <label for="iuf_atual">Estado Atual: </label><br>
@@ -148,7 +228,7 @@
                 <input required value="" name="bairro" id="ibairro" type="text"><br>
             </p>
         </fieldset>
-        <fieldset>
+        <fieldset class="contatos">
             <legend>Contatos</legend>
             <p>
                 <label for="icelular1">Celular 1: </label><br>
@@ -163,10 +243,12 @@
                 <input required value="" name="email" id="iemail" type="email"><br>
             </p>
         </fieldset>
-        <p>
-            <label for="imotivo">Diga qual é o motivo ao qual você deseja se tornar sócio: </label><br>
-            <textarea required value=""  rows="4" cols="50" placeholder="Minimo 100 digitos" minlength="100" maxlength="1500" type="text" name="motivo" id="imotivo" ></textarea>
-        </p>
+        <fieldset class="motivo">
+            <p>
+                <label for="imotivo">Diga qual é o motivo ao qual você deseja se tornar sócio: </label><br>
+                <textarea required placeholder="Minimo 100 digitos" type="text" name="motivo" id="imotivo" ></textarea>
+            </p>
+        </fieldset>
         <p>
             <input type="checkbox" id="iaceito"  onchange="verificarAceite()" name="aceito" value="sim">Eu aceito os <a href="termos.php" target="_blank">Termos.</a><br><br>
             <span id="imgAlerta2"></span><br>

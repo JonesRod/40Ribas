@@ -59,6 +59,9 @@
             margin-left: auto;
             margin-right: auto;
         }
+        img{
+            border-radius: 50% 50%;
+        }
     </Style>
     <title>Lista de Sócios</title>
     <script>

@@ -63,6 +63,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body h2{
+            text-align: center;
+        }
+        body form{
+            text-align: center;
+            border: 1px solid black;
+            width: 95%;
+            /*position: absolute;*/
+            /*top: 50%;
+            left: 50%;
+            /*transform: translate(-50%, -50%);*/
+            padding: 15px;
+        }
+        img{
+            width: 50%;
+            /*text-align: center;*/
+            border-radius: 10px;
+        }
+        form label{
+            margin: 10px;
+            /*padding: 50px;*/
+        }
+        /*form label,*/
+        form input {
+            margin-bottom: 10px;
+            max-width: 50%;
+        }
+        form .dados label {
+            display: inline-block;
+            width: 100%; /* Faz a label ocupar 100% da largura do contêiner pai */
+            max-width: 20%; /* Define a largura máxima desejada */
+            box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
+        }
+        form .dados input {
+            width: 50%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        form .endereco label {
+            display: inline-block;
+            width: 100%; /* Faz a label ocupar 100% da largura do contêiner pai */
+            max-width: 20%; /* Define a largura máxima desejada */
+            box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
+        }
+        form .endereco input {
+            width: 50%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        form .contatos label {
+            display: inline-block;
+            width: 100%; /* Faz a label ocupar 100% da largura do contêiner pai */
+            max-width: 20%; /* Define a largura máxima desejada */
+            box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
+        }
+        form .contatos input {
+            width: 50%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input{
+            margin: 5px;
+        }
+        textarea {
+            width: 95%; /* Define a largura do textarea */
+            height: 150px; /* Define a altura do textarea */
+            padding: 10px; /* Adiciona preenchimento interno */
+            font-size: 16px; /* Define o tamanho da fonte */
+            border: 1px solid #ccc; /* Adiciona uma borda de 1 pixel sólida com cor cinza */
+            border-radius: 5px; /* Adiciona bordas arredondadas */
+            background-color: #f8f8f8; /* Define a cor de fundo */
+            color: #333; /* Define a cor do texto */
+        }
+
+        textarea:focus {
+            outline: none; /* Remove a borda de foco padrão */
+            border-color: #007bff; /* Define a cor da borda quando em foco */
+        }
+        /* Estilize o container do rádio */
+        input[type="radio"]{
+            
+            margin-bottom: 0px;
+            margin: 0;
+        }
+        label .radio{
+            margin-left: 0px;
+        }
+        a{
+            margin-left: 100px; 
+            margin-right: 40px;
+        }
+    </style>
     <title>Descrição do Sócio</title>
 </head>
 <body>
@@ -71,107 +170,109 @@
         <p>
             <img id="ifoto" style="max-width: 200px;" src= "<?php echo '../../usuarios/'. $socio['foto']; ?>" name="foto" alt=""><br>
         </p>
-        <input type="hidden" value="<?php echo $socio['id']; ?>" name="id" ><br>  
-        <p>
-            <label for="iapelido" >Apelido: </label>
-            <input disabled ="false" id="iapelido" value="<?php echo $socio['apelido']; ?>" name="apelido" type="text"><br>
-        </p>        
-        <p>
-            <label for="inome_completo" >Nome Completo: </label>
-            <input disabled ="false" id="inome_completo" value="<?php echo $socio['nome_completo']; ?>" name="nome_completo" type="text"><br>
-        </p>
-        <p>
-            <label for="icpf" >CPF: </label>
-            <input disabled ="false" id="icpf" value="<?php echo $socio['cpf']; ?>" name="cpf" type="text"><br>
-        </p>
-        <p>
-            <label for="irg" >RG: </label>
-            <input disabled ="false" id="irg" value="<?php echo $socio['rg']; ?>" name="rg" type="text"><br>
-        </p>
-        <p>
-            <label for="inascimento" >Data de Nascimento: </label>
-            <?php
-                // Suponha que $usuario seja um array contendo os dados do banco de dados, incluindo o campo "data_nascimento"
-                $dataNascimento = $socio['nascimento'];
+        <input type="hidden" value="<?php echo $socio['id']; ?>" name="id" ><br> 
+        <fieldset class="dados">
+            <p>
+                <label for="idata" >Data de Registro: </label>
+                <?php
+                    // Suponha que $socio seja um array contendo os dados do banco de dados, incluindo o campo "data_nascimento"
+                    $data = $socio['data'];
 
-                // Formate a data para o formato brasileiro (dd/mm/yyyy)
-                $dataNascimentoFormatada = date('d/m/Y', strtotime($dataNascimento));
-            ?>
-            <input disabled ="false" id="inascimento" value="<?php echo $dataNascimentoFormatada; ?>" name="nascimento" type="text"><br>
-        </p>
-        <p>
-            <label for="iuf">Estado Natal: </label>
-            <input disabled ="false" id="iuf" value="<?php echo $socio['uf']; ?>" name="uf" type="text"><br>   
-        </p>
-        <p>
-            <label for="icid_natal" >Cidade Natal: </label>
-            <input disabled ="false" id="icid_natal" value="<?php echo $socio['cid_natal']; ?>" name="cidnatal" type="text"><br>
-        </p>
-        <p>
-            <label for="imae">Nome da Mãe: </label>
-            <input disabled ="false" id="imae" value="<?php echo $socio['mae']; ?>" name="mae" type="text"><br>
-        </p>
-        <p>
-            <label for="ipai">Nome do Pai: </label>
-            <input disabled ="false" id="ipai" value="<?php echo $socio['pai']; ?>" name="pai" type="text"><br>
-        </p>
-        <p>
-            <label for="isexo">Sexo: </label>
-            <input disabled ="false" id="isexo" value="<?php echo $socio['sexo']; ?>" name="sexo" type="text"><br>
-        </p>
-        <fieldset>
+                    // Formate a data para o formato brasileiro (dd/mm/yyyy)
+                    $dataFormatada = date('d/m/Y', strtotime($data));
+                ?>
+                <input disabled ="false" id="idata" value="<?php echo $dataFormatada; ?>" name="data" type="text"><br>
+            </p>
+            <p>
+                <label for="iapelido" >Apelido: </label>
+                <input disabled ="false" id="iapelido" value="<?php echo $socio['apelido']; ?>" name="apelido" type="text"><br>
+            </p>        
+            <p>
+                <label for="inome_completo" >Nome Completo: </label>
+                <input disabled ="false" id="inome_completo" value="<?php echo $socio['nome_completo']; ?>" name="nome_completo" type="text"><br>
+            </p>
+            <p>
+                <label for="icpf" >CPF: </label>
+                <input disabled ="false" id="icpf" value="<?php echo $socio['cpf']; ?>" name="cpf" type="text"><br>
+            </p>
+            <p>
+                <label for="irg" >RG: </label>
+                <input disabled ="false" id="irg" value="<?php echo $socio['rg']; ?>" name="rg" type="text"><br>
+            </p>
+            <p>
+                <label for="inascimento" >Data de Nascimento: </label>
+                <?php
+                    // Suponha que $usuario seja um array contendo os dados do banco de dados, incluindo o campo "data_nascimento"
+                    $dataNascimento = $socio['nascimento'];
+
+                    // Formate a data para o formato brasileiro (dd/mm/yyyy)
+                    $dataNascimentoFormatada = date('d/m/Y', strtotime($dataNascimento));
+                ?>
+                <input disabled ="false" id="inascimento" value="<?php echo $dataNascimentoFormatada; ?>" name="nascimento" type="text"><br>
+            </p>
+            <p>
+                <label for="iuf">Estado Natal: </label>
+                <input disabled ="false" id="iuf" value="<?php echo $socio['uf']; ?>" name="uf" type="text"><br>   
+            </p>
+            <p>
+                <label for="icid_natal" >Cidade Natal: </label>
+                <input disabled ="false" id="icid_natal" value="<?php echo $socio['cid_natal']; ?>" name="cidnatal" type="text"><br>
+            </p>
+            <p>
+                <label for="imae">Nome da Mãe: </label>
+                <input disabled ="false" id="imae" value="<?php echo $socio['mae']; ?>" name="mae" type="text"><br>
+            </p>
+            <p>
+                <label for="ipai">Nome do Pai: </label>
+                <input disabled ="false" id="ipai" value="<?php echo $socio['pai']; ?>" name="pai" type="text"><br>
+            </p>
+            <p>
+                <label for="isexo">Sexo: </label>
+                <input disabled ="false" id="isexo" value="<?php echo $socio['sexo']; ?>" name="sexo" type="text"><br>
+            </p>
+        </fieldset> 
+        <fieldset class="endereco">
             <legend>Endereço Atual</legend>
             <p> 
                 <label for="iuf_atual">Estado Atual: </label>
                 <input disabled ="false" value="<?php echo $socio['uf_atual']; ?>" name="uf_atual" id="iuf_atual" type="text"><br>
             </p>
             <p>
-                <label for="icep">CEP: </label><br>
+                <label for="icep">CEP: </label>
                 <input disabled ="false" value="<?php echo $socio['cep']; ?>" name="cep" id="icep" type="text"><br>
             </p>
             <p>
-                <label for="icid_atual">Cidade Atual: </label><br>
+                <label for="icid_atual">Cidade Atual: </label>
                 <input disabled ="false" value="<?php echo $socio['cid_atual']; ?>" name="cid_atual" id="icid_atual" type="text"><br>
             </p>
             <p>
-                <label for="iendereco">Logradouro: AV/RUA </label><br>
+                <label for="iendereco">Logradouro: AV/RUA </label>
                 <input disabled ="false" value="<?php echo $socio['endereco']; ?>" name="endereco" id="iendereco" type="text"><br>
             </p>
             <p>
-                <label id="" for="inum">N°: </label><br>
+                <label id="" for="inum">N°: </label>
                 <input disabled ="false" value="<?php echo $socio['numero']; ?>" name="numero" id="inum" type="text"><br>
             </p>
             <p>
-                <label id="" for="ibairro">Bairro: </label><br>
+                <label id="" for="ibairro">Bairro: </label>
                 <input disabled ="false" value="<?php echo $socio['bairro']; ?>" name="bairro" id="ibairro" type="text"><br>
             </p>
         </fieldset>
-        <fieldset>
+        <fieldset class="contatos">
             <legend>Contatos</legend>
             <p>
-                <label id="" for="icelular1">Celular 1: </label><br>
+                <label id="" for="icelular1">Celular 1: </label>
                 <input disabled ="false" value="<?php echo $socio['celular1']; ?>" name="celular1" id="icelular1" type="text" size=""><br>
             </p>
             <p>
-                <label id="" for="icelular2">Celular 2: Opcional </label><br>
+                <label id="" for="icelular2">Celular 2: Opcional </label>
                 <input disabled ="false" value="<?php echo $socio['celular2']; ?>" name="celular2" id="icelular2" type="text" size=""><br>
             </p>
             <p>
-                <label id="" for="iemail">E-mail:</label><br>
+                <label id="" for="iemail">E-mail:</label>
                 <input disabled ="false" value="<?php echo $socio['email']; ?>" name="email" id="iemail" type="email"><br>
             </p>
         </fieldset>
-        <p>
-            <label for="idata" >Data de Registro: </label>
-            <?php
-                // Suponha que $socio seja um array contendo os dados do banco de dados, incluindo o campo "data_nascimento"
-                $data = $socio['data'];
-
-                // Formate a data para o formato brasileiro (dd/mm/yyyy)
-                $dataFormatada = date('d/m/Y', strtotime($data));
-            ?>
-            <input disabled ="false" id="idata" value="<?php echo $dataFormatada; ?>" name="data" type="text"><br>
-        </p>
         <fieldset>
             <legend>Status</legend>
             <p>
@@ -182,14 +283,14 @@
                     $afastado = ($socio['status'] == 'AFASTADO') ? 'checked' : '';
                     $excluido = ($socio['status'] == 'EXCLUIDO') ? 'checked' : '';
                 ?>
-                <input type="radio" name="status" id="iativo" value="ATIVO"<?php echo $ativo; ?>><label for="iativo">ATIVO</label> 
-                <input type="radio" name="status" id="isuspenso" value="SUSPENSO"<?php echo $suspenso; ?>><label for="isuspenso">SUSPENSO</label> 
-                <input type="radio" name="status" id="iafastado" value="AFASTADO"<?php echo $afastado; ?>><label for="iafastado">AFASTADO</label> 
-                <input type="radio" name="status" id="iexcluido" value="EXCLUIDO"<?php echo $excluido; ?>><label for="iexcluido">EXCLUIDO</label>
+                <input type="radio" name="status" id="iativo" value="ATIVO"<?php echo $ativo; ?>><label class="radio" for="iativo">ATIVO</label> 
+                <input type="radio" name="status" id="isuspenso" value="SUSPENSO"<?php echo $suspenso; ?>><label class="radio" for="isuspenso">SUSPENSO</label> 
+                <input type="radio" name="status" id="iafastado" value="AFASTADO"<?php echo $afastado; ?>><label class="radio" for="iafastado">AFASTADO</label> 
+                <input type="radio" name="status" id="iexcluido" value="EXCLUIDO"<?php echo $excluido; ?>><label class="radio" for="iexcluido">EXCLUIDO</label>
             </p>
             <p>
                 <label for="iobs">Obs.: </label><br>
-                <textarea required rows="10" cols="50" minlength="10" maxlength="1500" type="text" name="obs" id="iobs" ><?php echo $socio['observacao']; ?></textarea>
+                <textarea required type="text" name="obs" id="iobs" ><?php echo $socio['observacao']; ?></textarea>
             </p>
         </fieldset>
         <fieldset>
@@ -205,23 +306,23 @@
                     $usuario_normal = ($socio['admin'] == 0) ? 'checked' : '';
                     $administrador = ($socio['admin'] == 1) ? 'checked' : '';
                 ?>
-                <input type="radio" name="admin" id="iusuario" value="0" <?php echo $usuario_normal; ?>><label for="iusuario">Usuário</label>
-                <input type="radio" name="admin" id="iadmin" value="1" <?php echo $administrador; ?>><label for="iadmin">Administrador</label> 
+                <input type="radio" name="admin" id="iusuario" value="0" <?php echo $usuario_normal; ?>><label class="radio" for="iusuario">Usuário</label>
+                <input type="radio" name="admin" id="iadmin" value="1" <?php echo $administrador; ?>><label class="radio" for="iadmin">Administrador</label> 
             </p>
         </fieldset>
         <p>
             <label for="imotivo">Motivo ao qual quiz se associar: </label><br>
-            <textarea disabled ="false" rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="motivo" id="imotivo" ><?php echo $socio['motivo']; ?></textarea>
+            <textarea disabled ="false" type="text" name="motivo" id="imotivo" ><?php echo $socio['motivo']; ?></textarea>
         </p>
         <p>
             <label for="itermos">Termos: </label><br>
-            <textarea disabled ="false" rows="10" cols="50" minlength="100" maxlength="1500" type="text" name="termos" id="itermos" ><?php echo $socio['termos']; ?></textarea>
+            <textarea disabled ="false" type="text" name="termos" id="itermos" ><?php echo $socio['termos']; ?></textarea>
         </p>
         <p>
             <span id="imgAlerta"></span><br>
             <span id="imgAlerta2" type="hidden"></span><br>
-            <a href="listaSocios.php" style="margin-left: 10px; margin-right: 10px;">Voltar</a>
-            <button id="" type="submit" style="margin-left: 10px;">Salvar</button>
+            <a href="listaSocios.php" style="margin-left: 10%; margin-right: 10%;">Voltar</a>
+            <button id="" type="submit" style="margin-left: 10%;">Salvar</button>
         </p>
     </form>
 </body>

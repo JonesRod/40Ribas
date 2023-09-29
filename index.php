@@ -1,4 +1,57 @@
 <?php
+    /*include('login/lib/conexao.php');
+    //echo 'oi';
+    if(!isset($_SESSION)){
+        session_start(); 
+
+        if(isset($_SESSION['usuario'])){
+
+            if (isset($_POST["tipoLogin"])) {
+                // echo "1";
+                $usuario = $_SESSION['usuario'];
+                $valorSelecionado = $_POST["tipoLogin"];// Obter o valor do input radio
+                $admin = $valorSelecionado;
+
+                if($admin != 1){
+                    $id = $_SESSION['usuario'];
+                    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+                    $usuario = $sql_query->fetch_assoc();
+
+                    $usuario = $_SESSION['usuario'];
+                    $admin = $_SESSION['admin'];
+                    //echo "1";
+                    header("Location: login/lib/paginas/usuarios/usuario_home.php");    
+                }else{
+                    $id = $_SESSION['usuario'];
+                    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+                    $usuario = $sql_query->fetch_assoc();
+
+                    $usuario = $_SESSION['usuario'];
+                    $admin = $_SESSION['admin'];
+                    $_SESSION['usuario'];
+                    $_SESSION['admin'];  
+                    header("Location: login/lib/paginas/administrativo/admin_home.php");       
+                }
+            }  
+
+        }else{
+            //echo "5";
+            session_unset();
+            session_destroy(); 
+            header("Location: index.php");  
+        }
+    
+    }else{
+        //echo "6";
+        session_unset();
+        session_destroy(); 
+        header("Location: index.php");  
+    }
+
+    /*$id = $_SESSION['usuario'];
+    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+    $usuario = $sql_query->fetch_assoc();*/
+//--------------------
 include("login/lib/conexao.php");
 
 if(isset($_SESSION)) {
@@ -122,7 +175,6 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login/style/index.css">
-    <link rel="stylesheet" href="login/style/media-query.css">
     <title>Entrar</title>
     <script>
         function toggleSenha() {
@@ -139,29 +191,27 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
         }
     </script>
 </head>
-<body>
-    <main class="conteiner">   
-        <form id ="login" action="" method="POST" >
-            <img id="img" alt="">
-            <h1 id="titulo">Entrar</h1>
-            <span id="msg"><?php echo $msg; ?></span>
-            <p>
-                <label id="email" for="iemail">Usuário</label>
-                <input required type="text" name="email" id="iemail" placeholder="E-mail ou CPF" oninput="formatarCampo(this)" value="<?php //if(isset($_POST['email'])) echo $_POST['email']; ?>">
-            </p>
-            <p>
-                <label id="senha" for="senha">Senha</label>
-                <input required type="password" name="senha" id="senhaInput" placeholder="Sua Senha" value="<?php //if(isset($_POST['senha'])) echo $_POST['senha']; ?>">
-                <span id="toggleSenha" onclick="toggleSenha()">👁️</span>
-            </p>
-            <p> 
-                <a style="margin-right:10px;" href="inscricao/ficha_inscricao.html">Quero ser sócio.</a> 
-                <a style="margin-right:10px;" href="login/lib/Recupera_Senha.php">Esqueci minha Senha!</a> 
-            </p>
-            <button type="submit">Entrar</button>
+<body>  
+    <form id ="login" action="" method="POST" >
+        <img id="img" alt="">
+        <h1 id="ititulo">Entrar</h1>
+        <span id="msg"><?php echo $msg; ?></span>
+        <p>
+            <label id="email" for="iemail">Usuário</label>
+            <input required type="text" name="email" id="iemail" placeholder="E-mail ou CPF" oninput="formatarCampo(this)" value="<?php //if(isset($_POST['email'])) echo $_POST['email']; ?>">
+        </p>
+        <p>
+            <label id="senha" for="senha">Senha</label>
+            <input required type="password" name="senha" id="senhaInput" placeholder="Sua Senha" value="<?php //if(isset($_POST['senha'])) echo $_POST['senha']; ?>">
+            <span id="toggleSenha" onclick="toggleSenha()">👁️</span>
+        </p>
+        <p> 
+            <a style="margin-right:10px;" href="inscricao/ficha_inscricao.html">Quero ser sócio.</a> 
+            <a style="margin-right:10px;" href="login/lib/Recupera_Senha.php">Esqueci minha Senha!</a> 
+        </p>
+        <button type="submit">Entrar</button>
 
-        </form>
-    </main>
+    </form>
     <script>
         function formatarCampo(input) {
             let value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos

@@ -61,18 +61,7 @@
         // Define o valor a receber inicial como o valor da mensalidade
         $valor = $parcela['valor_parcelas'];
 
-        // Verifica se a data de vencimento é maior que a data atual
-        /*if (strtotime($vencimento) > strtotime(date('Y-m-d'))) {
-            // Se sim, aplica o */
         $valor_receber = $valor - floatval($valor_recebido) - floatval($desconto);
-           /* //$desconto = "0,00";  // Define o desconto como zero
-            $multa = "0,00";  // Define a multa como zero
-        } else {
-            // Se não, aplica a multa
-            $valor_receber = $valor -$valor_recebido + $mensalidade['multa_mensalidade'];
-            $desconto = "0,00";  // Define o desconto como zero
-            //$multa = "0,00";  // Define a multa como zero
-        }*/
     } else {
         echo "Parcela não encontrada. Por favor, atualize a pagian anterior e tente novamente. <br>";
         echo "<script>
@@ -89,6 +78,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+                body h2{
+            text-align: center;
+        }
+        body form{
+            /*text-align: center;*/
+            border: 1px solid black;
+            /*width: 200px;*/
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px;
+        }
+        form label{
+            margin: 10px;
+            /*padding: 50px;*/
+        }
+        form label,
+        form input {
+            margin-bottom: 10px;
+            max-width: 100%;
+        }
+
+        form input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input{
+            margin: 5px;
+        }
+        a{
+            margin-left: 20%; 
+            margin-right: 30%;
+        }
+    </style>
     <title>Tela de Recebimento</title>
 </head>
 <body>

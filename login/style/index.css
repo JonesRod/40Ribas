@@ -7,13 +7,28 @@
 }
 body {
     text-align: center;
-    background-color: #0d7a0e;
+    /*background-color: #0d7a0e;*/
     height: 100vh;
-    width: 100vw;
-    
+    width: 100vw;    
+}
+form #ititulo{
+    margin-bottom: 30px;
+}
+form input {
+    width: 50%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+form label {
+    display: inline-block;
+    width: 100%; /* Faz a label ocupar 100% da largura do contêiner pai */
+    max-width: 20%; /* Define a largura máxima desejada */
+    box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
 }
 
-main{
+/*main{
     position: relative;
     height: 100vh;
     width: 100vw;
@@ -24,28 +39,25 @@ main{
     height: 175px;
     display: block; /*para colocar a imagem em bloco quando ...*/
 
-}
+/*}
 .conteiner h1{
     font-family: 'Permanent Marker', cursive;
     margin-top: 5%;
     margin-bottom: 5%;
-
-
 }
 
-form#login{
+/*form#login{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: hidden; /*tudo que setiver fora da borda vai ficar escondido*/
-    background-color: white;
+    /*background-color: white;
     width: 400px;
     height: 250px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0,0,0,450);/*borda sombreada*/
-
-    transition: width .3s, height .3s;
+    /*transition: width .3s, height .3s;
     transition-timing-function: ease;
 
 }
@@ -60,3 +72,92 @@ form#login{
     width: 35%;
     margin: 10% 25% 10% 25%;
 }*/
+/*form input {
+    width: 50%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+form label {
+    display: inline-block;
+    width: 100%; /* Faz a label ocupar 100% da largura do contêiner pai */
+    /*max-width: 20%; /* Define a largura máxima desejada */
+    /*box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
+/*}
+/* Estilos para Computador */
+/*@media screen and (min-width: 1025px) {
+    body {
+        background-image: linear-gradient(to top, rgba(6, 161, 6, 0.456), 
+        rgb(227, 247, 6));
+    }
+    form#login{
+        width: 50%;
+        height: 30%;
+    }
+        
+    .conteiner #img{
+        float: left;
+        width: 60%;
+        height: 70%;
+    }
+    form#login{
+        float: right;
+        width: 45%;
+    }
+}
+/* Estilos para Tablet */
+/*@media screen and (min-width: 768px) and (max-width: 1024px) {
+    body {
+        background-image: linear-gradient(to top, rgba(6, 161, 6, 0.456), 
+        rgb(227, 247, 6));
+    }
+    form#login{
+        width: 50%;
+        height: 30%;
+    }
+        
+    .conteiner #img{
+        float: left;
+        width: 60%;
+        height: 45%;
+    }
+    form#login{
+        float: right;
+        width: 45%;
+    }
+    
+}
+
+/* Estilos para iPhone */
+/*@media screen and (min-width: 620px) and (max-width: 767px)  {
+    body {
+        background-image: linear-gradient(to top, rgba(6, 161, 6, 0.456), 
+        rgb(227, 247, 6));
+    }
+    form#login{
+        width: 50%;
+        height: 30%;
+    }
+        
+    .conteiner #img{
+        float: left;
+        width: 40%;
+        height: 30%;
+    }
+    form#login{
+        float: right;
+        width: 45%;
+    }
+}
+/* Estilos para iPhone menor*/
+/*@media screen and (min-width: 320px) and (max-width: 620px)  {
+    body {
+        background-image: linear-gradient(to top, rgba(6, 161, 6, 0.456), 
+        rgb(227, 247, 6));
+    }
+}*/
+
+
+
+

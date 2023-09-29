@@ -56,6 +56,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body h2{
+            text-align: center;
+        }
+        body form{
+            text-align: center;
+            border: 1px solid black;
+            width: 95%;
+            /*position: absolute;*/
+            /*top: 50%;
+            left: 50%;
+            /*transform: translate(-50%, -50%);*/
+            padding: 15px;
+        }
+        img{
+            width: 50%;
+            /*text-align: center;*/
+            border-radius: 10px;
+        }
+        form label{
+            margin: 10px;
+            /*padding: 50px;*/
+        }
+        /*form label,*/
+        form input {
+            margin-bottom: 10px;
+            max-width: 50%;
+        }
+        form label {
+            display: inline-block;
+            width: 100%; /* Faz a label ocupar 100% da largura do contêiner pai */
+            max-width: 20%; /* Define a largura máxima desejada */
+            box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
+        }
+        form input {
+            width: 50%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input{
+            margin: 5px;
+        }
+        a{
+            margin-left: 100px; 
+            margin-right: 40px;
+        }
+    </style>
     <title>Indicado para Votação</title>
 </head>
 <body>
