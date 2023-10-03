@@ -86,9 +86,9 @@
         $mysqli->query("DELETE FROM joias_receber WHERE id = '$id_parcela'") or die($mysqli->error);
 
         $sql_historico_joia = "INSERT INTO historico_joias_receber (admin, id_socio, apelido, nome_completo, celular1, celular2, email, valor, 
-        entrada, restante, num_parcela, qt_parcelas, valor_parcelas, vencimento, desconto_parcela, recebido, data_recebeu, a_receber)
+        entrada, restante, num_parcela, qt_parcelas, valor_parcelas, vencimento, desconto_parcela, recebido, data_recebeu, a_receber, status_pagamento)
         VALUES ('$admin','$id_socio', '$apelido', '$nome', '$celular1', '$celular2', '$email', '$valor', '$entrada', '$restante_joia',
-        '$num_parcela', '$qt_parcelas','$valor_parcelas','$vencimento', '$desconto_parcela', '$recebi_parcela', NOW(), '$proximo_valor_receber')";
+        '$num_parcela', '$qt_parcelas','$valor_parcelas','$vencimento', '$desconto_parcela', '$recebi_parcela', NOW(), '$proximo_valor_receber','PAGO')";
         $mysqli->query($sql_historico_joia) or die($mysqli->error);
 
     } else {

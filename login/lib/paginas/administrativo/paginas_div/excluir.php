@@ -48,25 +48,75 @@
     $inscrito = $sql_insc->fetch_assoc();
 
     $id_insc = $_GET['id_socio'];
-    
+    $msg = '';
+    $erro = false;
     // Verificar se o ID foi fornecido corretamente
     if (isset($id_insc)) {
-        // Executar a consulta SQL para excluir o inscrito
-        $sql_excluir = "DELETE FROM int_associar WHERE id = '$id_insc'";
-    
-        if ($mysqli->query($sql_excluir)) {
-            echo "Inscrito excluído com sucesso.";
-            unset($_POST);
-            header("refresh: 5; integrarSocio.php");
-            
+
+        if($erro) {
+            echo "<p><b>ERRO: $erro</b></p>";
         } else {
-            echo "Erro ao excluir inscrito: " . $mysqli->error;
+    
+            $sql_excluir = "UPDATE int_associar
+            SET 
+            data = NOW(),
+            motivo = '',
+            termos = '',
+            observacao = '',
+            em_votacao = 'NÃO',
+            inicio_votacao = '',
+            inicio_hora = '',
+            fim_votacao = '',
+            fim_hora = '',
+            voto_sim = '',
+            voto_nao = '',
+            resultado = '',
+            status = 'DESATIVADO',
+            validade = DATE_ADD(NOW(), INTERVAL 1 YEAR)
+            WHERE id = '$id_insc'";
+
+            //var_dump($_POST);
+
+            $mysqli->query($sql_excluir) or die($mysqli->$erro);
+            
+            if ($mysqli->query($sql_excluir)) {
+                $msg = "Inscrito Desativado com sucesso.";
+            } else {
+                $msg = "Erro ao excluir inscrito: " . $mysqli->error;
+            }
+
+            // Executar a consulta SQL para excluir o inscrito
+            $sql_excluir_em_votacao = "DELETE FROM em_votacao WHERE id_inscrito = '$id_insc'";
+
+            if ($mysqli->query($sql_excluir_em_votacao)) {
+                unset($_POST);
+                header("refresh: 5; integrarSocio.php");
+            } else {
+                $msg = "Erro ao excluir Em Votação: " . $mysqli->error;
+            }
         }
     } else {
-        echo "ID do inscrito não fornecido.";
+        $msg = "ID do inscrito não fornecido.";
     }
     
     // Fechar a conexão
     $mysqli->close();
     
 ?>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+    <span><?php echo $msg; ?></span>
+</body>
+</html>

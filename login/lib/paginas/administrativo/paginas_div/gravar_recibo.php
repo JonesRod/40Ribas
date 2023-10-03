@@ -78,10 +78,10 @@
         // Inserir dados no histórico de mensalidades
         $mysqli->query("INSERT INTO historico_mensalidades (id_socio, data, admin, apelido, nome_completo, 
         status, mensalidade_dia, mensalidade_mes, mensalidade_ano, valor_mensalidade, data_vencimento, 
-        desconto_mensalidade, multa_mensalidade, valor_receber, valor_recebido, data_recebida, restante)
+        desconto_mensalidade, multa_mensalidade, valor_receber, valor_recebido, data_recebida, restante, status_pagamento)
         VALUES ('$id_socio', '$data', '$admin', '$apelido', '$nome', '$status', '$mensalidade_dia', 
         '$mensalidade_mes', '$mensalidade_ano', '$valor_mensalidade', '$data_vencimento', '$desconto_mensalidade', 
-        '$multa_mensalidade', '$valor_receber', '$valor_recebido', '$data_recebida', '$restante')") or die($mysqli->error);
+        '$multa_mensalidade', '$valor_receber', '$valor_recebido', '$data_recebida', '$restante', 'PAGO')") or die($mysqli->error);
 
     } else {
         // Atualizar os valores na linha

@@ -59,32 +59,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="usuario_home.css">
+    <script>
+
+    </script>
     <title>Meu Site</title>
 </head>
 <body>
-    <div>
-        <div id="idivMenu">
-            <div id="imenuBtn" onclick="toggleMenu()">
-                <div class="iconeMenu"></div>
-                <div class="iconeMenu"></div>
-                <div class="iconeMenu"></div>
-            </div>  
-            <a> Olá, <?php echo $usuario['apelido']; ?></a>  
+
+    <div id="idivMenu">
+        <div id="imenuBtn" onclick="<?php if (!isset($_SESSION['usuario'])) { ?>
+                location.reload();
+            <?php } else { ?>
+                toggleMenu();   
+            <?php } ?>">
+            <div class="iconeMenu"></div>
+            <div class="iconeMenu"></div>
+            <div class="iconeMenu"></div>
+        </div>  
+        <div id="ititulo">
+            <H1>Associação 40Ribas</H1> 
+        </div>
+        <div id="iuse">
+            <a> Olá, <?php echo $usuario['apelido']; ?></a><br>
+            <a> Status: <?php echo $usuario['status']; ?></a> 
         </div>
     </div>
-    <div class="titulo">
-        <div class="menu" id="imenu">
-            <ul id="ilista" class="lista">
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/inicio.php');toggleMenu()">Inicío </a></li> 
-                <li><a href="#" onclick="abrirNaDiv('perfil.php');toggleMenu()">Meu Perfil </a></li>              
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/CarregarMensalidades.php');toggleMenu()">Minhas Mensalidades</a></li>
-                <li><a href="usuario_logout.php">Sair</a></li>
-            </ul> 
-        </div> 
-        <div id="ititulo">
-           <H1>Associação 40Ribas</H1> 
-        </div>      
-    </div>
+  
+    <div class="menu" id="imenu">
+        <ul id="ilista" class="lista">
+            <li><a href="#" onclick="abrirNaDiv('inicio.php');toggleMenu()">Inicío </a></li> 
+            <li><a href="#" onclick="abrirNaDiv('perfil.php');toggleMenu()">Meu Perfil </a></li>              
+            <li><a href="#" onclick="abrirNaDiv('CarregarMensalidades.php');toggleMenu()">Minhas Mensalidades</a></li>
+            <li><a href="#" onclick="abrirNaDiv('Carregar_joia.php');toggleMenu()">Jóia</a></li>
+            <li><a href="usuario_logout.php">Sair</a></li>
+        </ul> 
+    </div> 
+
     <div class="container">
         <div class="left">
             <!-- Conteúdo da div direita (outras atividades) -->

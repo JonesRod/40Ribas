@@ -183,6 +183,23 @@
                 VALUES (NOW(), '$id_socio_inserido', '$admin', '$apelido', '$nome_completo')";
                 $mysqli->query($sql_joia) or die($mysqli->error);
 
+                // Executar a consulta SQL para excluir o inscrito
+                $sql_excluir_int_associar = "DELETE FROM int_associar WHERE id = '$id_insc'";
+
+                if ($mysqli->query($sql_excluir_int_associar)) {
+                    
+                } else {
+                    echo "Erro ao excluir inscrito: " . $mysqli->error;
+                }
+
+                // Executar a consulta SQL para excluir o inscrito
+                $sql_excluir_em_votacao = "DELETE FROM em_votacao WHERE id_inscrito = '$id_insc'";
+
+                if ($mysqli->query($sql_excluir_em_votacao)) {
+                    
+                } else {
+                    echo "Erro ao excluir Em Votação: " . $mysqli->error;
+                }
                 echo '<p><b>Sócio incluído com sucesso.</b></p>';
                 header('refresh: 5; url=incluir_joia.php?id_socio=' . $id_socio_inserido);    
             }

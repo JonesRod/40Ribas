@@ -60,7 +60,7 @@
             border-radius: 50%; /* Define um raio de borda de 50% (forma circular) */
             width: 50px; /* Defina a largura desejada para a imagem */
             height: 50px; /* Defina a altura desejada para a imagem */
-            object-fit: cover; /* Garante que a imagem cubra completamente a área */
+            /*object-fit: cover; /* Garante que a imagem cubra completamente a área */
         }
         table {
             margin-left: auto;
