@@ -46,22 +46,20 @@ if(isset($_POST['nome']) || isset($_POST['email'])) {
             VALUES(NOW(), '1', '$nome','$email','$senha_criptografada', 'ATIVO')";
             $mysqli->query($sql_socio) or die($mysqli->$error);
 
-            if ($mysqli->query($sql_socio)) {
-                $id_admin = $mysqli->insert_id; // Obtém o ID do último registro inserido
+            //if ($mysqli->query($sql_socio)) {
+            $id_admin = $mysqli->insert_id; // Obtém o ID do último registro inserido
             
-                // Agora, você pode usar $id_socio como necessário
-                // Por exemplo, para salvar o ID do admin
-                $sql_config_admin = "INSERT INTO config_admin (id, id_admin, data_alteracao, nome_tesoureiro)
-                VALUES('1', '$id_admin',NOW(), 'apelido')";
-                $mysqli->query($sql_config_admin) or die($mysqli->error);
+            // Agora, você pode usar $id_socio como necessário
+            // Por exemplo, para salvar o ID do admin
+            $sql_config_admin = "INSERT INTO config_admin (id, id_admin, data_alteracao, nome_tesoureiro)
+            VALUES('1', '$id_admin',NOW(), 'apelido')";
+            $mysqli->query($sql_config_admin) or die($mysqli->error);
 
-                $sql_historico_config_admin = "INSERT INTO historico_config_admin (id, id_admin, data_alteracao, nome_tesoureiro)
-                VALUES('1', '$id_admin',NOW(), 'apelido')";
-                $deu_certo = $mysqli->query($sql_historico_config_admin) or die($mysqli->error);
+            $sql_historico_config_admin = "INSERT INTO historico_config_admin (id, id_admin, data_alteracao, nome_tesoureiro)
+            VALUES('1', '$id_admin',NOW(), 'apelido')";
+            $deu_certo = $mysqli->query($sql_historico_config_admin) or die($mysqli->error);
                 
-            } else {
-                die($mysqli->error); // Se houver um erro na consulta
-            }
+            //}
 
             if($deu_certo){
 
@@ -78,6 +76,8 @@ if(isset($_POST['nome']) || isset($_POST['email'])) {
                 unset($_POST);
 
                 header("refresh: 5; ../../index.php"); //Atualiza a pagina em 5s e redireciona apagina
+            } else {
+                die($mysqli->error); // Se houver um erro na consulta
             }
         }
         if(($registro ) != 0) {

@@ -147,7 +147,7 @@
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/listaSocios.php');toggleMenu()">Lista de Sócios</a></li>              
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/GerarMensalidades.php');toggleMenu()">Gerar Mensalidades</a></li>
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/CarregarMensalidades.php');toggleMenu()">Carregar Mensalidades</a></li>
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/resetar/excluir_todos_socios.php');toggleMenu()">Resetar</a></li>
+                <li><a href="paginas_div/resetar/excluir_todos_socios.php">Resetar</a></li>
                 <li><a href="admin_logout.php">Sair</a></li>
             </ul> 
         </div> 

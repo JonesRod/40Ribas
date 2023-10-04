@@ -35,13 +35,13 @@
     $msg= false;
 
     if(isset($_POST['senha'])) {
-
+        
         $senha = $mysqli->escape_string($_POST['senha']);
         
         if(strlen($_POST['senha']) == 0 ) {
             $msg= true;
             $msg = "Preencha sua senha.";
-            //echo $msg;
+            echo $msg;
         } else {
 
             $sql_code = "SELECT * FROM socios WHERE admin = '1'";
@@ -49,52 +49,54 @@
             $usuario = $sql_query->fetch_assoc();
             $quantidade = $sql_query->num_rows;//retorna a quantidade encontrado
 
-            if(($quantidade ) == 1) {
+            if(($quantidade ) >= 1) {
 
                 if(password_verify($senha, $usuario['senha'])) {
-
+                
                     // Nome do arquivo de backup
                     $backupFile = 'backup_' . date('Y-m-d') . '.sql';
-
+                
+                    // Nome do banco de dados
+                    $database = $mysqli->real_escape_string($banco);
+                
                     // Comando para realizar o backup
-                    $commandBackup = "mysqldump --user={$usuario} --password={$senha} --host={$host} {$banco} > {$backupFile}";
-                    //$commandBackup = "mysqldump --$mysqli->query;
-                    
+                    $commandBackup = "mysqldump --user={$usuario} --password={$senha} --host={$host} {$database} > {$backupFile}";
+                
                     // Executa o comando de backup
                     exec($commandBackup, $output, $return);
-
+                
                     if ($return === 0) {
                         echo "Backup realizado com sucesso.";
+
                     } else {
                         echo "Erro ao realizar o backup.";
                     }
-                    // Executa o comando de backup
-                    system($commandBackup);
-
+                
                     // Verifica se a conexão foi estabelecida
                     if ($mysqli->connect_error) {
                         die("Falha na conexão: " . $mysqli->connect_error);
                     }
-
+                
                     // Obtém a lista de tabelas no banco de dados
                     $result = $mysqli->query("SHOW TABLES");
                     $tables = [];
-
+                
                     while ($row = $result->fetch_row()) {
                         $tables[] = $row[0];
                     }
-
+                
                     // Exclui todos os dados das tabelas
                     foreach ($tables as $table) {
                         $mysqli->query("DELETE FROM $table");
                     }
-
+                
                     // Fecha a conexão
                     $mysqli->close();
+                
                     $msg = "Backup realizado e dados excluídos com sucesso.";
-                    header("refresh: 10; ");
-                    // Adicione o código JavaScript abaixo
-                    echo '<script>window.location.href = "../../admin_logout.php";</script>';
+                
+                    unset($_POST);
+                    header("refresh: 5; ../admin_logout.php");
 
                 }else{
                     $msg = true;
@@ -103,6 +105,7 @@
                 }
             }else{
                 $msg = "";  
+                //echo 'oii';
                 // Fecha a conexão
                 $mysqli->close();
             }
