@@ -60,7 +60,22 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="usuario_home.css">
     <script>
+        // Função para carregar o conteúdo na div
+        function abrirNaDiv(pagina) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("iconteudo").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", pagina, true);
+            xhttp.send();
+        }
 
+        // Carregar a página de início ao carregar a página
+        window.onload = function() {
+            abrirNaDiv('inicio.php');
+        }
     </script>
     <title>Meu Site</title>
 </head>

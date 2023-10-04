@@ -74,12 +74,12 @@
         }
         a {
             text-decoration: none; /* Remove o sublinhado */
-            color: #000; /* Cor do texto padrão */
+            color: blue;   /* Cor do texto padrão */
         }
 
         /* Estilo quando o mouse passa por cima */
         a:hover {
-            color: #00F; /* Cor do texto quando o mouse passa por cima */
+            color: brown; /* Cor do texto quando o mouse passa por cima */
         }
     </Style>
     <script>

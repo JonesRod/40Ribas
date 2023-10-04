@@ -1,8 +1,7 @@
 <?php
     /*include('login/lib/conexao.php');
     //echo 'oi';
-    if(!isset($_SESSION)){
-        session_start(); 
+    if(isset($_SESSION)){
 
         if(isset($_SESSION['usuario'])){
 
@@ -41,12 +40,10 @@
             header("Location: index.php");  
         }
     
-    }else{
-        //echo "6";
-        session_unset();
-        session_destroy(); 
-        header("Location: index.php");  
     }
+    if(!isset($_SESSION)){
+        session_start(); 
+    }*/
 
     /*$id = $_SESSION['usuario'];
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
@@ -68,104 +65,120 @@ if(isset($_SESSION)) {
     }
 }
 if(!isset($_SESSION)){
+    //echo "4"; 
     session_start(); 
 }
-
-$msg= false;
-
-if(isset($_POST['email']) || isset($_POST['senha'])) {
-
-    $email = $mysqli->escape_string($_POST['email']);//$mysqli->escape_string SERVE PARA PROTEGER O ACESSO 
-    $cpf = $mysqli->escape_string($_POST['email']);
-    $senha = $mysqli->escape_string($_POST['senha']);
     
+    $msg= false;
 
-    //echo "oii";
-    if(isset($_SESSION['email'])){
-        $email = $_SESSION['email'];
-        $senha = password_hash($_SESSION['senha'], PASSWORD_DEFAULT);
-        $mysqli->query("INSERT INTO senha (email, senha, cpf) VALUES('$email','$senha','$cpf')");
-    }
-    if(strlen($_POST['email']) == 0 ) {
-        $msg= true;
-        $msg = "Preencha o campo Usuário.";
-        //echo $msg;
-    } else if(strlen($_POST['senha']) == 0 ) {
-        $msg= true;
-        $msg = "Preencha sua senha.";
-        //echo $msg;
-    } else {
+   if(isset($_POST['email']) || isset($_POST['senha'])) {
+        //echo 'oii';
+        $sql_primeiro_registro = "SELECT * FROM socios";
+        $registros = $mysqli->query($sql_primeiro_registro) or die("Falha na execução do código SQL: " . $mysqli->$error);
 
-        $sql_code = "SELECT * FROM socios WHERE email = '$email' LIMIT 1";
-        $sql_query =$mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->$error);
-        $usuario = $sql_query->fetch_assoc();
-        $quantidade = $sql_query->num_rows;//retorna a quantidade encontrado
+        // Verifica se existem registros na tabela 'socios'
+        if ($registros->num_rows == 0) {
+            header("Location: login/lib/cadastro_usuario.php");
+            exit();
+        }
 
-        if(($quantidade ) == 1) {
+        $email = $mysqli->escape_string($_POST['email']);//$mysqli->escape_string SERVE PARA PROTEGER O ACESSO 
+        $cpf = $mysqli->escape_string($_POST['email']);
+        $senha = $mysqli->escape_string($_POST['senha']);
+        
 
-            if(password_verify($senha, $usuario['senha'])) {
+        //echo "oii";
+        if(isset($_SESSION['email'])){
+            $email = $_SESSION['email'];
+            $senha = password_hash($_SESSION['senha'], PASSWORD_DEFAULT);
+            $mysqli->query("INSERT INTO senha (email, senha, cpf) VALUES('$email','$senha','$cpf')");
+        }
+        if(strlen($_POST['email']) == 0 ) {
+            $msg= true;
+            $msg = "Preencha o campo Usuário.";
+            //echo $msg;
+        } else if(strlen($_POST['senha']) == 0 ) {
+            $msg= true;
+            $msg = "Preencha sua senha.";
+            //echo $msg;
+        } else {
 
-                $admin = $usuario['admin'];
-
-                if($admin == 1){
-                    $_SESSION['usuario'] = $usuario['id'];
-                    $_SESSION['admin'] = $admin;
-                    //$msg = "1";
-                    unset($_POST);
-                    header("Location: login/lib/tipo_login.php");
-                }else if($admin != 1){
-                    $_SESSION['usuario'] = $usuario['id'];
-                    $_SESSION['admin'] = $admin;
-                    //$msg = "2";
-                    unset($_POST);
-                    header("Location: login/lib/paginas/usuario_home.php");
-                }    
-            }else{
-                $msg= true;
-                $msg = "Usúario ou Senha estão inválidos!1";    
-                //echo $msg;
-            }
-        }else{
-
-            $sql_cpf = "SELECT * FROM socios WHERE cpf = '$cpf' LIMIT 1";
-            $sql_query =$mysqli->query($sql_cpf) or die("Falha na execução do código SQL: " . $mysqli->$error);
+            $sql_code = "SELECT * FROM socios WHERE email = '$email' LIMIT 1";
+            $sql_query =$mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->$error);
             $usuario = $sql_query->fetch_assoc();
-            $quantidade_cpf = $sql_query->num_rows;//retorna a quantidade encontrado
-    
-            if(($quantidade_cpf) == 1) {
-    
+            $quantidade = $sql_query->num_rows;//retorna a quantidade encontrado
+
+            if(($quantidade ) == 1) {
+
                 if(password_verify($senha, $usuario['senha'])) {
-    
+
                     $admin = $usuario['admin'];
-    
+
                     if($admin == 1){
                         $_SESSION['usuario'] = $usuario['id'];
                         $_SESSION['admin'] = $admin;
                         //$msg = "1";
                         unset($_POST);
+                        session_start(); 
                         header("Location: login/lib/tipo_login.php");
                     }else if($admin != 1){
                         $_SESSION['usuario'] = $usuario['id'];
                         $_SESSION['admin'] = $admin;
                         //$msg = "2";
                         unset($_POST);
+                        session_start(); 
                         header("Location: login/lib/paginas/usuario_home.php");
                     }    
                 }else{
                     $msg= true;
-                    $msg = "Usúario ou Senha estão inválidos!";   
-                    $mysqli->close(); 
+                    $msg = "Usúario ou Senha estão inválidos!";    
                     //echo $msg;
                 }
             }else{
-                $msg= true;
-                $msg = "O Usúario informado não esta correto ou não está cadastrado!";
-                $mysqli->close();
-                //echo $msg;
+
+                $sql_cpf = "SELECT * FROM socios WHERE cpf = '$cpf' LIMIT 1";
+                $sql_query =$mysqli->query($sql_cpf) or die("Falha na execução do código SQL: " . $mysqli->$error);
+                $usuario = $sql_query->fetch_assoc();
+                $quantidade_cpf = $sql_query->num_rows;//retorna a quantidade encontrado
+        
+                if(($quantidade_cpf) == 1) {
+        
+                    if(password_verify($senha, $usuario['senha'])) {
+        
+                        $admin = $usuario['admin'];
+        
+                        if($admin == 1){
+                            $_SESSION['usuario'] = $usuario['id'];
+                            $_SESSION['admin'] = $admin;
+                            //$msg = "1";
+                            unset($_POST);
+                            session_start(); 
+                            header("Location: login/lib/tipo_login.php");
+                        }else if($admin != 1){
+                            $_SESSION['usuario'] = $usuario['id'];
+                            $_SESSION['admin'] = $admin;
+                            //$msg = "2";
+                            unset($_POST);
+                            session_start(); 
+                            header("Location: login/lib/paginas/usuario_home.php");
+                        }    
+                    }else{
+                        $msg= true;
+                        $msg = "Usúario ou Senha estão inválidos!";   
+                        $mysqli->close(); 
+                        //echo $msg;
+                    }
+                }else{
+                    $msg= true;
+                    $msg = "O Usúario informado não esta correto ou não está cadastrado!";
+                    $mysqli->close();
+                    //echo $msg;
+                }
             }
         }
-    }
-}   
+    }/*else {
+        echo 'fff';
+    }*/
 
 ?>
 <!DOCTYPE html>

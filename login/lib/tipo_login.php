@@ -3,7 +3,9 @@
 
     if(!isset($_SESSION)){
         session_start();
-       // echo "sem"; 
+        //echo "sem"; 
+        //var_dump($_POST);
+        //die();
         if(isset($_SESSION['usuario'])){
             $usuario = $_SESSION['usuario'];
             $admin = $_SESSION['admin'];  
@@ -28,6 +30,9 @@
         }
     }else{
             // Destruir todas as variáveis de sessão
+            //echo 'rr';
+            //var_dump($_POST);
+            //die();
             session_unset();
             session_destroy();
             header("Location: ../../index.php");  

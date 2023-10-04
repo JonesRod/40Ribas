@@ -60,7 +60,9 @@
             margin-right: auto;
         }
         img{
-            border-radius: 50% 50%;
+            border-radius: 50%; /* Define um raio de borda de 50% (forma circular) */
+            width: 50px; /* Defina a largura desejada para a imagem */
+            height: 50px; /* Defina a altura desejada para a imagem */
         }
     </Style>
     <title>Lista de Sócios</title>

@@ -92,8 +92,8 @@ li {
 
 #imenu.aberto {
     background-color: #75ae6a; /* Substitua pela cor desejada */
-    left: 0; /* Move o menu para dentro da tela quando aberto */
-    margin: 2px;
+    left: 2px; /* Move o menu para dentro da tela quando aberto */
+    margin: 5px;
 }
 .left {
     text-align: center;
@@ -158,6 +158,7 @@ table, th, td {
     }
     .menu {
         width: 100%;
+        border-left: 5px;
         margin-top: 0;
     }
     .left {

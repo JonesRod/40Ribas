@@ -83,7 +83,7 @@
                 <input type="file" id="imageInput" name="imageInput" accept=".png, .jpg, .jpeg" onchange="imgLogo(event)">
                 <input type="hidden" name="end_logo" value= "<?php echo $dadosEscolhido['logo']; ?>">
             </p> 
-            <input type="hidden" value="<?php echo $usuario['nome_completo']; ?>" name="admin">
+            <input type="hidden" value="<?php echo $usuario['id']; ?>" name="admin">
             <p>
                 <label for="irazao">Razão Social:</label><br>
                 <input required name="razao" id="irazao" type="text" value="<?php echo $dadosEscolhido['razao']; ?>">           

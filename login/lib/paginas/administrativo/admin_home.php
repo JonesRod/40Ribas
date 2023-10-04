@@ -1,5 +1,59 @@
 <?php
     include('../../conexao.php');
+
+    if(!isset($_SESSION)){
+        session_start(); 
+
+        if(isset($_SESSION['usuario'])){
+            //if($_SERVER["REQUEST_METHOD"] === "POST") {  
+
+                if (isset($_POST["tipoLogin"])) {
+                    // Obter o valor do input radio
+                    $usuario = $_SESSION['usuario'];
+                    $valorSelecionado = $_POST["tipoLogin"];
+                    $admin = $valorSelecionado;
+
+                    /*if($admin != 1){
+                        //echo "3"; 
+                        // Destruir todas as variáveis de sessão
+                        //session_unset();
+                        //session_destroy();
+                        //echo $_SESSION['id'];
+                        echo "1" . $usuario . $admin; 
+                        //header("Location: ../index.php");
+                        $_SESSION['usuario'];
+                        $_SESSION['admin'];
+                        //header("Location: ../paginas/usuario_home.php");       
+                    }else*///if{
+                        $usuario = $_SESSION['usuario'];
+                        $admin = $_SESSION['admin'];
+                        $_SESSION['usuario'];
+                        $_SESSION['admin'];       
+                    //}
+                }  
+            /*}else{
+                session_unset();
+                session_destroy();
+                header("Location: ../index.php"); 
+            }*/
+        }else{
+            session_unset();
+            session_destroy();
+            header("Location: ../../../../index.php"); 
+        }
+    }else{
+        session_unset();
+        session_destroy();
+        header("Location: ../../../../index.php"); 
+    }
+
+    $id = $_SESSION['usuario'];
+    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+    $usuario = $sql_query->fetch_assoc();
+?>
+<?php
+/*
+    include('../../conexao.php');
     //echo 'oi';
     if(!isset($_SESSION)){
         session_start(); 
@@ -42,7 +96,7 @@
     $id = $_SESSION['usuario'];
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
     $usuario = $sql_query->fetch_assoc();
-
+*/
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -51,6 +105,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="admin_home.css">
+    <script>
+        // Função para carregar o conteúdo na div
+        function abrirNaDiv(pagina) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("iconteudo").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", pagina, true);
+            xhttp.send();
+        }
+
+        // Carregar a página de início ao carregar a página
+        window.onload = function() {
+            abrirNaDiv('paginas_div/inicio.php');
+        }
+    </script>
     <title>Tela Admin</title>
 </head>
 <body>
@@ -67,14 +139,15 @@
     <div class="titulo">
         <div class="menu" id="imenu">
             <ul id="ilista" class="lista">
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/inicio.php');toggleMenu()">Inicío</a></li>
                 <li><a href="admin_config.php">Configurações</a></li> 
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/inicio.php');toggleMenu()">Inicío</a></li> 
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/integrarSocio.php');toggleMenu()">Integrar de Sócios</a></li>  
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/incluir_joia.php');toggleMenu()">Incluir Jóia</a></li> 
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/joia_para_receber.php');toggleMenu()">Jóia á Receber</a></li>
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/listaSocios.php');toggleMenu()">Lista de Sócios</a></li>              
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/GerarMensalidades.php');toggleMenu()">Gerar Mensalidades</a></li>
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/CarregarMensalidades.php');toggleMenu()">Carregar Mensalidades</a></li>
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/resetar/excluir_todos_socios.php');toggleMenu()">Resetar</a></li>
                 <li><a href="admin_logout.php">Sair</a></li>
             </ul> 
         </div> 

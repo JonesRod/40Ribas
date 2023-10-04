@@ -185,7 +185,7 @@
         //, 
             $sql_code = "UPDATE config_admin
             SET 
-            admin = '$admin',
+            id_admin = '$admin',
             data_alteracao = NOW(),
             logo = '$nova_logo',
             razao = '$razao',
@@ -222,7 +222,7 @@
             //var_dump($_POST);
             
 
-            $deu_certo_inserte = "INSERT INTO histo_config_admin (admin, data_alteracao, logo, razao, cnpj, uf, cep, cid, rua, numero, bairro, presidente, vice_presidente, nome_tesoureiro, email_suporte, senha, idade_minima, termos_insc, validade_insc, estatuto_int, reg_int, dia_fecha_mes, valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5)
+            $deu_certo_inserte = "INSERT INTO histo_config_admin (id_admin, data_alteracao, logo, razao, cnpj, uf, cep, cid, rua, numero, bairro, presidente, vice_presidente, nome_tesoureiro, email_suporte, senha, idade_minima, termos_insc, validade_insc, estatuto_int, reg_int, dia_fecha_mes, valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5)
             VALUES('$admin', NOW(), '$nova_logo', '$razao', '$cnpj', '$uf', '$cep', '$cid', '$rua', '$numero', '$bairro', '$presidente', '$vice_presidente', '$nome_tesoureiro', '$email_suporte', '$senha', '$idade_min', '$termos_insc', '$validade_insc', '$estatuto_int', '$reg_int', '$dia_fecha_mes', '$valor_mensalidades', '$desconto_mensalidades', '$multa', '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
             
             $deu_certo_inserte = $mysqli->query($deu_certo_inserte) or die($mysqli->error);
