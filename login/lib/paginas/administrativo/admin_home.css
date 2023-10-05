@@ -4,7 +4,6 @@ body {
     margin: 0;
     background-color: #f8f8f8;
 }
-
 #idivMenu{
     background-color: #057733;
     border-radius: 5px 5px 0px 0px;
@@ -23,9 +22,10 @@ body {
 }
 #imenuBtn {
     background-color: #1bd343; /* Cor azul */
-    color: #fff;
+    width: 30px;
+    height: 25px;
     border: none;
-    margin: 0px  2px 0px 2px;
+    margin: 3px  3px 3px 3px;
     padding: 5px 5px;
     cursor: pointer;
     border-radius: 5px;
@@ -36,8 +36,16 @@ body {
 }
 .iconeMenu{
     background-color: #131414;
-    padding: 1px;
-    border-radius: 5px;
+    padding: 2px;
+    border-radius: 10px;
+    margin: 3px;
+   /* width: 25px; /* Define a largura para 300 pixels */
+
+}
+.iconeMenu{
+    /*background-color: #131414;
+    padding: 3px;
+    border-radius: 10px;
     margin: 3px;
     width: 25px; /* Define a largura para 300 pixels */
 
@@ -59,7 +67,7 @@ body {
 #imenu {
     background-color: #1bd343;
     position: absolute;
-    top: 40px;
+    top: 50px;
     left: -300px; /* Inicia fora da tela à esquerda */
     width: 200px; /* Largura do menu */
     height: 35%;

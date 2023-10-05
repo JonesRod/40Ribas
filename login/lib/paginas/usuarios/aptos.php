@@ -77,8 +77,14 @@
                     $hoje = new DateTime();
                     $idade = $dataNascimento->diff($hoje)->y;
 
+                    if($row["foto"] ==''){
+                        $foto = '../arquivos_fixos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg';
+                    }else{
+                        $foto = 'arquivos/' . $row["foto"];
+                    }
+                    
                     echo "<tr>
-                        <td><img src='../usuarios/" . $row["foto"] . "' width='50'></td>
+                        <td><img src='" . $foto . "' width='50'></td>
                         <td>" . $row["apelido"] . "</td>
                         <td>" . $row["nome_completo"] . "</td>
                     </tr>";

@@ -58,6 +58,7 @@
         table {
             margin-left: auto;
             margin-right: auto;
+            border-collapse: collapse; /* Combina as bordas das células */
         }
         img{
             border-radius: 50%; /* Define um raio de borda de 50% (forma circular) */

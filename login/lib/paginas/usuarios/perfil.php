@@ -20,8 +20,12 @@
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
     $usuario = $sql_query->fetch_assoc();
 
-    /*$caminhoDaImagem= false;*/
-    
+    if(isset($usuario['foto'])) {
+        $foto = $usuario['foto'];
+        if($foto == ''){
+            $foto = '../arquivos_fixos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg';
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -147,14 +151,10 @@
 <body>
     <form action="alterar_dados_perfil.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
         <p>
-            <?php if(isset($usuario['foto'])) { ?>
-            <img id="ifoto" style="max-width: 200px;" src= "<?php echo $usuario['foto']; ?>" name="foto_antiga" alt=""><br>
-            <?php }else{ ?>
-                <img id="ifoto" style="max-width: 200px;" src= "arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg" name="foto_antiga" alt=""><br>
-            <?php } ?>
+            <img id="ifoto" style="max-width: 200px;" src= "<?php echo $foto; ?>" name="foto_antiga" alt=""><br>
             <img id="ifotoNova" style="max-width: 200px;" alt=""><br>
             <label for="imageInput">Alterar Foto </label><input type="file" id="imageInput" name="imageInput" accept=".png, .jpg, .jpeg" onchange="imgPerfil(event)">
-            <input type="hidden" name="end_foto" value= "<?php echo $usuario['foto']; ?>">
+            <input type="hidden" name="end_foto" value= "<?php echo $foto; ?>">
         </p>  
         
         <input id="" value="<?php echo $usuario['id']; ?>" name="id" type="hidden">
@@ -407,7 +407,7 @@
         <p>
             <span id="imgAlerta"></span><br>
             <span id="imgAlerta2" type="hidden"></span><br>
-            <a href="usuario_home.php" style="margin-left: 10px; margin-right: 10px;">Voltar</a><a href="../../redefinir_senha.php" style="margin-left: 10px; margin-right: 10px;">Redefinir Senha</a>
+            <a href="inicio.php" style="margin-left: 10px; margin-right: 10px;">Voltar</a><a href="../../redefinir_senha.php" style="margin-left: 10px; margin-right: 10px;">Redefinir Senha</a>
             <button id="" type="submit" style="margin-left: 10px;">Salvar</button>
         </p>
         <script src="perfil_verifica_dados.js"></script>

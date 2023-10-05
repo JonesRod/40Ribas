@@ -169,7 +169,7 @@ function perguntarSalvar() {
     }
 }
 
-window.addEventListener('popstate', function(event) {
+/*window.addEventListener('popstate', function(event) {
     history.pushState(null, document.title, location.href);
   });
 
@@ -186,5 +186,5 @@ document.addEventListener('keydown', function(event) {
             event.preventDefault(); // Previne o comportamento padrão do navegador (navegar para trás)
         }
     }
-});
+});*/
 

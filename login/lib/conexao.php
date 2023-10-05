@@ -1,6 +1,6 @@
 <?php
 
-$host = "localhost";
+/*$host = "localhost";
 $db = "associaçao_40ribas";
 $user = "root";
 $pass = "";
@@ -8,7 +8,14 @@ $pass = "";
 $mysqli = new mysqli($host, $user, $pass, $db);
 if($mysqli->connect_errno) {
     die("Falha na conexão com o banco de dados");
-}
+}*/
+
+$host = "localhost";
+$usuario = "root";
+$senha = "";
+$banco = "associaçao_40ribas";
+
+$mysqli = new mysqli($host, $usuario, $senha, $banco);
 
 /*function formatar_data($data){
     return implode('/', array_reverse(explode('-', $data)));

@@ -3,24 +3,29 @@
 
     if(!isset($_SESSION)){
         session_start();
-        //echo "sem"; 
-        //var_dump($_POST);
-        //die();
+
         if(isset($_SESSION['usuario'])){
             $usuario = $_SESSION['usuario'];
             $admin = $_SESSION['admin'];  
             
-            if($admin != 1){
+            if($admin == 0){
+                $_SESSION['usuario'];
+                header("Location: paginas/usuario_home.php"); 
+
+            }else if($admin == 1){
                 $usuario = $_SESSION['usuario'];
                 $admin = $_SESSION['admin'];
-                header("Location: paginas/usuarios/usuario_home.php");      
-            }else{
-                $usuario = $_SESSION['usuario'];
-                $admin = $_SESSION['admin'];
- 
+                $_SESSION['usuario'];
+                $_SESSION['admin']; 
+
                 $id = $_SESSION['usuario'];
                 $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
                 $usuario = $sql_query->fetch_assoc(); 
+                //header("Location: paginas/administrativo/admin_home.php");     
+            }else{
+                session_unset();
+                session_destroy();
+                header("Location: ../../../../index.php"); 
             }
         }else{
             // Destruir todas as variáveis de sessão
@@ -29,13 +34,35 @@
             header("Location: ../../index.php");  
         }
     }else{
+        if(isset($_SESSION['usuario'])){
+            $usuario = $_SESSION['usuario'];
+            $admin = $_SESSION['admin'];  
+            
+            if($admin == 0){
+                $_SESSION['usuario'];
+                header("Location: paginas/usuario_home.php"); 
+
+            }else if($admin == 1){
+                $usuario = $_SESSION['usuario'];
+                $admin = $_SESSION['admin'];
+                $_SESSION['usuario'];
+                $_SESSION['admin']; 
+
+                $id = $_SESSION['usuario'];
+                $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+                $usuario = $sql_query->fetch_assoc(); 
+                //header("Location: paginas/administrativo/admin_home.php");     
+            }else{
+                session_unset();
+                session_destroy();
+                header("Location: ../../../../index.php"); 
+            }
+        }else{
             // Destruir todas as variáveis de sessão
-            //echo 'rr';
-            //var_dump($_POST);
-            //die();
             session_unset();
             session_destroy();
             header("Location: ../../index.php");  
+        } 
     }
 
 ?>

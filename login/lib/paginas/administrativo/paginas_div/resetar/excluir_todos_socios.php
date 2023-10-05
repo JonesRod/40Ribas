@@ -1,14 +1,14 @@
 <?php 
 
     include('../../../../conexao.php');
-    //session_destroy(); 
+
     if(!isset($_SESSION)){
         session_start(); 
 
         if(isset($_SESSION['usuario'])){
 
             if (isset($_POST["tipoLogin"])) {
-                $usuario = $_SESSION['usuario'];
+                $usuario_sessao = $_SESSION['usuario'];
                 $valorSelecionado = $_POST["tipoLogin"];
                 $admin = $valorSelecionado;
 
@@ -25,18 +25,35 @@
             session_destroy(); 
             header("Location: ../../../../../../index.php");  
         }
-
     } else {
-        session_unset();
-        session_destroy(); 
-        header("Location: ../../../../../../index.php");  
+        if(isset($_SESSION['usuario'])){
+
+            if (isset($_POST["tipoLogin"])) {
+                $usuario_sessao = $_SESSION['usuario'];
+                $valorSelecionado = $_POST["tipoLogin"];
+                $admin = $valorSelecionado;
+
+                if($admin != 1){
+                    header("Location: ../../../usuarios/usuario_home.php");      
+                } else {
+                    $_SESSION['usuario'];
+                    $_SESSION['admin'];  
+                }
+            }  
+
+        } else {
+            session_unset();
+            session_destroy(); 
+            header("Location: ../../../../../../index.php");  
+        }
+ 
     }
 
     $msg= false;
 
     if(isset($_POST['senha'])) {
         
-        $senha = $mysqli->escape_string($_POST['senha']);
+        $senha_usuario = $mysqli->escape_string($_POST['senha']);
         
         if(strlen($_POST['senha']) == 0 ) {
             $msg= true;
@@ -46,37 +63,54 @@
 
             $sql_code = "SELECT * FROM socios WHERE admin = '1'";
             $sql_query =$mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->$error);
-            $usuario = $sql_query->fetch_assoc();
+            $usuario_sessao = $sql_query->fetch_assoc();
             $quantidade = $sql_query->num_rows;//retorna a quantidade encontrado
 
             if(($quantidade ) >= 1) {
 
-                if(password_verify($senha, $usuario['senha'])) {
+                if(password_verify($senha_usuario, $usuario_sessao['senha'])) {
                 
                     // Nome do arquivo de backup
                     $backupFile = 'backup_' . date('Y-m-d') . '.sql';
                 
-                    // Nome do banco de dados
+                    // pega os Nomes dos dados de acesso do banco
+                    $usuario = $mysqli->real_escape_string($usuario);
                     $database = $mysqli->real_escape_string($banco);
-                
-                    // Comando para realizar o backup
+
+                    var_dump($usuario);
+                    var_dump($senha);
+                    var_dump($host);
+                    var_dump($database);
+                    var_dump($backupFile);   
+                                     
+                    /*// Comando para realizar o backup
                     $commandBackup = "mysqldump --user={$usuario} --password={$senha} --host={$host} {$database} > {$backupFile}";
-                
+                    
+                    var_dump($commandBackup);  
                     // Executa o comando de backup
                     exec($commandBackup, $output, $return);
-                
+                    
                     if ($return === 0) {
                         echo "Backup realizado com sucesso.";
 
                     } else {
-                        echo "Erro ao realizar o backup.";
+                        echo "Erro ao realizar o backup. Detalhes: " . implode("\n", $output);
+                    }*/
+                    $commandBackup = "mysqldump --user={$usuario} --password={$senha} --host={$host} {$database} > {$backupFile} 2>&1";
+                    exec($commandBackup, $output, $return);
+
+                    if ($return === 0) {
+                        echo "Backup realizado com sucesso.";
+                    } else {
+                        echo "Erro ao realizar o backup. Detalhes: " . implode("\n", $output);
                     }
-                
+
+
                     // Verifica se a conexão foi estabelecida
                     if ($mysqli->connect_error) {
                         die("Falha na conexão: " . $mysqli->connect_error);
                     }
-                
+                die();                
                     // Obtém a lista de tabelas no banco de dados
                     $result = $mysqli->query("SHOW TABLES");
                     $tables = [];

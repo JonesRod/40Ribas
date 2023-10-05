@@ -42,14 +42,14 @@
                     $nova_foto= " foto = '$path', ";
             
                 if(empty($_POST['foto'])){
-                    if(isset($_POST['foto']) && $_POST['foto'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
+                    if(isset($_POST['foto']) && $_POST['foto'] !== '../arquivos_fixos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
                         unlink($_POST['foto']);
                 }
             else
-                $nova_foto= " foto = '$path', ";
+                $nova_foto = " foto = '$path', ";
         
             if(empty($_POST['foto'])) {
-                if(isset($_POST['foto']) && $_POST['foto'] !== 'arquivos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
+                if(isset($_POST['foto']) && $_POST['foto'] !== '../arquivos_fixos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg')
                     unlink($_POST['foto']);
             }
         }

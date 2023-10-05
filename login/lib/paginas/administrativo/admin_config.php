@@ -5,66 +5,51 @@
         session_start(); 
 
         if(isset($_SESSION['usuario'])){
-            //if($_SERVER["REQUEST_METHOD"] === "POST") {  
+            $usuario = $_SESSION['usuario'];
+            $admin = $_SESSION['admin'];
+            $_SESSION['usuario'];
+            $_SESSION['admin']; 
 
-                if (isset($_POST["tipoLogin"])) {
-                    // Obter o valor do input radio
-                    $usuario = $_SESSION['usuario'];
-                    $valorSelecionado = $_POST["tipoLogin"];
-                    $admin = $valorSelecionado;
+            $id = $_SESSION['usuario'];
+            $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+            $usuario = $sql_query->fetch_assoc(); 
 
-                    if($admin != 1){
-                        //echo "3"; 
-                        // Destruir todas as variáveis de sessão
-                        session_unset();
-                        session_destroy();
-                        //echo $_SESSION['id'];
-                        //echo "1" . $usuario . $admin; 
-                        header("Location: ../index.php");
-                        //$_SESSION['usuario'];
-                        //$_SESSION['admin'];
-                        //header("Location: ../paginas/usuario_home.php");       
-                    }else{
-                        $usuario = $_SESSION['usuario'];
-                        $admin = $_SESSION['admin'];
-                        $_SESSION['usuario'];
-                        $_SESSION['admin']; 
-                        //echo 'oi';
-                        $id = $_SESSION['usuario'];
-                        $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-                        $usuario = $sql_query->fetch_assoc();      
-                    }
-                }else{
-                    //session_unset();
-                    //session_destroy();
-                    //header("Location: ../index.php"); 
-                    //echo 'oii';
-                    $id = $_SESSION['usuario'];
-                    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-                    $usuario = $sql_query->fetch_assoc();  
-                } 
-
+            $id = '1';
+            $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
+            $dadosEscolhido = $dados->fetch_assoc();
         }else{
             session_unset();
             session_destroy();
-            header("Location: ../index.php"); 
+            header("Location: admin_logout.php");             
         }
-    }else{
-        session_unset();
-        session_destroy();
-        header("Location: ../index.php"); 
-    }
+    }else{    
+        if(isset($_SESSION['usuario'])){
+            $usuario = $_SESSION['usuario'];
+            $admin = $_SESSION['admin'];
+            $_SESSION['usuario'];
+            $_SESSION['admin']; 
 
-    $id = '1';
-    $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
-    $dadosEscolhido = $dados->fetch_assoc();
-//hidden esconde o input    
+            $id = $_SESSION['usuario'];
+            $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+            $usuario = $sql_query->fetch_assoc(); 
+
+            $id = '1';
+            $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
+            $dadosEscolhido = $dados->fetch_assoc();
+        }else{
+            session_unset();
+            session_destroy();
+            header("Location: admin_logout.php");             
+        }
+    }
+   
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="admin_config.css">
     <title>Configuração</title>
 </head>
@@ -277,12 +262,13 @@
             <p>
                 <span id="imsgAlerta"></span><br>
                 <!-- Link de voltar -->
-                <a href="#" onclick="perguntarSalvar(); return false;" style="margin-left: 10px; margin-right: 10px;">Voltar</a>
-
+                <a href="paginas_div/inicio.php"  style="margin-left: 10px; margin-right: 10px;">Voltar</a>
+                <!--onclick="perguntarSalvar(); return false;"-->
                 <button type="submit">Salvar</button>
             </p>
         </fieldset>
         <script src="admin_verifica.js"></script>
     </form>
+    
 </body>
 </html>

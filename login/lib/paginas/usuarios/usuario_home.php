@@ -1,55 +1,32 @@
 <?php
     include('../../conexao.php');
-
+    //die();
     if(!isset($_SESSION)){
         session_start(); 
+    
+        $usuario = $_SESSION['usuario'];
+        $admin = $_SESSION['admin'];
+        $_SESSION['usuario'];
+        $id = $_SESSION['usuario'];
+        $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+        $usuario = $sql_query->fetch_assoc();  
 
+    }else{   
         if(isset($_SESSION['usuario'])){
-            //if($_SERVER["REQUEST_METHOD"] === "POST") {  
-
-                if (isset($_POST["tipoLogin"])) {
-                    // Obter o valor do input radio
-                    $usuario = $_SESSION['usuario'];
-                    $valorSelecionado = $_POST["tipoLogin"];
-                    $admin = $valorSelecionado;
-
-                    /*if($admin != 1){
-                        //echo "3"; 
-                        // Destruir todas as variáveis de sessão
-                        //session_unset();
-                        //session_destroy();
-                        //echo $_SESSION['id'];
-                        echo "1" . $usuario . $admin; 
-                        //header("Location: ../index.php");
-                        $_SESSION['usuario'];
-                        $_SESSION['admin'];
-                        //header("Location: ../paginas/usuario_home.php");       
-                    }else*///if{
-                        $usuario = $_SESSION['usuario'];
-                        $admin = $_SESSION['admin'];
-                        $_SESSION['usuario'];
-                        $_SESSION['admin'];       
-                    //}
-                }  
-            /*}else{
-                session_unset();
-                session_destroy();
-                header("Location: ../index.php"); 
-            }*/
+            $usuario = $_SESSION['usuario'];
+            $_SESSION['usuario']; 
+            //echo '4';
+            $id = $_SESSION['usuario'];
+            $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+            $usuario = $sql_query->fetch_assoc();  
         }else{
+            //echo '1';
             session_unset();
             session_destroy();
-            header("Location: ../../../../index.php"); 
-        }
-    }else{
-        session_unset();
-        session_destroy();
-        header("Location: ../../../../index.php"); 
+            header("Location: ../../../../index.php");             
+        } 
     }
 
-    $id = $_SESSION['usuario'];
-    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-    $usuario = $sql_query->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +37,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="usuario_home.css">
     <script>
+        //atualiza a pagian a cada 10 min
+        setTimeout(function() {
+            location.reload();
+        }, 100000);
+        
         // Função para carregar o conteúdo na div
         function abrirNaDiv(pagina) {
             var xhttp = new XMLHttpRequest();
@@ -91,25 +73,27 @@
             <div class="iconeMenu"></div>
             <div class="iconeMenu"></div>
         </div>  
-        <div id="ititulo">
-            <H1>Associação 40Ribas</H1> 
-        </div>
-        <div id="iuse">
+
+        <div id="iusuario">
             <a> Olá, <?php echo $usuario['apelido']; ?></a><br>
             <a> Status: <?php echo $usuario['status']; ?></a> 
         </div>
-    </div>
-  
-    <div class="menu" id="imenu">
-        <ul id="ilista" class="lista">
-            <li><a href="#" onclick="abrirNaDiv('inicio.php');toggleMenu()">Inicío </a></li> 
-            <li><a href="#" onclick="abrirNaDiv('perfil.php');toggleMenu()">Meu Perfil </a></li>              
-            <li><a href="#" onclick="abrirNaDiv('CarregarMensalidades.php');toggleMenu()">Minhas Mensalidades</a></li>
-            <li><a href="#" onclick="abrirNaDiv('Carregar_joia.php');toggleMenu()">Jóia</a></li>
-            <li><a href="usuario_logout.php">Sair</a></li>
-        </ul> 
     </div> 
 
+    <div class="titulo">
+        <div class="menu" id="imenu">
+            <ul id="ilista" class="lista">
+                <li><a href="#" onclick="abrirNaDiv('inicio.php');toggleMenu()">Inicío </a></li> 
+                <li><a href="#" onclick="abrirNaDiv('perfil.php');toggleMenu()">Meu Perfil </a></li>              
+                <li><a href="#" onclick="abrirNaDiv('CarregarMensalidades.php');toggleMenu()">Minhas Mensalidades</a></li>
+                <li><a href="#" onclick="abrirNaDiv('Carregar_joia.php');toggleMenu()">Jóia</a></li>
+                <li><a href="usuario_logout.php">Sair</a></li>
+            </ul> 
+        </div> 
+        <div id="ititulo">
+            <H1>Associação 40Ribas</H1> 
+        </div>
+    </div>
     <div class="container">
         <div class="left">
             <!-- Conteúdo da div direita (outras atividades) -->
