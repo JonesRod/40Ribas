@@ -1,7 +1,7 @@
 <?php
 
 /*$host = "localhost";
-$db = "associaçao_40ribas";
+$db = "associacao_40ribas";
 $user = "root";
 $pass = "";
 
@@ -13,7 +13,7 @@ if($mysqli->connect_errno) {
 $host = "localhost";
 $usuario = "root";
 $senha = "";
-$banco = "associaçao_40ribas";
+$banco = "associacao_40ribas";
 
 $mysqli = new mysqli($host, $usuario, $senha, $banco);
 

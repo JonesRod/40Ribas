@@ -1,9 +1,11 @@
 <?php
     include('../../conexao.php');
- 
+    //echo '1';
+    //die();
     if(!isset($_SESSION)){
         session_start(); 
-
+        //echo '2';
+        //die();
         if($_SERVER["REQUEST_METHOD"] === "POST") {  
 
             if (isset($_POST["tipoLogin"])) {
@@ -45,6 +47,18 @@
                 session_destroy();
                 header("Location: ../../../../index.php"); 
             }  
+        }else if(isset($_SESSION['usuario'])){    
+            //echo '3';
+            //die();
+            $usuario = $_SESSION['usuario'];
+            $admin = $_SESSION['admin'];
+            $_SESSION['usuario'];
+            $_SESSION['admin'];  
+    
+            $id = $_SESSION['usuario'];
+            $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+            $usuario = $sql_query->fetch_assoc();    
+    
         }else{
 
             session_unset();
@@ -52,6 +66,8 @@
             header("Location: ../../../../index.php"); 
         }
     }else if(isset($_SESSION['usuario'])){    
+        //echo '3';
+        //die();
         $usuario = $_SESSION['usuario'];
         $admin = $_SESSION['admin'];
         $_SESSION['usuario'];
@@ -62,6 +78,8 @@
         $usuario = $sql_query->fetch_assoc();    
 
     }else{
+        //echo '4';
+        //die();
         if($_SERVER["REQUEST_METHOD"] === "POST") {  
 
             if (isset($_POST["tipoLogin"])) {
@@ -98,7 +116,8 @@
             header("Location: ../../../../index.php"); 
         }
     }
-
+    //echo '5';
+    //die();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -156,7 +175,7 @@
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/listaSocios.php');toggleMenu()">Lista de Sócios</a></li>              
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/GerarMensalidades.php');toggleMenu()">Gerar Mensalidades</a></li>
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/CarregarMensalidades.php');toggleMenu()">Carregar Mensalidades</a></li>
-                <li><a href="paginas_div/resetar/excluir_todos_socios.php">Resetar</a></li>
+                <li><a href="paginas_div/resetar/backup.php">Resetar</a></li>
                 <li><a href="admin_logout.php">Sair</a></li>
             </ul> 
         </div> 

@@ -71,31 +71,32 @@
                 if(password_verify($senha_usuario, $usuario_sessao['senha'])) {
                 
                     // Nome do arquivo de backup
-                    $backupFile = 'backup_' . date('Y-m-d') . '.sql';
+                    /*$backupFile = 'backup_' . date('Y-m-d') . '.sql';
                 
                     // pega os Nomes dos dados de acesso do banco
-                    $usuario = $mysqli->real_escape_string($usuario);
+                    $usuario = $mysqli->real_escape_string($usuario);*/
+                    //$database = $mysqli->real_escape_string($banco);
+
+                    $host = "localhost";
+                    $usuario = "root";
+                    $senha = "";
+                    $banco = "associacao_40ribas";
+
+                    $mysqli = new mysqli($host, $usuario, $senha, $banco);
+
+                    if ($mysqli->connect_error) {
+                        die("Falha na conexão: " . $mysqli->connect_error);
+                    }
+
+                    $backupFile = 'backup_' . date('Y-m-d') . '.sql';
                     $database = $mysqli->real_escape_string($banco);
 
                     var_dump($usuario);
                     var_dump($senha);
                     var_dump($host);
                     var_dump($database);
-                    var_dump($backupFile);   
-                                     
-                    /*// Comando para realizar o backup
-                    $commandBackup = "mysqldump --user={$usuario} --password={$senha} --host={$host} {$database} > {$backupFile}";
-                    
-                    var_dump($commandBackup);  
-                    // Executa o comando de backup
-                    exec($commandBackup, $output, $return);
-                    
-                    if ($return === 0) {
-                        echo "Backup realizado com sucesso.";
+                    var_dump($backupFile); 
 
-                    } else {
-                        echo "Erro ao realizar o backup. Detalhes: " . implode("\n", $output);
-                    }*/
                     $commandBackup = "mysqldump --user={$usuario} --password={$senha} --host={$host} {$database} > {$backupFile} 2>&1";
                     exec($commandBackup, $output, $return);
 
@@ -105,12 +106,25 @@
                         echo "Erro ao realizar o backup. Detalhes: " . implode("\n", $output);
                     }
 
+                    $mysqli->close();
+ 
+                    //$commandBackup = "mysqldump --user={$usuario} --password={$senha} --host={$host} {$database} > {$backupFile} 2>&1";
+                    //$commandBackup = "mysqldump --user=root --password= --host=localhost associaçao_40ribas > {$backupFile}";
 
-                    // Verifica se a conexão foi estabelecida
+                    /*exec($commandBackup, $output, $return);
+
+                    if ($return === 0) {
+                        echo "Backup realizado com sucesso.";
+                    } else {
+                        echo "Erro ao realizar o backup. Detalhes: " . implode("\n", $output);
+                    }*/
+                    die();  
+
+                    /*// Verifica se a conexão foi estabelecida
                     if ($mysqli->connect_error) {
                         die("Falha na conexão: " . $mysqli->connect_error);
                     }
-                die();                
+                              
                     // Obtém a lista de tabelas no banco de dados
                     $result = $mysqli->query("SHOW TABLES");
                     $tables = [];
@@ -130,7 +144,7 @@
                     $msg = "Backup realizado e dados excluídos com sucesso.";
                 
                     unset($_POST);
-                    header("refresh: 5; ../admin_logout.php");
+                    header("refresh: 5; ../admin_logout.php");*/
 
                 }else{
                     $msg = true;
@@ -271,9 +285,10 @@
             </div>
         </p>
         <p>
-            <a href="../../index.php">Voltar para tela de login</a>
+            
             <button type="submit">Reset</button>
         </p>
     </form>
+    <a href="../../admin_home.php"  style="margin-left: 10px; margin-right: 10px;">Voltar</a>
 </body>
 </html>
