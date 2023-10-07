@@ -49,16 +49,18 @@
  
     }
 
-    $msg= false;
+    $msg1= false;
+    $msg2= false;
 
     if(isset($_POST['senha'])) {
         
         $senha_usuario = $mysqli->escape_string($_POST['senha']);
         
         if(strlen($_POST['senha']) == 0 ) {
-            $msg= true;
-            $msg = "Preencha sua senha.";
-            echo $msg;
+            $msg1= true;
+            $msg2= true;
+            $msg1 = "";
+            $msg2 = "Preencha sua senha.";
         } else {
 
             $sql_code = "SELECT * FROM socios WHERE admin = '1'";
@@ -70,13 +72,13 @@
 
                 if(password_verify($senha_usuario, $usuario_sessao['senha'])) {
                 
-                    // Nome do arquivo de backup
-                    /*$backupFile = 'backup_' . date('Y-m-d') . '.sql';
-                
-                    // pega os Nomes dos dados de acesso do banco
-                    $usuario = $mysqli->real_escape_string($usuario);*/
-                    //$database = $mysqli->real_escape_string($banco);
+                    //pega os Nomes dos dados de acesso do banco
+                    $localhost = $mysqli->real_escape_string($host);
+                    $usuario_log = $mysqli->real_escape_string($usuario);
+                    $senha_log = $mysqli->real_escape_string($senha);
+                    $database = $mysqli->real_escape_string($banco);
 
+                    // Defina as credenciais do banco de dados
                     $host = "localhost";
                     $usuario = "root";
                     $senha = "";
@@ -91,64 +93,40 @@
                     $backupFile = 'backup_' . date('Y-m-d') . '.sql';
                     $database = $mysqli->real_escape_string($banco);
 
-                    var_dump($usuario);
-                    var_dump($senha);
-                    var_dump($host);
-                    var_dump($database);
-                    var_dump($backupFile); 
+                    //var_dump($usuario);
+                    //var_dump($senha);
+                    //var_dump($host);
+                    //var_dump($database);
+                    //var_dump($backupFile); 
 
-                    $commandBackup = "mysqldump --user={$usuario} --password={$senha} --host={$host} {$database} > {$backupFile} 2>&1";
+                    // Defina o caminho para o mysqldump (escolha um dos dois caminhos disponíveis)
+                    $mysqldump_path = 'C:\xampp\mysql\bin\mysqldump.exe';
+                    //$mysqldump_path = 'C:\Program Files\MySQL\MySQL Server 8.1\bin\mysqldump.exe';
+                    
+                    // Defina o caminho e nome do arquivo de backup
+                    $backupFile = 'backup_' . date('Y-m-d') . '.sql';
+                    
+                    // Comando para realizar o backup
+                    $commandBackup = "$mysqldump_path --user=$usuario_log --password=$senha_log --host=$localhost $database > $backupFile";
+                    
+                    // Executa o comando de backup
                     exec($commandBackup, $output, $return);
-
+                    
                     if ($return === 0) {
-                        echo "Backup realizado com sucesso.";
+                        $msg1 = "Backup realizado com sucesso.";
+                        $msg2 = ""; 
+                        header("refresh: 5;../../admin_home.php"); 
+
                     } else {
-                        echo "Erro ao realizar o backup. Detalhes: " . implode("\n", $output);
+                        $msg1 = ""; 
+                        $msg2 = "Erro ao realizar o backup.";
+                        header("refresh: 5;../../admin_home.php"); 
                     }
-
-                    $mysqli->close();
- 
-                    //$commandBackup = "mysqldump --user={$usuario} --password={$senha} --host={$host} {$database} > {$backupFile} 2>&1";
-                    //$commandBackup = "mysqldump --user=root --password= --host=localhost associaçao_40ribas > {$backupFile}";
-
-                    /*exec($commandBackup, $output, $return);
-
-                    if ($return === 0) {
-                        echo "Backup realizado com sucesso.";
-                    } else {
-                        echo "Erro ao realizar o backup. Detalhes: " . implode("\n", $output);
-                    }*/
-                    die();  
-
-                    /*// Verifica se a conexão foi estabelecida
-                    if ($mysqli->connect_error) {
-                        die("Falha na conexão: " . $mysqli->connect_error);
-                    }
-                              
-                    // Obtém a lista de tabelas no banco de dados
-                    $result = $mysqli->query("SHOW TABLES");
-                    $tables = [];
-                
-                    while ($row = $result->fetch_row()) {
-                        $tables[] = $row[0];
-                    }
-                
-                    // Exclui todos os dados das tabelas
-                    foreach ($tables as $table) {
-                        $mysqli->query("DELETE FROM $table");
-                    }
-                
-                    // Fecha a conexão
-                    $mysqli->close();
-                
-                    $msg = "Backup realizado e dados excluídos com sucesso.";
-                
-                    unset($_POST);
-                    header("refresh: 5; ../admin_logout.php");*/
+                    //die();  
 
                 }else{
-                    $msg = true;
-                    $msg = "Senaha inválida!";    
+                    $msg1 = "";
+                    $msg2 = "Senaha inválida!";   
                     //echo $msg;
                 }
             }else{
@@ -190,8 +168,11 @@
             color: #333;
             margin-bottom: 20px;
         }
+        #msg1 {
+            color: green;
+        }
 
-        #msg {
+        #msg2 {
             color: red;
         }
 
@@ -276,7 +257,8 @@
         <p>
             Caso click em 'Reset': Os dados serão todos apagados, mas estarão disponiveis no Backup.
         </p>
-        <span id="msg"><?php echo $msg; ?></span>
+        <span id="msg1"><?php echo $msg1; ?></span>
+        <span id="msg2"><?php echo $msg2; ?></span>
         <p>
             <div id="senhaInputContainer">
                 <label for="">Senha do admin: </label>
@@ -285,7 +267,6 @@
             </div>
         </p>
         <p>
-            
             <button type="submit">Reset</button>
         </p>
     </form>
