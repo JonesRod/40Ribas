@@ -72,28 +72,56 @@
 
                 if(password_verify($senha_usuario, $usuario_sessao['senha'])) {
 
-                    // Excluir todos os dados das tabelas
-                    $tables = $mysqli->query("SHOW TABLES");
-                    while ($row = $tables->fetch_row()) {
-                        $table = $row[0];
-                        $mysqli->query("DELETE FROM $table");
-                        $mysqli->query("ALTER TABLE $table AUTO_INCREMENT = 1");
+                    //pega os Nomes dos dados de acesso do banco
+                    $localhost = $mysqli->real_escape_string($host);
+                    $usuario_log = $mysqli->real_escape_string($usuario);
+                    $senha_log = $mysqli->real_escape_string($senha);
+                    $database = $mysqli->real_escape_string($banco);
+
+                    $mysqli = new mysqli($localhost, $usuario_log, $senha_log, $database);
+
+                    if ($mysqli->connect_error) {
+                        die("Falha na conexão: " . $mysqli->connect_error);
                     }
-
-                    $msg1 = "Todos os dados foram excluídos e os IDs foram reiniciados.";
-                    $msg2 = "";                     
                     
-                    // Encerrar sessão
-                    session_unset();
-                    session_destroy();
+                    $backupFile = 'backup_' . date('Y-m-d') . '.sql';
+                    $database = $mysqli->real_escape_string($banco);
+                    
+                    // Defina o caminho para o mysqldump (escolha um dos dois caminhos disponíveis)
+                    $mysqldump_path = 'C:\xampp\mysql\bin\mysqldump.exe';
+                    //$mysqldump_path = 'C:\Program Files\MySQL\MySQL Server 8.1\bin\mysqldump.exe';
+                    
+                    // Defina o caminho e nome do arquivo de backup
+                    $backupFile = 'backup/backup_' . date('Y-m-d') . '.sql';
+                    
+                    // Comando para realizar o backup
+                    $commandBackup = "$mysqldump_path --user=$usuario_log --password=$senha_log --host=$localhost $database > $backupFile";
+                    
+                    // Executa o comando de backup
+                    exec($commandBackup, $output, $return);
+                                        
+                    if ($return === 0) {
+                        $msg1 = "Foi criado um backup e todos os dados foram excluídos e os IDs foram reiniciados.";
+                        $msg2 = "";                     
+                        
+                        // Encerrar sessão
+                        session_unset();
+                        session_destroy();
+    
+                        //header("refresh: 5;");  
+                        echo '<script>
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 5000);
+                            </script>';
 
-                    //header("refresh: 5;");  
-                    echo '<script>
-                            setTimeout(function() {
-                                location.reload();
-                            }, 5000);
-                        </script>';
+                        header("refresh: 5;../inicio.php"); 
 
+                    } else {
+                        $msg1 = ""; 
+                        $msg2 = "Erro ao realizar o backup.";
+                        header("refresh: 5;../inicio.php"); 
+                    }
                 }else{
                     $msg1 = "";
                     $msg2 = "Senaha inválida!";   

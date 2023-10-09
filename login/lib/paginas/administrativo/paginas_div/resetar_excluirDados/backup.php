@@ -78,13 +78,13 @@
                     $senha_log = $mysqli->real_escape_string($senha);
                     $database = $mysqli->real_escape_string($banco);
 
-                    // Defina as credenciais do banco de dados
-                    $host = "localhost";
-                    $usuario = "root";
-                    $senha = "";
-                    $banco = "associacao_40ribas";
+                    //Defina as credenciais do banco de dados
+                    //$host = "localhost";
+                    //$usuario = "root";
+                    //$senha = "";
+                    //$banco = "associacao_40ribas";
 
-                    $mysqli = new mysqli($host, $usuario, $senha, $banco);
+                    $mysqli = new mysqli($localhost, $usuario_log, $senha_log, $database);
 
                     if ($mysqli->connect_error) {
                         die("Falha na conexão: " . $mysqli->connect_error);
