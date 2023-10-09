@@ -71,22 +71,33 @@
             if(($quantidade ) >= 1) {
 
                 if(password_verify($senha_usuario, $usuario_sessao['senha'])) {
-
-                    //pega os Nomes dos dados de acesso do banco
+                                        //pega os Nomes dos dados de acesso do banco
                     $localhost = $mysqli->real_escape_string($host);
                     $usuario_log = $mysqli->real_escape_string($usuario);
                     $senha_log = $mysqli->real_escape_string($senha);
                     $database = $mysqli->real_escape_string($banco);
+
+                    // Defina as credenciais do banco de dados
+                    //$host = "localhost";
+                    //$usuario = "root";
+                    //$senha = "";
+                    //$banco = "associacao_40ribas";
 
                     $mysqli = new mysqli($localhost, $usuario_log, $senha_log, $database);
 
                     if ($mysqli->connect_error) {
                         die("Falha na conexão: " . $mysqli->connect_error);
                     }
-                    
+
                     $backupFile = 'backup_' . date('Y-m-d') . '.sql';
                     $database = $mysqli->real_escape_string($banco);
-                    
+
+                    //var_dump($usuario);
+                    //var_dump($senha);
+                    //var_dump($host);
+                    //var_dump($database);
+                    //var_dump($backupFile); 
+
                     // Defina o caminho para o mysqldump (escolha um dos dois caminhos disponíveis)
                     $mysqldump_path = 'C:\xampp\mysql\bin\mysqldump.exe';
                     //$mysqldump_path = 'C:\Program Files\MySQL\MySQL Server 8.1\bin\mysqldump.exe';
@@ -99,15 +110,24 @@
                     
                     // Executa o comando de backup
                     exec($commandBackup, $output, $return);
-                                        
+                    
                     if ($return === 0) {
-                        $msg1 = "Foi criado um backup e todos os dados foram excluídos e os IDs foram reiniciados.";
+                        // Excluir todos os dados das tabelas
+                        $tables = $mysqli->query("SHOW TABLES");
+
+                        while ($row = $tables->fetch_row()) {
+                            $table = $row[0];
+                            $mysqli->query("DELETE FROM $table");
+                            $mysqli->query("ALTER TABLE $table AUTO_INCREMENT = 1");
+                        }
+
+                        $msg1 = "Backup criado e todos os dados foram excluídos e os IDs foram reiniciados.";
                         $msg2 = "";                     
                         
                         // Encerrar sessão
                         session_unset();
                         session_destroy();
-    
+
                         //header("refresh: 5;");  
                         echo '<script>
                                 setTimeout(function() {
@@ -115,13 +135,14 @@
                                 }, 5000);
                             </script>';
 
-                        header("refresh: 5;../inicio.php"); 
+                        //header("refresh: 5;../inicio.php"); 
 
                     } else {
                         $msg1 = ""; 
                         $msg2 = "Erro ao realizar o backup.";
                         header("refresh: 5;../inicio.php"); 
                     }
+
                 }else{
                     $msg1 = "";
                     $msg2 = "Senaha inválida!";   

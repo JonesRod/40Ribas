@@ -1,5 +1,5 @@
 <?php
-    include('../../conexao.php');
+    include('../../../conexao.php');
 
     if(!isset($_SESSION)){
         session_start(); 
@@ -20,7 +20,7 @@
         }else{
             session_unset();
             session_destroy();
-            header("Location: admin_logout.php");             
+            header("Location: ../admin_logout.php");             
         }
     }else{    
         if(isset($_SESSION['usuario'])){
@@ -39,7 +39,7 @@
         }else{
             session_unset();
             session_destroy();
-            header("Location: admin_logout.php");             
+            header("Location: ../admin_logout.php");             
         }
     }
    
@@ -262,13 +262,16 @@
             <p>
                 <span id="imsgAlerta"></span><br>
                 <!-- Link de voltar -->
-                <a href="paginas_div/inicio.php"  style="margin-left: 10px; margin-right: 10px;">Voltar</a>
+                <a href="inicio.php"  style="margin-left: 10px; margin-right: 10px;">Voltar</a>
                 <!--onclick="perguntarSalvar(); return false;"-->
+                <a href="resetar_excluirDados/backup.php"  style="margin-left: 10px; margin-right: 10px;">Backup</a>
+                <a href="resetar_excluirDados/deletar_dados.php"  style="margin-left: 10px; margin-right: 10px;">Excluir Todos os Dados</a>
+                <a href=""  style="margin-left: 10px; margin-right: 10px;">Import</a>
                 <button type="submit">Salvar</button>
             </p>
         </fieldset>
         <script src="admin_verifica.js"></script>
     </form>
-    
+
 </body>
 </html>

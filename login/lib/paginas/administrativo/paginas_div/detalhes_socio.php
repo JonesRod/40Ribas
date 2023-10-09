@@ -57,6 +57,14 @@
     $sql_socio = $mysqli->query("SELECT * FROM socios WHERE id = '$id_socio'") or die($mysqli->$error);
     $socio = $sql_socio->fetch_assoc();
 
+    $foto = $socio['foto'];
+    
+    if($foto != ''){
+        $foto = '../../usuarios/arquivos/'. $foto;
+    }else{
+        $foto = '../../arquivos_fixos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg';
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -168,7 +176,7 @@
     <form action="detalhe_altera.php" method="POST" enctype="multipart/form-data" autocomplete="on">
         
         <p>
-            <img id="ifoto" style="max-width: 200px;" src= "<?php echo '../../usuarios/'. $socio['foto']; ?>" name="foto" alt=""><br>
+            <img id="ifoto" style="max-width: 200px;" src= "<?php echo $foto; ?>" name="foto" alt=""><br>
         </p>
         <input type="hidden" value="<?php echo $socio['id']; ?>" name="id" ><br> 
         <fieldset class="dados">

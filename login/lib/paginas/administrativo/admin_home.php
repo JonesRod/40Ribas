@@ -167,15 +167,13 @@
         <div class="menu" id="imenu">
             <ul id="ilista" class="lista">
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/inicio.php');toggleMenu()">Inicío</a></li>
-                <li><a href="#" onclick="abrirNaDiv('admin_config.php');toggleMenu()">Configurações</a></li> 
+                <li><a href="#" onclick="abrirNaDiv('paginas_div/admin_config.php');toggleMenu()">Configurações</a></li> 
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/integrarSocio.php');toggleMenu()">Integrar de Sócios</a></li>  
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/incluir_joia.php');toggleMenu()">Incluir Jóia</a></li> 
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/joia_para_receber.php');toggleMenu()">Jóia á Receber</a></li>
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/listaSocios.php');toggleMenu()">Lista de Sócios</a></li>              
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/GerarMensalidades.php');toggleMenu()">Gerar Mensalidades</a></li>
                 <li><a href="#" onclick="abrirNaDiv('paginas_div/CarregarMensalidades.php');toggleMenu()">Carregar Mensalidades</a></li>
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/resetar_excluirDados/backup.php');toggleMenu()">Resetar</a></li>
-                <li><a href="#" onclick="abrirNaDiv('paginas_div/resetar_excluirDados/deletar_dados.php');toggleMenu()">Deletar Dados</a></li>
                 <li><a href="admin_logout.php">Sair</a></li>
             </ul> 
         </div> 
