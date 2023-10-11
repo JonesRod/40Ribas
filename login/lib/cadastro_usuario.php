@@ -52,20 +52,16 @@ if(isset($_POST['nome']) || isset($_POST['email'])) {
             // Agora, você pode usar $id_socio como necessário
             // Por exemplo, para salvar o ID do admin
             $sql_config_admin = "INSERT INTO config_admin (id, id_admin, data_alteracao, nome_tesoureiro)
-            VALUES('1', '$id_admin',NOW(), 'apelido')";
+            VALUES('1', '$id_admin',NOW(), '$nome')";
             $mysqli->query($sql_config_admin) or die($mysqli->error);
 
             $sql_historico_config_admin = "INSERT INTO historico_config_admin (id, id_admin, data_alteracao, nome_tesoureiro)
-            VALUES('1', '$id_admin',NOW(), 'apelido')";
+            VALUES('1', '$id_admin',NOW(), '$nome')";
             $deu_certo = $mysqli->query($sql_historico_config_admin) or die($mysqli->error);
                 
             //}
 
             if($deu_certo){
-
-                $msg = "A confirmação de seu cadastrado será enviada para esse e-mail!";
-                echo $msg;
-
                 enviar_email($email, "Sua nova senha de acesso na plataforma", "
                 <h1>Seja bem vindo " . $nome . "</h1>
                 <p><b>Seu E-mail de acesso é: </b> $email</p>
@@ -74,6 +70,9 @@ if(isset($_POST['nome']) || isset($_POST['email'])) {
                 <p><b>Para entrar </b><a href='../../index.php'>clique aqui.</a></p>");
 
                 unset($_POST);
+
+                $msg = "A confirmação de seu cadastrado será enviada para esse e-mail!";
+                echo $msg;
 
                 header("refresh: 5; ../../index.php"); //Atualiza a pagina em 5s e redireciona apagina
             } else {

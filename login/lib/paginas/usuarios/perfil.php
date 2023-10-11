@@ -26,6 +26,9 @@
             $foto = '../arquivos_fixos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg';
         }
     }
+    if(!isset($usuario['foto'])) {
+        $foto = '../arquivos_fixos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg';
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
