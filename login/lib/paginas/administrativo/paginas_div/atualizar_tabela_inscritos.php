@@ -119,7 +119,7 @@
                     <td>" . $row["data"] . "</td>
                     <td><img src='../../usuarios/" . $row["foto"] . "' width='50'></td>
                     <td>" . $row["apelido"] . "</td>
-                    <td>" . $row["nome_completo"] . "</td>
+                    <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
                     <td>" . $idade . "</td>
                     <td>" . $row["email"] . "</td>
                     <td>" . $row["celular1"] . " / " . $row["celular2"] . "</td>";

@@ -78,15 +78,23 @@
             while ($row = $result->fetch_assoc()) {
                 //if($id != $row["id"]){
                     // Calcula a idade a partir da data de nascimento
+                    $data = date('d/m/Y', strtotime($row["data"]));
+                    
                     $dataNascimento = new DateTime($row["nascimento"]);
                     $hoje = new DateTime();
                     $idade = $dataNascimento->diff($hoje)->y;
 
+                    if($row["foto"] ==''){
+                        $foto = '../../arquivos_fixos/9734564-default-avatar-profile-icon-of-social-media-user-vetor.jpg';
+                    }else{
+                        $foto = '../../usuarios/arquivos/' . $row["foto"];
+                    }
+
                     echo "<tr>
-                        <td>" . $row["data"] . "</td>
-                        <td><img src='../../usuarios/" . $row["foto"] . "' width='50'></td>
+                        <td>" . $data . "</td>
+                        <td><img src='" . $foto . "' width='50'></td>
                         <td>" . $row["apelido"] . "</td>
-                        <td>" . $row["nome_completo"] . "</td>
+                        <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
                         <td>" . $idade . "</td>
                         <td>" . $row["email"] . "</td>
                         <td>" . $row["celular1"] . " / " . $row["celular2"] . "</td>

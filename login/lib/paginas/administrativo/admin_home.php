@@ -7,20 +7,22 @@
         //echo '2';
         //die();
         if($_SERVER["REQUEST_METHOD"] === "POST") {  
-
+            //echo '3';
             if (isset($_POST["tipoLogin"])) {
-
+                //echo '4';
                 if(isset($_SESSION['usuario'])){ 
+                    //echo '5';
                     // Obter o valor do input radio
                     $usuario = $_SESSION['usuario'];
                     $valorSelecionado = $_POST["tipoLogin"];
                     $admin = $valorSelecionado;
 
                     if($admin == 0){
+                        //echo '6';
                         $_SESSION['usuario'];
                         header("Location: ../usuarios/usuario_home.php");       
                     }else if($admin == 1){
-
+                        //echo '7';
                         $usuario = $_SESSION['usuario'];
                         $admin = $_SESSION['admin'];
                         $_SESSION['usuario'];
@@ -30,7 +32,7 @@
                         $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
                         $usuario = $sql_query->fetch_assoc();    
                     }else{
-
+                        //echo '8';
                         session_unset();
                         session_destroy();
                         header("Location: ../../../../index.php"); 
@@ -231,7 +233,7 @@
                             echo "<tr>
                                 <td>" . $nascimento_formatado . "</td>
                                 <td>" . $row["apelido"] . "</td>
-                                <td>" . $row["nome_completo"] . "</td>
+                                <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
                                 <td>" . $idade . "</td>
                             </tr>";
                         }
@@ -245,71 +247,48 @@
             <div class="aniver">
                 <h3>Aniversáriantes de Hoje</h3>
                 <?php
-                    // Executa a consulta para obter a lista de sócios
-                    $sql = "SELECT * FROM socios";
+                    // Obtém a data atual
+                    $dataAtual = date('m-d');
+                    
+                    // Executa a consulta para obter a lista de aniversariantes do dia
+                    $sql = "SELECT * FROM socios WHERE DATE_FORMAT(nascimento, '%m-%d') = '$dataAtual'";
                     $result = $mysqli->query($sql);
 
                     // Verifica se há resultados
                     if ($result->num_rows > 0) {
+                        echo "<p>Total de Aniversariantes: " . $result->num_rows . "</p>";
 
-                        $nasc = $usuario['nascimento'];
-                        $dataAtual = date('Y-m-d');
-                        //echo $dataAtual;
-                        // Converte a data de nascimento em um objeto DateTime
-                        $dataNascimento = new DateTime($nasc);
-                        //echo $dataNascimento;
-                        // Obtém o mês e o dia da data de nascimento
-                        $mesNascimento = $dataNascimento->format('m');
-                        $diaNascimento = $dataNascimento->format('d');
+                        // Exibe os dados em uma tabela
+                        echo "<table border='1'>";
+                        echo "<tr>
+                                <th>Data Nasc.</th>
+                                <th>Apelido</th>
+                                <th>Nome</th>
+                                <th>Idade</th>
+                            </tr>";
 
-                        // Obtém o mês e o dia da data atual
-                        $mesAtual = date('m');
-                        $diaAtual = date('d');
+                        while($row = $result->fetch_assoc()) {
+                            $nasc = $row['nascimento'];
 
-                        // Obtém a data atual
-                        $dataAtual = new DateTime();
+                            $dataNascimento = new DateTime($nasc);
+                            $dataAtual = new DateTime();
+                            $intervalo = $dataNascimento->diff($dataAtual);
+                            $idade = $intervalo->y;
 
-                        // Calcula a diferença entre a data atual e a data de nascimento
-                        $intervalo = $dataNascimento->diff($dataAtual);
+                            $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
 
-                        // Obtém o ano de diferença
-                        $idade = $intervalo->y;
-
-                        //echo "A idade do usuário é: " . $idade . " anos.";
-                        // Verifica se é o aniversário do usuário
-                        if ($mesNascimento == $mesAtual && $diaNascimento == $diaAtual) {
-                            // Exibe o total de aniversariantes                            
-                            echo "<p>Total de Aniversáriantes: " . $result->num_rows . "</p>";
-
-                            // Exibe os dados em uma tabela
-                            echo "<table border='1'>";
                             echo "<tr>
-                                    <th>Data Nasc.</th>
-                                    <th>Apalido</th>
-                                    <th>Nome</th>
-                                    <th>Idade</th>
-                                    
-                                </tr>";//<th></th>
-                            while($row = $result->fetch_assoc()) {
-
-                                $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
-                                echo "<tr>
                                     <td>" . $nascimento_formatado. "</td>
-                                        <td>" . $row["apelido"] . "</td>
-                                        <td>" . $row["nome_completo"] . "</td>
-                                        <td>" . $idade . "</td>
-                                        
-                                    </tr>";//<td><a href='receber_pagamento.php?id=" . $row["id"] . "'>Receber</a></td>
-                                //}
-                            }
-                            echo "</table>";
-                        } else {
-                            echo "Nenhum Aniversáriante!";
+                                    <td>" . $row["apelido"] . "</td>
+                                    <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
+                                    <td>" . $idade . "</td>
+                                </tr>";
                         }
-                    } else {
-                        echo "Nenhum Aniversáriante!";
-                    }
 
+                        echo "</table>";
+                    } else {
+                        echo "Nenhum Aniversariante!";
+                    }
                     // Fecha a conexão
                     //$mysqli->close();
                 ?>
@@ -317,73 +296,50 @@
             <div class="aniver">
                 <h3>Aniversáriantes de Amanhâ</h3>
                 <?php
-                    // Executa a consulta para obter a lista de sócios
-                    $sql = "SELECT * FROM socios";
+                    // Obtém a data de amanhã
+                    $dataAmanha = date('m-d', strtotime('+1 day'));
+                    
+                    // Executa a consulta para obter a lista de aniversariantes do dia
+                    $sql = "SELECT * FROM socios WHERE DATE_FORMAT(nascimento, '%m-%d') = '$dataAmanha'";
                     $result = $mysqli->query($sql);
 
                     // Verifica se há resultados
                     if ($result->num_rows > 0) {
+                        echo "<p>Total de Aniversariantes: " . $result->num_rows . "</p>";
 
-                        $nasc = $usuario['nascimento'];
-                        $dataAtual = date('Y-m-d');
-                        //echo $dataAtual;
-                        // Converte a data de nascimento em um objeto DateTime
-                        $dataNascimento = new DateTime($nasc);
-                        //echo $nasc;
-                        // Obtém o mês e o dia da data de nascimento
-                        $mesNascimento = $dataNascimento->format('m');
-                        $diaNascimento = $dataNascimento->format('d');
+                        // Exibe os dados em uma tabela
+                        echo "<table border='1'>";
+                        echo "<tr>
+                                <th>Data Nasc.</th>
+                                <th>Apelido</th>
+                                <th>Nome</th>
+                                <th>Idade</th>
+                            </tr>";
 
-                        // Obtém o mês e o dia da data atual
-                        $mesAtual = date('m');
-                        $diaAtual = date('d');
+                        while($row = $result->fetch_assoc()) {
+                            $nasc = $row['nascimento'];
 
-                        // Obtém a data atual
-                        $dataAtual = new DateTime();
+                            $dataNascimento = new DateTime($nasc);
+                            $dataAtual = new DateTime();
+                            $intervalo = $dataNascimento->diff($dataAtual);
+                            $idade = $intervalo->y;
 
-                        // Calcula a diferença entre a data atual e a data de nascimento
-                        $intervalo = $dataNascimento->diff($dataAtual);
+                            $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
 
-                        // Obtém o ano de diferença
-                        $idade = $intervalo->y;
-
-                        //echo "A idade do usuário é: " . $idade . " anos.";
-                        // Verifica se é o aniversário do usuário
-                        if ($mesNascimento == $mesAtual && $diaNascimento == $diaAtual + 1) {
-                            // Exibe o total de aniversariantes                            
-                            echo "<p>Total de Aniversáriantes: " . $result->num_rows . "</p>";
-
-                            // Exibe os dados em uma tabela
-                            echo "<table border='1'>";
                             echo "<tr>
-                                    <th>Data Nasc.</th>
-                                    <th>Apalido</th>
-                                    <th>Nome</th>
-                                    <th>Idade</th>
-                                    
-                                </tr>";//<th></th>
-                            while($row = $result->fetch_assoc()) {
-
-                                $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
-                                echo "<tr>
                                     <td>" . $nascimento_formatado. "</td>
-                                        <td>" . $row["apelido"] . "</td>
-                                        <td>" . $row["nome_completo"] . "</td>
-                                        <td>" . $idade . "</td>
-                                        
-                                    </tr>";//<td><a href='receber_pagamento.php?id=" . $row["id"] . "'>Receber</a></td>
-                                //}
-                            }
-                            echo "</table>";
-                        } else {
-                            echo "Nenhum Aniversáriante!";
+                                    <td>" . $row["apelido"] . "</td>
+                                    <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
+                                    <td>" . $idade . "</td>
+                                </tr>";
                         }
-                    } else {
-                        echo "Nenhum Aniversáriante!";
-                    }
 
+                        echo "</table>";
+                    } else {
+                        echo "Nenhum Aniversariante!";
+                    }
                     // Fecha a conexão
-                    $mysqli->close();
+                    //$mysqli->close();
                 ?>
             </div>
 

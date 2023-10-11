@@ -104,7 +104,7 @@
             
                     echo "<tr>
                         <td>" . $row["apelido"] . "</td>
-                        <td>" . $row["nome_completo"] . "</td>
+                        <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
                         <td>" . $row["valor"] ."</td>
                         <td>" . $row["entrada"] . ",00"."</td>
                         <td>" . $row["num_parcela"] . "/". $row["qt_parcelas"] ."</td>

@@ -115,7 +115,7 @@
                 echo "<tr>
                     <td><img src='../usuarios/" . $row["foto"] . "' width='50'></td>
                     <td>" . $row["apelido"] . "</td>
-                    <td>" . $row["nome_completo"] . "</td>
+                    <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
                     <td>" . $idade . "</td>
                     <td>" . $data_ini_Formatada . " " . $hora_inicio_formatada . "</td>
                     <td>" . $data_final_Formatada . " " . $hora_final_formatada . "</td>
@@ -128,7 +128,7 @@
             echo "</table>";
             echo "</form>";
         } else {
-            echo "Nenhum inscrito para votação!";
+           // echo "Nenhum inscrito para votação!";
         }
 
         // Fecha a conexão

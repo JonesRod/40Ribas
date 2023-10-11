@@ -42,6 +42,15 @@
     $sql_dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '1'") or die($mysqli->$error);
     $dados = $sql_dados->fetch_assoc();
 
+    $dia = $dados['dia_fecha_mes'];
+    
+    if($dia <= 0){
+        $dia = 10;
+    }else if($dia > 28){
+        $dia = 1;
+    }
+
+
     $id = $_SESSION['usuario'];
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
     $usuario = $sql_query->fetch_assoc();
@@ -49,7 +58,7 @@
 
     $sql_ultimo_mes = $mysqli->query("SELECT id, mensalidade_mes, mensalidade_ano FROM mensalidades_geradas ORDER BY id DESC LIMIT 1") or die($mysqli->error);
     $ultimo_mes = $sql_ultimo_mes->fetch_assoc();
-
+    
     if ($ultimo_mes) {
         $ultimo_id = $ultimo_mes['id'];
         $ultima_mensalidade = $ultimo_mes['mensalidade_mes'];
@@ -132,7 +141,7 @@
         </p>
         <p>
             <label for="idiavenc">Dia de vencimento: </label><br>
-            <input readonly type="text" id="idiavenc" name="diavenc" value="<?php echo $dados['dia_fecha_mes']; ?>"><br>
+            <input readonly type="text" id="idiavenc" name="diavenc" value="<?php echo $dia; ?>"><br>
         </p>
         <p> 
             <label for="idesc">Desconto: R$</label><br>

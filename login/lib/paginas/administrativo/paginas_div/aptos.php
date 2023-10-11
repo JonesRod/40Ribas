@@ -86,7 +86,7 @@
                     echo "<tr>
                         <td><img src='" . $foto . "' width='50'></td>
                         <td>" . $row["apelido"] . "</td>
-                        <td>" . $row["nome_completo"] . "</td>
+                        <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
                     </tr>";
                 //}
             }

@@ -266,7 +266,8 @@
                 <!--onclick="perguntarSalvar(); return false;"-->
                 <a href="resetar_excluirDados/backup.php"  style="margin-left: 10px; margin-right: 10px;">Backup</a>
                 <a href="resetar_excluirDados/deletar_dados.php"  style="margin-left: 10px; margin-right: 10px;">Excluir Todos os Dados</a>
-                <a href=""  style="margin-left: 10px; margin-right: 10px;">Import</a>
+                <a href="importar_exportar/importar.php"  style="margin-left: 10px; margin-right: 10px;">Importar/Exportar</a>
+
                 <button type="submit">Salvar</button>
             </p>
         </fieldset>

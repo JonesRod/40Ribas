@@ -94,7 +94,7 @@
                 //if($id == $row["id"]){
                     echo "<tr>
                         <td>" . $row["apelido"] . "</td>
-                        <td>" . $row["nome_completo"] . "</td>
+                        <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
                         <td>" . $row["num_parcela"] . "/". $row["qt_parcelas"] ."</td>
                         <td>" . $data_vencimento_formatada . "</td>
                         <td>" . $data_recebimento_formatada . "</td>
