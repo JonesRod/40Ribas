@@ -131,7 +131,7 @@
         //atualiza a pagian a cada 10 min
         setTimeout(function() {
             location.reload();
-        }, 100000);
+        }, 1000000);
         
         // Função para carregar o conteúdo na div
         function abrirNaDiv(pagina) {

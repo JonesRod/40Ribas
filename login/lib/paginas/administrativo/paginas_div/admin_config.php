@@ -17,6 +17,19 @@
             $id = '1';
             $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
             $dadosEscolhido = $dados->fetch_assoc();
+
+            //$logo = $dadosEscolhido['logo'];
+            if(isset($dadosEscolhido['logo'])) {
+                $logo = $dadosEscolhido['logo'];
+                
+                if($logo == ''){echo 'oi';
+                    $logo = '../../arquivos_fixos/IMG-20230811-WA0040.jpg';
+                }
+            }
+            if(!isset($dadosEscolhido['logo'])) {
+                echo 'oii';
+                $logo = '../../arquivos_fixos/IMG-20230811-WA0040.jpg';
+            }
         }else{
             session_unset();
             session_destroy();
@@ -36,13 +49,26 @@
             $id = '1';
             $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
             $dadosEscolhido = $dados->fetch_assoc();
+
+            //$logo = $dadosEscolhido['logo'];
+            if(isset($dadosEscolhido['logo'])) {
+                $logo = $dadosEscolhido['logo'];
+                
+                if($logo == ''){echo 'oi';
+                    $logo = '../../arquivos_fixos/IMG-20230811-WA0040.jpg';
+                }
+            }
+            if(!isset($dadosEscolhido['logo'])) {
+                echo 'oii';
+                $logo = '../../arquivos_fixos/IMG-20230811-WA0040.jpg';
+            }
         }else{
             session_unset();
             session_destroy();
             header("Location: ../admin_logout.php");             
         }
     }
-   
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -60,13 +86,11 @@
     <form id="meuFormulario" action="admin_altera_dados.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
         <fieldset class="partes">
             <p>
-                <?php if(isset($dadosEscolhido['logo'])) { ?>
-                <img class="imagens" id="ilogo" style="max-width: 200px;" src= "<?php echo $dadosEscolhido['logo']; ?>" name="logo_antiga" alt=""><br>
-                <?php } ?>
+                <img class="imagens" id="ilogo" style="max-width: 200px;" src= "<?php echo $logo; ?>" name="logo_antiga" alt=""><br>
                 <img class="imagens" id="ilogoNova" style="max-width: 200px;" alt=""><br>
                 <label for="imageInput">Alterar Logo</label><br>
                 <input type="file" id="imageInput" name="imageInput" accept=".png, .jpg, .jpeg" onchange="imgLogo(event)">
-                <input type="hidden" name="end_logo" value= "<?php echo $dadosEscolhido['logo']; ?>">
+                <input type="hidden" name="end_logo" value= "<?php echo $logo; ?>">
             </p> 
             <input type="hidden" value="<?php echo $usuario['id']; ?>" name="admin">
             <p>

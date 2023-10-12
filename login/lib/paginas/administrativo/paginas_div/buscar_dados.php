@@ -41,7 +41,6 @@
     }
 
     if(isset($_GET['pesquisa'])) {
-        $id_socio = '';
         $nome_socio = $_GET['pesquisa'];
     
         $sql = "SELECT * FROM socios WHERE nome_completo LIKE '%$nome_socio%' LIMIT 1";
@@ -50,7 +49,7 @@
         if ($result->num_rows > 0) {
             $result_pesquisa = $result->fetch_assoc();
     
-            //$admin = $usuario['apelido'];
+            $id_socio = $result_pesquisa['id'];
             $apelido = $result_pesquisa['apelido'];
             $nome = $result_pesquisa['nome_completo'];
             $celular1 = $result_pesquisa['celular1'];
@@ -62,6 +61,7 @@
             //echo json_encode(['error' => 'Nenhum sócio encontrado']); // Retorna uma mensagem de erro em JSON
             echo json_encode([
                 'msg' => 'Nenhum sócio encontrado.',
+                'id' => '',
                 'apelido' => '',
                 'nome_completo' => '',
                 'celular1' => '',

@@ -1,5 +1,5 @@
 <?php
-    include('../../conexao.php');
+    include('../../../conexao.php');
 
     $erro = false;
 
@@ -222,7 +222,7 @@
             //var_dump($_POST);
             
 
-            $deu_certo_inserte = "INSERT INTO histo_config_admin (id_admin, data_alteracao, logo, razao, cnpj, uf, cep, cid, rua, numero, bairro, presidente, vice_presidente, nome_tesoureiro, email_suporte, senha, idade_minima, termos_insc, validade_insc, estatuto_int, reg_int, dia_fecha_mes, valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5)
+            $deu_certo_inserte = "INSERT INTO historico_config_admin (id_admin, data_alteracao, logo, razao, cnpj, uf, cep, cid, rua, numero, bairro, presidente, vice_presidente, nome_tesoureiro, email_suporte, senha, idade_minima, termos_insc, validade_insc, estatuto_int, reg_int, dia_fecha_mes, valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5)
             VALUES('$admin', NOW(), '$nova_logo', '$razao', '$cnpj', '$uf', '$cep', '$cid', '$rua', '$numero', '$bairro', '$presidente', '$vice_presidente', '$nome_tesoureiro', '$email_suporte', '$senha', '$idade_min', '$termos_insc', '$validade_insc', '$estatuto_int', '$reg_int', '$dia_fecha_mes', '$valor_mensalidades', '$desconto_mensalidades', '$multa', '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
             
             $deu_certo_inserte = $mysqli->query($deu_certo_inserte) or die($mysqli->error);
@@ -231,7 +231,7 @@
             
                 //var_dump($_POST);
 
-                echo "<p><b>Dados atualizado com sucesso!!!</b></p>";
+                $msg = "<p><b>Dados atualizado com sucesso!!!</b></p>";
                 unset($_POST);
                 header("refresh: 3; admin_config.php");
             } else {
@@ -242,4 +242,17 @@
         }
     }
 ?>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <div>
+        <span><?php echo $msg;?></span>
+    </div>
+</body>
+</html>
 

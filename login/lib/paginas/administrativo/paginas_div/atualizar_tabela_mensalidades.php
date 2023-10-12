@@ -97,6 +97,10 @@
                     $valor_a_receber = $valor_mensalidade - $valor_recebido - $desconto_mensalidade + $multa_mensalidade;
                     $valor_total_a_receber += $valor_a_receber;
             
+                    if($valor_recebido =='' || $valor_recebido == 0){
+                        $valor_recebido = '0,00';
+                    }
+            
                     echo "<tr>
                         <td>" . $row["apelido"] . "</td>
                         <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
@@ -105,7 +109,7 @@
                         <td>" . $desconto_mensalidade . ",00"."</td>
                         <td>" . $multa_mensalidade . ",00"."</td>
                         <td>" . $data_vencimento_formatada . "</td>
-                        <td>" . $valor_recebido . ",00"."</td>
+                        <td>" . $valor_recebido ."</td>
                         <td>" . $valor_a_receber . ",00"."</td>
                         <td><a href='receber.php?id_sessao=" . $id . "&id_mensalidade=" . $row["id"] ."'target='_blank'>Receber</a></td>
                     </tr>";

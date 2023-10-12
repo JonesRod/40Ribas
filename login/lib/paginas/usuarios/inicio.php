@@ -4,6 +4,10 @@
     if(!isset($_SESSION)){
         session_start(); 
 
+        $id = $_SESSION['usuario'];
+        $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
+        $usuario = $sql_query->fetch_assoc();
+
         if(isset($_SESSION['usuario'])){
 
             if (isset($_POST["tipoLogin"])) {
@@ -38,9 +42,9 @@
         session_destroy(); 
         header("Location: ../../../../index.php");  
     }
-    $id = $_SESSION['usuario'];
+    /*$id = $_SESSION['usuario'];
     $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-    $usuario = $sql_query->fetch_assoc();
+    $usuario = $sql_query->fetch_assoc();*/
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

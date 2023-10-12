@@ -79,7 +79,7 @@
             //$qt_parcelas++;
         }
         
-        echo "<p><b>Registrado com sucesso!</b></p>";
+        $msg = "<p><b>Registrado com sucesso!</b></p>";
         unset($_POST);
         $mysqli->close();
         header("refresh: 5; inicio.php");
@@ -90,3 +90,16 @@
     //fecha a conexão
     
 ?>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <div>
+        <span><?php echo $msg;?></span>
+    </div>
+</body>
+</html>

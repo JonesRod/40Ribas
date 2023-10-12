@@ -101,6 +101,7 @@
                             $('#imsg').text(dados.msg); // Exibe a mensagem no <span>
                         } else {
                             $('#imsg').text(''); // Limpa a mensagem se houver dados válidos
+                            $('#iid').val(dados.id);
                             $('#iapelido').val(dados.apelido);
                             $('#inome').val(dados.nome_completo);
                             $('#icelular1').val(dados.celular1);
@@ -160,8 +161,8 @@
 
         <form action="parcelamento_joia.php" method="post">
 
-            <input id="" value="<?php echo $admin ?>" name="admin" type="hidden">
-            <input id="" value="<?php echo $id_socio; ?>" name="id_socio" type="hidden">
+            <input id="" value="<?php echo $admin; ?>" name="admin" type="hidden">
+            <input id="iid" value="<?php echo $id_socio; ?>" name="id_socio" type="hidden">
             <p>
                 <label for="iapelido" >Apelido: </label><br>
                 <input readonly id="iapelido" value="<?php echo $apelido; ?>" name="apelido" type="text">
