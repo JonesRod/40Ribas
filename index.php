@@ -1,74 +1,23 @@
 <?php
-    /*include('login/lib/conexao.php');
-    //echo 'oi';
-    if(isset($_SESSION)){
+    include("login/lib/conexao.php");
 
-        if(isset($_SESSION['usuario'])){
-
-            if (isset($_POST["tipoLogin"])) {
-                // echo "1";
-                $usuario = $_SESSION['usuario'];
-                $valorSelecionado = $_POST["tipoLogin"];// Obter o valor do input radio
-                $admin = $valorSelecionado;
-
-                if($admin != 1){
-                    $id = $_SESSION['usuario'];
-                    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-                    $usuario = $sql_query->fetch_assoc();
-
-                    $usuario = $_SESSION['usuario'];
-                    $admin = $_SESSION['admin'];
-                    //echo "1";
-                    header("Location: login/lib/paginas/usuarios/usuario_home.php");    
-                }else{
-                    $id = $_SESSION['usuario'];
-                    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-                    $usuario = $sql_query->fetch_assoc();
-
-                    $usuario = $_SESSION['usuario'];
-                    $admin = $_SESSION['admin'];
-                    $_SESSION['usuario'];
-                    $_SESSION['admin'];  
-                    header("Location: login/lib/paginas/administrativo/admin_home.php");       
-                }
-            }  
-
-        }else{
-            //echo "5";
-            session_unset();
-            session_destroy(); 
-            header("Location: index.php");  
-        }
-    
-    }
-    if(!isset($_SESSION)){
+    if(!isset($_SESSION)) {
         session_start(); 
-    }*/
-
-    /*$id = $_SESSION['usuario'];
-    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-    $usuario = $sql_query->fetch_assoc();*/
-//--------------------
-include("login/lib/conexao.php");
-
-if(isset($_SESSION)) {
-    
-    $usuario = $_SESSION['usuario'];
-    $admin = $_SESSION['admin'];
-
-    if($admin == 1 ){
-        //echo "2";  
-       header("Location: login/lib/paginas/administrativo/admin_home.php");       
-    }else{
-        //echo "3";  
-        header("Location: login/lib/paginas/usuarios/usuario_home.php");  
     }
-}
-if(!isset($_SESSION)){
-    //echo "4"; 
-    session_start(); 
-}
-    
+
+    if(isset($_SESSION['usuario']) && isset($_SESSION['admin'])) {
+        $usuario = $_SESSION['usuario'];
+        $admin = $_SESSION['admin'];
+
+        if($admin == 1 ){
+            header("Location: login/lib/paginas/administrativo/admin_home.php");       
+            exit(); // Importante adicionar exit() após o redirecionamento
+        } else {
+            header("Location: login/lib/paginas/usuarios/usuario_home.php");
+            exit(); // Importante adicionar exit() após o redirecionamento
+        }
+    }
+        
     $msg= false;
 
    if(isset($_POST['email']) || isset($_POST['senha'])) {
@@ -127,7 +76,7 @@ if(!isset($_SESSION)){
                         //$msg = "2";
                         unset($_POST);
                         session_start(); 
-                        header("Location: login/lib/paginas/usuario_home.php");
+                        header("Location: login/lib/paginas/usuarios/usuario_home.php");
                     }    
                 }else{
                     $msg= true;
@@ -160,7 +109,7 @@ if(!isset($_SESSION)){
                             //$msg = "2";
                             unset($_POST);
                             session_start(); 
-                            header("Location: login/lib/paginas/usuario_home.php");
+                            header("Location: login/lib/paginas/usuarios/usuario_home.php");
                         }    
                     }else{
                         $msg= true;

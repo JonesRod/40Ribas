@@ -173,12 +173,13 @@
     <title>Descrição do Sócio</title>
 </head>
 <body>
-    <form action="detalhe_altera.php" method="POST" enctype="multipart/form-data" autocomplete="on">
+    <form id="iform" action="detalhe_altera.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validarFormulario()">
         
         <p>
             <img id="ifoto" style="max-width: 200px;" src= "<?php echo $foto; ?>" name="foto" alt=""><br>
         </p>
         <input type="hidden" value="<?php echo $socio['id']; ?>" name="id" ><br> 
+        <input type="hidden" value="<?php echo $id_sessao; ?>" name="idsessao" ><br> 
         <fieldset class="dados">
             <p>
                 <label for="idata" >Data de Registro: </label>
@@ -189,7 +190,7 @@
                     // Formate a data para o formato brasileiro (dd/mm/yyyy)
                     $dataFormatada = date('d/m/Y', strtotime($data));
                 ?>
-                <input disabled ="false" id="idata" value="<?php echo $dataFormatada; ?>" name="data" type="text"><br>
+                <input id="idata" value="<?php echo $dataFormatada; ?>" name="data" type="text" oninput="formatarData(this)" onblur="verificaData()"><br>
             </p>
             <p>
                 <label for="iapelido" >Apelido: </label>
@@ -332,6 +333,7 @@
             <a href="listaSocios.php" style="margin-left: 10%; margin-right: 10%;">Voltar</a>
             <button id="" type="submit" style="margin-left: 10%;">Salvar</button>
         </p>
+        <script src="verifica_data.js"></script>
     </form>
 </body>
 </html>
