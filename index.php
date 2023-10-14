@@ -68,14 +68,12 @@
                         $_SESSION['admin'] = $admin;
                         //$msg = "1";
                         unset($_POST);
-                        session_start(); 
                         header("Location: login/lib/tipo_login.php");
                     }else if($admin != 1){
                         $_SESSION['usuario'] = $usuario['id'];
                         $_SESSION['admin'] = $admin;
                         //$msg = "2";
                         unset($_POST);
-                        session_start(); 
                         header("Location: login/lib/paginas/usuarios/usuario_home.php");
                     }    
                 }else{

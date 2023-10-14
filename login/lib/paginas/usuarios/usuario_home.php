@@ -1,75 +1,23 @@
 <?php
     include('../../conexao.php');
-    //die();
-    /*if(!isset($_SESSION)){
-        session_start(); 
-    
-        $usuario = $_SESSION['usuario'];
-        $admin = $_SESSION['admin'];
-        $_SESSION['usuario'];
-        $id = $_SESSION['usuario'];
-        $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-        $usuario = $sql_query->fetch_assoc();  
 
-    }else{   
-        if(isset($_SESSION['usuario'])){
-            $usuario = $_SESSION['usuario'];
-            $_SESSION['usuario']; 
-            //echo '4';
-            $id = $_SESSION['usuario'];
-            $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-            $usuario = $sql_query->fetch_assoc();  
-        }else{
-            //echo '1';
-            session_unset();
-            session_destroy();
-            header("Location: ../../../../index.php");             
-        } 
-    }*/
     if(!isset($_SESSION)){
         session_start(); 
+    }
 
+    if(isset($_SESSION['usuario'])){
+        $usuario = $_SESSION['usuario'];
         $id = $_SESSION['usuario'];
         $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-        $usuario = $sql_query->fetch_assoc();
+        $usuario = $sql_query->fetch_assoc(); 
 
-        if(isset($_SESSION['usuario'])){
-
-            if (isset($_POST["tipoLogin"])) {
-                // echo "1";
-                $usuario = $_SESSION['usuario'];
-                $valorSelecionado = $_POST["tipoLogin"];// Obter o valor do input radio
-                $admin = $valorSelecionado;
-
-                if($admin != 1){
-                    $usuario = $_SESSION['usuario'];
-                    $admin = $_SESSION['admin'];
-                    //echo "1";
-                    header("Location: ../usuarios/usuario_home.php");      
-                }else{
-                    $usuario = $_SESSION['usuario'];
-                    $admin = $_SESSION['admin'];
-                    $_SESSION['usuario'];
-                    $_SESSION['admin'];  
-                }
-            }  
-
-        }else{
-            //echo "5";
-            session_unset();
-            session_destroy(); 
-            header("Location: ../../../../index.php");  
-        }
-    
-    }else{
-        //echo "6";
+    } else {
+        // Se não houver uma sessão de usuário, redirecione para a página de login
         session_unset();
         session_destroy(); 
         header("Location: ../../../../index.php");  
+        exit(); // Importante adicionar exit() após o redirecionamento
     }
-    /*$id = $_SESSION['usuario'];
-    $sql_query = $mysqli->query("SELECT * FROM socios WHERE id = '$id'") or die($mysqli->$error);
-    $usuario = $sql_query->fetch_assoc();*/
 
 ?>
 

@@ -35,6 +35,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body h2{
             text-align: center;
@@ -152,7 +153,7 @@
     <title>Meu Perfil</title>
 </head>
 <body>
-    <form action="alterar_dados_perfil.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
+    <form id="iform" action="alterar_dados_perfil.php" method="POST" enctype="multipart/form-data" autocomplete="on" onsubmit="return validateForm()">
         <p>
             <img id="ifoto" style="max-width: 200px;" src= "<?php echo $foto; ?>" name="foto_antiga" alt=""><br>
             <img id="ifotoNova" style="max-width: 200px;" alt=""><br>
@@ -165,19 +166,19 @@
             <legend>Meus Dados</legend>
             <p>
                 <label for="inome_completo" >Nome Completo: </label>
-                <input id="inome_completo" value="<?php echo $usuario['nome_completo']; ?>" name="nome_completo" type="text"><br>
+                <input required id="inome_completo" value="<?php echo $usuario['nome_completo']; ?>" name="nome_completo" type="text"><br>
             </p>
             <p>
                 <label for="iapelido" >Apelido: </label>
-                <input id="iapelido" value="<?php echo $usuario['apelido']; ?>" name="apelido" type="text"><br>
+                <input required id="iapelido" value="<?php echo $usuario['apelido']; ?>" name="apelido" type="text"><br>
             </p>
             <p>
                 <label for="icpf" >CPF: </label>
-                <input id="icpf" value="<?php echo $usuario['cpf']; ?>" name="cpf" type="text" oninput="formatCPF(this)" onblur="verificaCpf()"><br>
+                <input required id="icpf" value="<?php echo $usuario['cpf']; ?>" name="cpf" type="text" oninput="formatCPF(this)" onblur="verificaCpf()"><br>
             </p>
             <p>
                 <label for="irg" >RG: </label>
-                <input id="irg" value="<?php echo $usuario['rg']; ?>" name="rg" type="text" oninput="formatRG(this)" onblur="verificaRG()"><br>
+                <input required id="irg" value="<?php echo $usuario['rg']; ?>" name="rg" type="text" oninput="formatRG(this)" onblur="verificaRG()"><br>
             </p>
             <p>
                 <label for="inascimento" >Data de Nascimento: </label>
@@ -188,11 +189,11 @@
                     // Formate a data para o formato brasileiro (dd/mm/yyyy)
                     $dataNascimentoFormatada = date('d/m/Y', strtotime($dataNascimento));
                 ?>
-                <input id="inascimento" value="<?php echo $dataNascimentoFormatada; ?>" name="nascimento" type="text"  oninput="formatarData(this)" onblur="verificaData()"><br>
+                <input required id="inascimento" value="<?php echo $dataNascimentoFormatada; ?>" name="nascimento" type="text"  oninput="formatarData(this)" onblur="verificaData()"><br>
             </p>
             <p>
                 <label id="" for="iuf">Estado Natal: </label>
-                <select name="uf" id="iuf">
+                <select required name="uf" id="iuf">
                     <?php
                         $estados = array(
                         'AC' => 'Acre',
@@ -234,45 +235,18 @@
                             }
                             }           
                 ?>
-                <option value="Escolha">---Escolha---</option>
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
-                <option value="AP">Amapá</option>
-                <option value="AM">Amazonas</option>
-                <option value="BA">Bahia</option>
-                <option value="CE">Ceará</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="ES">Espírito Santo</option>
-                <option value="GO">Goiás</option>
-                <option value="MA">Maranhão</option>
-                <option value="MS">Mato Grosso do Sul</option>
-                <option value="MT">Mato Grosso</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="PA">Pará</option>
-                <option value="PB">Paraíba</option>
-                <option value="PR">Paraná</option>
-                <option value="PE">Pernambuco</option>
-                <option value="PI">Piauí</option>
-                <option value="RJ">Rio de Janeiro</option>
-                <option value="RN">Rio Grande do Norte</option>
-                <option value="RS">Rio Grande do Sul</option>
-                <option value="RO">Rondônia</option>
-                <option value="RR">Roraima</option>
-                <option value="SC">Santa Catarina</option>
-                <option value="SP">São Paulo</option>
-                <option value="SE">Sergipe</option>
-                <option value="TO">Tocantins</option>
+
                 <!-- Adicione mais opções para outros estados aqui -->
                 </select>
                 
             </p>
             <p>
                 <label for="icid_natal" >Cidade Natal: </label>
-                <input id="icid_natal" value="<?php echo $usuario['cid_natal']; ?>" name="cidnatal" type="text"><br>
+                <input required id="icid_natal" value="<?php echo $usuario['cid_natal']; ?>" name="cidnatal" type="text"><br>
             </p>
             <p>
                 <label id="" for="imae">Nome da Mãe: </label>
-                <input id="imae" value="<?php echo $usuario['mae']; ?>" name="mae" type="text"><br>
+                <input required id="imae" value="<?php echo $usuario['mae']; ?>" name="mae" type="text"><br>
             </p>
             <p>
                 <label id="" for="ipai">Nome do Pai: </label>
@@ -288,9 +262,9 @@
                     $sexoFeminino = ($usuario['sexo'] == 'FEMININO') ? 'checked' : '';
                     $sexoOutro = ($usuario['sexo'] == 'OUTROS') ? 'checked' : '';
                 ?>
-                <input type="radio" name="sexo" id="imasc" value="masculino" <?php echo $sexoMasculino; ?>><label for="imasc">Masculino</label> 
-                <input type="radio" name="sexo" id="ifemi" value="feminino" <?php echo $sexoFeminino; ?>><label for="ifemi">Feminino</label> 
-                <input type="radio" name="sexo" id="iout" value="outros" <?php echo $sexoOutro; ?>><label for="iout">Outros</label>
+                <input type="radio" name="sexo" id="imasc" value="MASCULINO" <?php echo $sexoMasculino; ?>><label for="imasc">Masculino</label> 
+                <input type="radio" name="sexo" id="ifemi" value="FEMININO" <?php echo $sexoFeminino; ?>><label for="ifemi">Feminino</label> 
+                <input type="radio" name="sexo" id="iout" value="OUTROS" <?php echo $sexoOutro; ?>><label for="iout">Outros</label>
 
             </p>
         </fieldset>
@@ -298,7 +272,7 @@
             <legend>Endereço Atual</legend>
             <p> 
                 <label for="iuf_atual">Estado Atual: </label>
-                <select name="uf_atual" id="iuf_atual" value="">
+                <select required name="uf_atual" id="iuf_atual" value="">
                     <?php
                         $estados = array(
                         'AC' => 'Acre',
@@ -340,34 +314,7 @@
                             }
                         }           
                     ?>
-                <option value="Escolha">---Escolha---</option>
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
-                <option value="AP">Amapá</option>
-                <option value="AM">Amazonas</option>
-                <option value="BA">Bahia</option>
-                <option value="CE">Ceará</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="ES">Espírito Santo</option>
-                <option value="GO">Goiás</option>
-                <option value="MA">Maranhão</option>
-                <option value="MS">Mato Grosso do Sul</option>
-                <option value="MT">Mato Grosso</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="PA">Pará</option>
-                <option value="PB">Paraíba</option>
-                <option value="PR">Paraná</option>
-                <option value="PE">Pernambuco</option>
-                <option value="PI">Piauí</option>
-                <option value="RJ">Rio de Janeiro</option>
-                <option value="RN">Rio Grande do Norte</option>
-                <option value="RS">Rio Grande do Sul</option>
-                <option value="RO">Rondônia</option>
-                <option value="RR">Roraima</option>
-                <option value="SC">Santa Catarina</option>
-                <option value="SP">São Paulo</option>
-                <option value="SE">Sergipe</option>
-                <option value="TO">Tocantins</option>
+
                 <!-- Adicione mais opções para outros estados aqui -->
                 </select>
             </p>

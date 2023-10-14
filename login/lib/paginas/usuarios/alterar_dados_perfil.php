@@ -95,7 +95,7 @@
         //var_dump($_POST);
 
         if($erro) {
-            echo "<p><b>ERRO: $erro</b></p>";
+            $msg = "<p><b>ERRO: $erro</b></p>";
         } else {
     
             $sql_code = "UPDATE socios
@@ -127,7 +127,7 @@
             $deu_certo = $mysqli->query($sql_code) or die($mysqli->$erro);
             
             if($deu_certo) {
-                echo "<p><b>Dados atualizado com sucesso!!!</b></p>";
+                $msg = "<p><b>Dados atualizado com sucesso!!!</b></p>";
                 unset($_POST);
                 header("refresh: 5; perfil.php");
             }
@@ -136,14 +136,21 @@
     }
 ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aleterar Dados</title>
-
+    <style>
+        body{
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+    <title></title>
 </head>
 <body>
-
+    <div>
+        <span><?php echo $msg;?></span>
+    </div>
 </body>
 </html>

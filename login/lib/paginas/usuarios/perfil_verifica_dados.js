@@ -5,30 +5,44 @@ function validateForm() {
     var uf =document.getElementById('iuf').value;
     var ufAtual =document.getElementById('iuf_atual').value;
     var sem_escolha ="Escolha";
+    var radios = document.getElementsByName('sexo');
+    var isChecked = false;
+    var alerta = document.querySelector('#imgAlerta2');
 
-    if (arqFoto.files.length === 0 && imageElementAtual.src=='' && imageElement.src=='') {
-        alert('Por favor, adicione uma foto.');
-        document.querySelector('#imgAlerta2').textContent = "Adicione uma foto.";
-        return false; // Impede o envio do formulário
-    }
     if(uf === sem_escolha){
-        document.querySelector('#imgAlerta2').textContent = "Selecione o Estado!";
+        alerta.textContent = "Selecione o Estado!";
         document.getElementById('iuf').focus();
-        //console.log(apelido);
-
         return false; // Impede o envio do formulário
     }
+
     if(ufAtual === sem_escolha){
-        document.querySelector('#imgAlerta2').textContent = "Selecione seu Estado atual!";
+        alerta.textContent = "Selecione seu Estado atual!";
         document.getElementById('iuf_atual').focus();
         return false; // Impede o envio do formulário
     }
-        document.querySelector('#imgAlerta2').textContent = "";
-        //console.log('2');
 
-    // Aqui você pode adicionar mais validações conforme necessário
-    return true; // Permite o envio do formulário
+    if (arqFoto.files.length === 0 && imageElementAtual.src=='' && imageElement.src=='') {
+        alerta.textContent = "Adicione uma foto.";
+        return false; // Impede o envio do formulário
+    }
+
+    for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            isChecked = true;
+            break;
+        }
+    }
+    
+    if (!isChecked) {
+        alerta.textContent = "Por favor, selecione uma opção de sexo.";
+        return false;
+    }
+
+    // Se todas as verificações passaram
+    alerta.textContent = "";
+    return true;
 }
+
 window.onload = function() { 
     //console.log('1');
     const fileInput = document.getElementById('imageInput');
@@ -69,7 +83,39 @@ function imgPerfil(event) {
         minhaImagem.style.display = 'block';
 
     } 
-}             
+}    
+function validarData(data) {
+    var regexData = /^\d{2}\/\d{2}\/\d{4}$/; // Formato esperado: dd/mm/yyyy
+    if (!regexData.test(data)) {
+        return false; // A data não está no formato esperado
+    }
+    
+    var partesData = data.split("/");
+    var dia = parseInt(partesData[0], 10);
+    var mes = parseInt(partesData[1], 10) - 1; // Mês é base 0 no JavaScript (janeiro é 0)
+    var ano = parseInt(partesData[2], 10);
+    
+    var dataObj = new Date(ano, mes, dia);
+    
+    if (
+        dataObj.getFullYear() !== ano ||
+        dataObj.getMonth() !== mes ||
+        dataObj.getDate() !== dia
+    ) {
+        return false; // A data é inválida (ex: 31/02/2022)
+    }
+    
+    return true; // A data é válida
+}
+
+document.getElementById("iform").addEventListener("submit", function(event) {
+    var dataInput = document.getElementById("inascimento").value; // Substitua 'inputData' pelo ID do seu campo de data
+    
+    if (!validarData(dataInput)) {
+        alert("Por favor, insira uma data válida no formato dd/mm/yyyy.");
+        event.preventDefault(); // Impede o envio do formulário
+    }
+});         
 
 function formatCPF(input) {
     let value = input.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
