@@ -16,7 +16,7 @@
             return false;
         }
     
-        $pasta = "arquivos/";
+        $pasta = "../arquivos/";
         $nomeDoArquivo = $name;
         $novoNomeDoArquivo = uniqid();
         $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
@@ -27,17 +27,19 @@
         if ($deu_certo) {
             return $path;
         } else {
-            echo "Falha ao mover o arquivo para o diretório de destino.";
+            $msg = "Falha ao mover o arquivo para o diretório de destino.";
+            echo $msg;
             return false;
         }
     }
     function enviarArquivoEstatuto($error, $name, $tmp_name) {
         if ($error) {
-            echo "Falha ao enviar o arquivo. Código de erro: " . $error;
+            $msg = "Falha ao enviar o arquivo. Código de erro: " . $error;
+            echo $msg;
             return false;
         }
     
-        $pasta = "arquivos/";
+        $pasta = "../arquivos/";
         $nomeDoArquivo = $name;
         //$novoNomeDoArquivo = uniqid();
         $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
@@ -48,17 +50,19 @@
         if ($deu_certo) {
             return $pathEstatuto;
         } else {
-            echo "Falha ao mover o arquivo para o diretório de destino.";
+            $msg = "Falha ao mover o arquivo para o diretório de destino.";
+            echo $msg;
             return false;
         }
     }
     function enviarArquivoRegimento($error, $name, $tmp_name) {
         if ($error) {
-            echo "Falha ao enviar o arquivo. Código de erro: " . $error;
+            $msg = "Falha ao enviar o arquivo. Código de erro: " . $error;
+            echo $msg;
             return false;
         }
     
-        $pasta = "arquivos/";
+        $pasta = "../arquivos/";
         $nomeDoArquivo = $name;
         //$novoNomeDoArquivo = uniqid();
         $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
@@ -69,7 +73,8 @@
         if ($deu_certo) {
             return $pathRegimento;
         } else {
-            echo "Falha ao mover o arquivo para o diretório de destino.";
+            $msg = "Falha ao mover o arquivo para o diretório de destino.";
+            echo $msg;
             return false;
         }
     }
@@ -81,14 +86,16 @@
         
             if ($path !== false) {
                 $nova_logo = $path;
-                if(isset($_POST['end_logo']) && $_POST['end_logo'] !== 'arquivos/IMG-20230811-WA0040.jpg'){
+                if(isset($_POST['end_logo']) && $_POST['end_logo'] !== 'IMG-20230811-WA0040.jpg'){
                     unlink($_POST['end_logo']);
                 }
             } else {
                 $nova_logo = $_POST['end_logo'];
+                $nomeDoArquivoLogo = basename($nova_logo);
             }
         } else {
             $nova_logo = $_POST['end_logo'];
+            $nomeDoArquivoLogo = basename($nova_logo);
         }
 
         if (isset($_FILES['novo_estatuto']) && $_FILES['novo_estatuto']['error'] != 4) {
@@ -112,13 +119,13 @@
             } else {
                 if(isset($_POST['estatuto'])){
                     $estatuto_int = $_POST['estatuto'];
-                    //echo $estatuto_int.'3';
+                    $nomeDoArquivoEs = basename($estatuto_int);
                 }
             }
         } else {
             if(isset($_POST['estatuto'])) {
                 $estatuto_int = $_POST['estatuto'];
-                //echo 'resposta 1 '.$estatuto_int;
+                $nomeDoArquivoEs = basename($estatuto_int);
             }
         }
 
@@ -140,13 +147,13 @@
             } else {
                 if(isset($_POST['regimento'])) {
                     $reg_int = $_POST['regimento'];
-                    //echo $estatuto_int.'41';
+                    $nomeDoArquivoRe = basename($reg_int);
                 }
             }   
         } else {
             if(isset($_POST['regimento'])) {
                 $reg_int = $_POST['regimento'];
-                //echo $estatuto_int.'42';
+                $nomeDoArquivoRe = basename($reg_int);
             }
         }    
 
@@ -180,14 +187,14 @@
         //echo $estatuto_int.'4';
         //var_dump($_POST);
         if($erro) {
-            echo "<p><b>ERRO: $erro</b></p>";
+            $msg = "<p><b>ERRO: $erro</b></p>";
         } else {
         //, 
             $sql_code = "UPDATE config_admin
             SET 
             id_admin = '$admin',
             data_alteracao = NOW(),
-            logo = '$nova_logo',
+            logo = '$nomeDoArquivoLogo',
             razao = '$razao',
             cnpj = '$cnpj',
             uf = '$uf',
@@ -204,8 +211,8 @@
             idade_minima='$idade_min',
             termos_insc = '$termos_insc',
             validade_insc = '$validade_insc',
-            estatuto_int = '$estatuto_int',
-            reg_int = '$reg_int',
+            estatuto_int = '$nomeDoArquivoEs',
+            reg_int = '$nomeDoArquivoRe',
             dia_fecha_mes = '$dia_fecha_mes',       
             valor_mensalidades = '$valor_mensalidades',
             desconto_mensalidades = '$desconto_mensalidades',
@@ -222,8 +229,16 @@
             //var_dump($_POST);
             
 
-            $deu_certo_inserte = "INSERT INTO historico_config_admin (id_admin, data_alteracao, logo, razao, cnpj, uf, cep, cid, rua, numero, bairro, presidente, vice_presidente, nome_tesoureiro, email_suporte, senha, idade_minima, termos_insc, validade_insc, estatuto_int, reg_int, dia_fecha_mes, valor_mensalidades, desconto_mensalidades, multa, joia, parcela_joia, meses_vence3, meses_vence5)
-            VALUES('$admin', NOW(), '$nova_logo', '$razao', '$cnpj', '$uf', '$cep', '$cid', '$rua', '$numero', '$bairro', '$presidente', '$vice_presidente', '$nome_tesoureiro', '$email_suporte', '$senha', '$idade_min', '$termos_insc', '$validade_insc', '$estatuto_int', '$reg_int', '$dia_fecha_mes', '$valor_mensalidades', '$desconto_mensalidades', '$multa', '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
+            $deu_certo_inserte = "INSERT INTO historico_config_admin (id_admin, data_alteracao, 
+            logo, razao, cnpj, uf, cep, cid, rua, numero, bairro, presidente, vice_presidente, 
+            nome_tesoureiro, email_suporte, senha, idade_minima, termos_insc, validade_insc, 
+            estatuto_int, reg_int, dia_fecha_mes, valor_mensalidades, desconto_mensalidades, 
+            multa, joia, parcela_joia, meses_vence3, meses_vence5)
+            VALUES('$admin', NOW(), '$nomeDoArquivoLogo', '$razao', '$cnpj', '$uf', '$cep', 
+            '$cid', '$rua', '$numero', '$bairro', '$presidente', '$vice_presidente', '$nome_tesoureiro', 
+            '$email_suporte', '$senha', '$idade_min', '$termos_insc', '$validade_insc', '$nomeDoArquivoEs', 
+            '$nomeDoArquivoRe', '$dia_fecha_mes', '$valor_mensalidades', '$desconto_mensalidades', '$multa', 
+            '$joia', '$parcela_joia', '$meses_vence3', '$meses_vence5')";
             
             $deu_certo_inserte = $mysqli->query($deu_certo_inserte) or die($mysqli->error);
 
@@ -247,6 +262,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
     <title></title>
 </head>
 <body>

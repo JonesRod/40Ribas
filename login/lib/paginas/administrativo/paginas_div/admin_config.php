@@ -17,19 +17,18 @@
             $id = '1';
             $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
             $dadosEscolhido = $dados->fetch_assoc();
-
+        
             //$logo = $dadosEscolhido['logo'];
             if(isset($dadosEscolhido['logo'])) {
                 $logo = $dadosEscolhido['logo'];
                 
-                if($logo == ''){echo 'oi';
+                if($logo == ''){
                     $logo = '../../arquivos_fixos/IMG-20230811-WA0040.jpg';
+                }else{
+                    $logo = '../arquivos/IMG-20230811-WA0040.jpg';
                 }
             }
-            if(!isset($dadosEscolhido['logo'])) {
-                echo 'oii';
-                $logo = '../../arquivos_fixos/IMG-20230811-WA0040.jpg';
-            }
+            $mysqli->close();
         }else{
             session_unset();
             session_destroy();
@@ -49,19 +48,18 @@
             $id = '1';
             $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
             $dadosEscolhido = $dados->fetch_assoc();
-
+        
             //$logo = $dadosEscolhido['logo'];
             if(isset($dadosEscolhido['logo'])) {
                 $logo = $dadosEscolhido['logo'];
-                
-                if($logo == ''){echo 'oi';
+                //echo 'ooi';
+                if($logo == ''){
                     $logo = '../../arquivos_fixos/IMG-20230811-WA0040.jpg';
+                }else{
+                    $logo = '../arquivos/IMG-20230811-WA0040.jpg';
                 }
             }
-            if(!isset($dadosEscolhido['logo'])) {
-                echo 'oii';
-                $logo = '../../arquivos_fixos/IMG-20230811-WA0040.jpg';
-            }
+            $mysqli->close();
         }else{
             session_unset();
             session_destroy();

@@ -123,10 +123,22 @@
                 }
             }
         }
-    }/*else {
-        echo 'fff';
-    }*/
+    }
+    $id = '1';
+    $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
+    $dadosEscolhido = $dados->fetch_assoc();
 
+    //$logo = $dadosEscolhido['logo'];
+    if(isset($dadosEscolhido['logo'])) {
+        $logo = $dadosEscolhido['logo'];
+        
+        if($logo == ''){
+            $logo = 'login/lib/paginas/arquivos_fixos/IMG-20230811-WA0040.jpg';
+        }else{
+            $logo = 'login/lib/paginas/administrativo/arquivos/'. $logo;
+        }
+    }
+    $mysqli->close();
 ?>
 <!DOCTYPE html>
 <html lang="PT-BR">
@@ -152,6 +164,9 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1); /*sombra*/
 
+        }
+        img{
+            width: 300px;
         }
 
         #ititulo {
@@ -249,7 +264,7 @@
 </head>
 <body>  
     <form id ="login" action="" method="POST" >
-        <img id="img" alt="">
+        <img src="<?php echo $logo; ?>" alt="">
         <h1 id="ititulo">Entrar</h1>
         <span id="msg"><?php echo $msg; ?></span>
         <p >
