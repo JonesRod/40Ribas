@@ -87,170 +87,35 @@
         </div>
     </div>
     <div class="container">
-        <div class="left">
-            <!-- Conteúdo da div direita (outras atividades) -->
-            <div class="aniver">
-                <h3>Aniversariantes do mês de 
-                    <?php
-                        $meses = [
-                            1 => 'Janeiro',
-                            2 => 'Fevereiro',
-                            3 => 'Março',
-                            4 => 'Abril',
-                            5 => 'Maio',
-                            6 => 'Junho',
-                            7 => 'Julho',
-                            8 => 'Agosto',
-                            9 => 'Setembro',
-                            10 => 'Outubro',
-                            11 => 'Novembro',
-                            12 => 'Dezembro'
-                        ];
-
-                        $mes_atual = date('n');
-                        $nome_mes = $meses[$mes_atual];
-                        echo $nome_mes;
-                    ?>
-                </h3>
-                <?php
-                    // Agora, vamos buscar os aniversariantes do mês
-                    $result = $mysqli->query("SELECT * FROM socios WHERE MONTH(nascimento) = $mes_atual ORDER BY DAY(nascimento)") or die($mysqli->error);
-
-                    // Verifica se há resultados
-                    if ($result->num_rows > 0) {
-                        echo "<p>Total de Aniversariantes: " . $result->num_rows . "</p>";
-                        echo "<table border='1'>";
-                        echo "<tr>
-                                <th>Data Nasc.</th>
-                                <th>Apelido</th>
-                                <th>Nome</th>
-                                <th>Idade</th>
-                            </tr>";
-
-                        while($row = $result->fetch_assoc()) {
-                            $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
-                            $dataNascimento = new DateTime($row["nascimento"]);
-                            $intervalo = $dataNascimento->diff(new DateTime());
-                            $idade = $intervalo->y;
-
-                            echo "<tr>
-                                <td>" . $nascimento_formatado . "</td>
-                                <td>" . $row["apelido"] . "</td>
-                                <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
-                                <td>" . $idade . "</td>
-                            </tr>";
-                        }
-
-                        echo "</table>";
-                    } else {
-                        echo "Nenhum Aniversariante!";
-                    }
-                ?>
-            </div>
-            <div class="aniver">
-                <h3>Aniversáriantes de Hoje</h3>
-                <?php
-                    // Obtém a data atual
-                    $dataAtual = date('m-d');
-                    
-                    // Executa a consulta para obter a lista de aniversariantes do dia
-                    $sql = "SELECT * FROM socios WHERE DATE_FORMAT(nascimento, '%m-%d') = '$dataAtual'";
-                    $result = $mysqli->query($sql);
-
-                    // Verifica se há resultados
-                    if ($result->num_rows > 0) {
-                        echo "<p>Total de Aniversariantes: " . $result->num_rows . "</p>";
-
-                        // Exibe os dados em uma tabela
-                        echo "<table border='1'>";
-                        echo "<tr>
-                                <th>Data Nasc.</th>
-                                <th>Apelido</th>
-                                <th>Nome</th>
-                                <th>Idade</th>
-                            </tr>";
-
-                        while($row = $result->fetch_assoc()) {
-                            $nasc = $row['nascimento'];
-
-                            $dataNascimento = new DateTime($nasc);
-                            $dataAtual = new DateTime();
-                            $intervalo = $dataNascimento->diff($dataAtual);
-                            $idade = $intervalo->y;
-
-                            $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
-
-                            echo "<tr>
-                                    <td>" . $nascimento_formatado. "</td>
-                                    <td>" . $row["apelido"] . "</td>
-                                    <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
-                                    <td>" . $idade . "</td>
-                                </tr>";
-                        }
-
-                        echo "</table>";
-                    } else {
-                        echo "Nenhum Aniversariante!";
-                    }
-                    // Fecha a conexão
-                    //$mysqli->close();
-                ?>
-            </div>
-            <div class="aniver">
-                <h3>Aniversáriantes de Amanhâ</h3>
-                <?php
-                    // Obtém a data de amanhã
-                    $dataAmanha = date('m-d', strtotime('+1 day'));
-                    
-                    // Executa a consulta para obter a lista de aniversariantes do dia
-                    $sql = "SELECT * FROM socios WHERE DATE_FORMAT(nascimento, '%m-%d') = '$dataAmanha'";
-                    $result = $mysqli->query($sql);
-
-                    // Verifica se há resultados
-                    if ($result->num_rows > 0) {
-                        echo "<p>Total de Aniversariantes: " . $result->num_rows . "</p>";
-
-                        // Exibe os dados em uma tabela
-                        echo "<table border='1'>";
-                        echo "<tr>
-                                <th>Data Nasc.</th>
-                                <th>Apelido</th>
-                                <th>Nome</th>
-                                <th>Idade</th>
-                            </tr>";
-
-                        while($row = $result->fetch_assoc()) {
-                            $nasc = $row['nascimento'];
-
-                            $dataNascimento = new DateTime($nasc);
-                            $dataAtual = new DateTime();
-                            $intervalo = $dataNascimento->diff($dataAtual);
-                            $idade = $intervalo->y;
-
-                            $nascimento_formatado = date('d/m/Y', strtotime($row["nascimento"]));
-
-                            echo "<tr>
-                                    <td>" . $nascimento_formatado. "</td>
-                                    <td>" . $row["apelido"] . "</td>
-                                    <td style='text-align: left; padding-left: 5px;'>" . $row["nome_completo"] . "</td>
-                                    <td>" . $idade . "</td>
-                                </tr>";
-                        }
-
-                        echo "</table>";
-                    } else {
-                        echo "Nenhum Aniversariante!";
-                    }
-                    // Fecha a conexão
-                    //$mysqli->close();
-                ?>
-            </div>
-
-        </div>
         <div class="conteudo" id="iconteudo">
             <!-- Conteúdo central (dados escolhidos) -->
         </div>
     </div>
     <script src="usuario_home.js"></script>
 </body>
+    <footer>
+        <div class="container-rodape">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Links Úteis</h3>
+                    <ul>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Contato</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h3>Redes Sociais</h3>
+                    <ul>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <p>&copy; 2023 <?php echo 'Associação 40 Ribas';?>. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 </html>

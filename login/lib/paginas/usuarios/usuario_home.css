@@ -2,17 +2,21 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #f8f8f8;
+    background-color: #fff;
+    /*height: 60vh; /* Isso garante que o corpo ocupa 100% da altura da tela */
 }
 #idivMenu{
     background-color: #057733;
-    border-radius: 5px 5px 0px 0px;
-    margin: 2px 2px 0px 2px;
+    /*border-radius: 5px 5px 0px 0px;*/
+    margin: 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #fff;
     padding: 10px 10px;
+    height: 20px;
+}#idivMenu #imenuBtn{
+    margin: 0;
 }
 #idivMenu a {
     color: #fff;
@@ -22,11 +26,11 @@ body {
 }
 #imenuBtn {
     background-color: #1bd343; /* Cor azul */
-    width: 30px;
-    height: 25px;
+    width: 25px;
+    height: 20px;
     border: none;
-    margin: 3px  3px 3px 3px;
-    padding: 5px 5px;
+    margin: 1px  1px 1px 1px;
+    padding: 3px 3px;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.5s; /* Adicionando a transição */
@@ -36,19 +40,19 @@ body {
 }
 .iconeMenu{
     background-color: #131414;
-    padding: 2px;
+    padding: 1px;
     border-radius: 10px;
     margin: 3px;
-   /* width: 25px; /* Define a largura para 300 pixels */
+    /*width: 25px; /* Define a largura para 300 pixels */
 
 }
 #ititulo{
     background-color: #057733;
-    margin: 0px 2px 0px 2px;
+    margin: 0px;
     padding-top: 10px;
     padding-bottom: 35px;
     text-align: center; /* Alinha o texto ao centro */
-    border-radius: 0px 0px 5px 5px;
+    /*border-radius: 0px 0px 5px 5px;*/
 }
 
 #ititulo h1 {
@@ -62,11 +66,11 @@ body {
     top: 50px;
     left: -300px; /* Inicia fora da tela à esquerda */
     width: 200px; /* Largura do menu */
-    height: 20%;
+    height: 35%;
     border-radius: 5px;
     background-color: #fff; /* Cor de fundo do menu */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para o menu */
-    transition: 0.3s; /* Adiciona uma transição suave */
+    transition: 0.5s; /* Adiciona uma transição suave */
     z-index: 2; /* Coloca o menu acima do conteúdo */
 }
 
@@ -75,14 +79,14 @@ body {
     left: 0; /* Move o menu para dentro da tela quando aberto */
     margin: 2px;
 }
-.left {
+/*.left {
     text-align: center;
     margin: 2px 0 2px 0;
     width: 30%;
     max-width: 30%; /* A tabela não irá além de 100% da largura do contêiner pai */
-    background-color: #c4afaf;
+    /*background-color: #c4afaf;
     border-radius: 5px;
-}
+}*/
 #ilista {
     list-style-type: none; /* Remove os marcadores de lista (pontos) */
     padding: 0; /* Remove o espaçamento interno padrão da lista */
@@ -99,7 +103,7 @@ body {
 
 #ilista li a {
     text-decoration: none; /* Remove o sublinhado dos links */
-    color: #000; /* Define a cor do texto (pode ser alterada conforme desejado) */
+    color: #1e07f5; /* Define a cor do texto (pode ser alterada conforme desejado) */
     padding: 5px 10px; /* Adiciona um espaçamento interno nos links */
     transition: color 0.3s; /* Adiciona uma transição suave na cor do texto */
 }
@@ -119,7 +123,8 @@ table, th, td {
 .container {
     flex-grow: 1;
     display: flex;
-    height: 100vh; /* 100% da altura da viewport */
+    /*height: 100vh; /* Isso define a altura da div como 100% da altura da tela (viewport height) */
+    /*overflow: hidden; /* Isto esconde as barras de rolagem caso a página dentro da div seja maior do que a própria div */
 }
 
 .conteudo {
@@ -128,8 +133,8 @@ table, th, td {
     background-color: #ccc;
     border-radius: 5px;
 }
-/* Estilos para Computador */
-@media screen and (min-width: 1025px) {
+/* Estilos para notebooks e desktops */
+@media screen and (min-width: 768px) {
     #idivMenu {
         display: flex;
         justify-content: space-between;
@@ -138,15 +143,15 @@ table, th, td {
         width: 100%;
         margin-top: 0;
     }
-    .left {
+    /*.left {
         text-align: center;
         margin-left: 2px;
         margin-right: 2px;
         width: 30%;
         max-width: 30%; /* A tabela não irá além de 100% da largura do contêiner pai */
-        background-color: #c4afaf;
+       /* background-color: #c4afaf;
         border-radius: 5px;
-    }
+    }*/
     .container {
         flex-grow: 1;
         display: flex;
@@ -158,111 +163,63 @@ table, th, td {
         flex: 1;
         background-color: #ccc;
     }
-    table {
+    /*table {
         font-size: 80%;
         width: 100%; /* A tabela ocupará 100% da largura do contêiner pai */
-        max-width: 100%; /* A tabela não irá além de 100% da largura do contêiner pai */
-        border-collapse: collapse; /* Combina as bordas das células */
-    }
+        /*max-width: 100%; /* A tabela não irá além de 100% da largura do contêiner pai */
+        /*border-collapse: collapse; /* Combina as bordas das células */
+    /*}
     
     table, th, td {
         border: 1px solid black; /* Define uma borda de 1 pixel para as células */
-    }
+    /*}*/
 
-    .lista li {
+    /*.lista li {
         display: inline-block;
         margin-right: 2px;
         border-bottom: none;
-    }
-}
-/* Estilos para iPhone */
-@media screen and (min-width: 620px) and (max-width: 767px)  {
-    #idivMenu {
-        display: flex;
-        justify-content: space-between;
-    }
-    .menu {
-        width: 100%;
-        margin-top: 0;
-    }
-    .container {
-        flex-grow: 1;
-        display: flex;
-        height: 100vh; /* 100% da altura da viewport */
-    }
-    .left {
+    }*/
+    /* Estilos para Rodapé */
+    footer {
+        background: #333;
+        color: #fff;
+        padding: 10px 0;
         text-align: center;
-        margin: 2px;
-        width: 30%;
-        max-width: 30%; /* A tabela não irá além de 100% da largura do contêiner pai */
-        border-radius: 5px;
-    }
-    
-    .conteudo {
-        margin-right: 2px;
-        flex: 1;
-        background-color: #ccc;
-    }
-    table {
-        font-size: 70%;
-        width: 100%; /* A tabela ocupará 100% da largura do contêiner pai */
-        max-width: 100%; /* A tabela não irá além de 100% da largura do contêiner pai */
-        border-collapse: collapse; /* Combina as bordas das células */
-    }
-    
-    table, th, td {
-        border: 1px solid black; /* Define uma borda de 1 pixel para as células */
     }
 
-    .lista li {
-        display: inline-block;
-        margin-right: 2px;
-        border-bottom: none;
+    footer ul {
+        list-style: none;
+        padding: 0;
     }
-}
-/* Estilos para iPhone menor*/
-@media screen and (min-width: 320px) and (max-width: 620px)  {
-    #idivMenu {
-        display: flex;
-        justify-content: space-between;
+
+    footer ul li {
+        display: inline;
+        margin-right: 10px;
     }
-    .menu {
-        width: 100%;
-        margin-top: 0;
+
+    footer ul li a {
+        color: #fff;
+        text-decoration: none;
     }
-    .container {
-        flex-grow: 1;
-        display: flex;
-        height: 100vh; /* 100% da altura da viewport */
-    }
-    .left {
+
+    .bottom-bar {
+        background: #222;
+        padding: 5px 0;
         text-align: center;
-        margin: 2px;
-        width: 30%;
-        max-width: 30%; /* A tabela não irá além de 100% da largura do contêiner pai */
-        border-radius: 5px;
-    }
-    
-    .conteudo {
-        margin-right: 2px;
-        flex: 1;
-        background-color: #ccc;
-    }
-    table {
-        font-size: 40%;
-        width: 100%; /* A tabela ocupará 100% da largura do contêiner pai */
-        max-width: 100%; /* A tabela não irá além de 100% da largura do contêiner pai */
-        border-collapse: collapse; /* Combina as bordas das células */
-    }
-    
-    table, th, td {
-        border: 1px solid black; /* Define uma borda de 1 pixel para as células */
     }
 
-    .lista li {
-        display: inline-block;
-        margin-right: 2px;
-        border-bottom: none;
+    .bottom-bar p {
+        margin: 0;
+    }
+
+    /* Estilos para Links */
+    a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #555;
     }
 }
 /* Estilos para Tablet */
@@ -313,6 +270,59 @@ table, th, td {
         border-bottom: none;
     }
 }
+/* Estilos para iPhone*/
+@media screen and (max-width: 767px)  {
+    #idivMenu {
+        display: flex;
+        justify-content: space-between;
+    }
+    .menu {
+        width: 100%;
+        margin-top: 0;
+    }
+    .container {
+        flex-grow: 1;
+        display: flex;
+        height: 100vh; /* 100% da altura da viewport */
+    }
+    .left {
+        text-align: center;
+        margin: 2px;
+        width: 30%;
+        max-width: 30%; /* A tabela não irá além de 100% da largura do contêiner pai */
+        border-radius: 5px;
+    }
+    
+    .conteudo {
+        margin-right: 2px;
+        flex: 1;
+        background-color: #ccc;
+    }
+    table {
+        font-size: 40%;
+        width: 100%; /* A tabela ocupará 100% da largura do contêiner pai */
+        max-width: 100%; /* A tabela não irá além de 100% da largura do contêiner pai */
+        border-collapse: collapse; /* Combina as bordas das células */
+    }
+    
+    table, th, td {
+        border: 1px solid black; /* Define uma borda de 1 pixel para as células */
+    }
 
+    .lista li {
+        display: inline-block;
+        margin-right: 2px;
+        border-bottom: none;
+    }
+}
 
+/* Estilos para tablets e dispositivos com telas médias a grandes */
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+    
+}
+
+/* Estilos para dispositivos de alta resolução (como Retina) */
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    
+}
 
