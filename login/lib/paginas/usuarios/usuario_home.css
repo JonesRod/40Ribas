@@ -63,10 +63,10 @@ body {
 #imenu {
     background-color: #1bd343;
     position: absolute;
-    top: 50px;
+    top: 30px;
     left: -300px; /* Inicia fora da tela à esquerda */
     width: 200px; /* Largura do menu */
-    height: 35%;
+    height: 20%;
     border-radius: 5px;
     background-color: #fff; /* Cor de fundo do menu */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para o menu */
