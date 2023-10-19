@@ -146,107 +146,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="stylesheet" href="login/style/index.css">-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />    <link rel="stylesheet" href="entrar/lib/css/index.css">
+    <link rel="stylesheet" href="login/style/index.css">
     <title>Entrar</title>
-    <style>
- 
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-
-        #login {
-            max-width: 400px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /*sombra*/
-
-        }
-        img{
-            width: 300px;
-        }
-
-        #ititulo {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        #msg {
-            color: red;
-        }
-
-        label {
-            font-size: 16px;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-            text-align: left;
-            margin-left: 15px;
-        }
-        #iemail{
-            width: 85%;
-            padding: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            text-align: left;
-            display: block;
-            margin-left: 15px;
-        }
-        #senhaInput{
-            width: 85%;
-            padding: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            text-align: left;
-            display: block;
-            margin-left: 15px;
-        }
-
-        #senhaInputContainer {
-            position: relative;
-        }
-
-        #toggleSenha {
-            position: absolute;
-            right: 0px;
-            top: 75%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        a {
-            text-decoration: none;
-            color: #007bff;
-            font-size: 16px;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-
     <script>
         function toggleSenha() {
             var senhaInput = document.getElementById('senhaInput');
@@ -254,10 +156,10 @@
 
             if (senhaInput.type === 'password') {
                 senhaInput.type = 'text';
-                toggleSenha.textContent = '👁️';
+                toggleSenha.textContent = 'visibility';
             } else {
                 senhaInput.type = 'password';
-                toggleSenha.textContent = '👁️';
+                toggleSenha.textContent = 'visibility_off';
             }
         }
     </script>
@@ -269,13 +171,13 @@
         <span id="msg"><?php echo $msg; ?></span>
         <p >
             <label id="email" for="iemail">Usuário</label>
-            <input required type="text" name="email" id="iemail" placeholder="E-mail ou CPF" oninput="formatarCampo(this)" value="<?php //if(isset($_POST['email'])) echo $_POST['email']; ?>">
+            <input required type="text" name="email" id="iemail" placeholder="E-mail ou CPF" oninput="formatarCampo(this)" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
         </p>
         <p>
             <div id="senhaInputContainer">
                 <label id="senha" for="senha">Senha</label>
-                <input required type="password" name="senha" id="senhaInput" placeholder="Sua Senha" value="<?php //if(isset($_POST['senha'])) echo $_POST['senha']; ?>">
-                <span id="toggleSenha" onclick="toggleSenha()">👁️</span>
+                <input required type="password" name="senha" id="senhaInput" placeholder="Sua Senha" value="<?php if(isset($_POST['senha'])) echo $_POST['senha']; ?>">
+                <span id="toggleSenha" class="material-symbols-outlined" onclick="toggleSenha()">visibility_off</span>
             </div>
         </p>
         <p> 

@@ -4,8 +4,7 @@
     $minimo = 8;
     $maximo = 16;
 
-if (isset($_POST['email']) || isset($_POST['senhaAtual'])) 
-{
+if (isset($_POST['email']) || isset($_POST['senhaAtual'])) {
     if(strlen($_POST['senhaAtual']) == 0 ) {
         $msg = "Preencha sua senha Atual."; 
 
@@ -27,8 +26,7 @@ if (isset($_POST['email']) || isset($_POST['senhaAtual']))
     }else if(strlen($_POST['confSenha']) > $maximo) {
         $msg = "Campo Confirmar Senha deve ter no maximo 16 digito.";
 
-    }else
-    {
+    }else{
 
         include("conexao.php");
         include('enviarEmail.php');

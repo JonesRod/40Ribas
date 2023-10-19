@@ -1,6 +1,7 @@
 <?php
 
-$msg = false;
+    $msg1 = false;
+    $msg2 = false;
 
     include('conexao.php');
     include('generateRandomString.php');
@@ -9,8 +10,8 @@ $msg = false;
 if(isset($_POST['email'])) {
 
     if(strlen($_POST['email']) == 0 ) {
-        $msg = "Preencha ocampo E-mail.";
-        echo $msg;
+        $msg1 = "Preencha ocampo E-mail.";
+        $msg2 = '';
     } else {
 
         $email = $mysqli->escape_string($_POST['email']);
@@ -36,15 +37,17 @@ if(isset($_POST['email'])) {
             <p><b>Para redefinir sua senha </b><a href='redefinir_senha.php'>clique aqui.</a></p>
             <p><b>Para entrar </b><a href='../../index.php'>clique aqui.</a></p>");
             
-            $msg = "Já enviamos sua nova senha em seu E-mail.";
-            echo $msg;
+            
+            $msg2 = "Já enviamos sua nova senha em seu E-mail.";
+            $msg1 = '';
+
             header("refresh: 5; ../../index.php");
             }    
         }
         if(($registro ) == 0) {
-            $msg = "Não existe nenhum Usuario cadastrado com esse e-mail!";
-            echo $msg;
-            header("refresh: 5; ../../index.php");
+            $msg1 = "Não existe nenhum Usuario cadastrado com esse e-mail!";
+            $msg2 = '';
+
         }
     }  
 }
@@ -65,6 +68,10 @@ if(isset($_POST['email'])) {
 </head>
 <body>
     <h1>Recupere sua Senha.</h1>
+
+    <span style="color: green;"><?php echo $msg2; ?></span>
+    <span style="color: red;"><?php echo $msg1; ?></span>
+
     <form action="" method="POST">
         <p>  
             <label for="">Digite E-mail cadastrado</label>

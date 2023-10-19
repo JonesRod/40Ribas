@@ -1,10 +1,6 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
-* {
-    padding: 0px;
-    margin: 0px;
-}
 body {
     text-align: center;
     /*background-color: #0d7a0e;*/
@@ -28,63 +24,101 @@ form label {
     box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
 }
 
-/*main{
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-}
-.conteiner #img{
-    background: #0d7a0e url(../lib/paginas/administrativo/arquivos/IMG-20230811-WA0040.jpg);
-    background-size: cover;
-    height: 175px;
-    display: block; /*para colocar a imagem em bloco quando ...*/
-
-/*}
-.conteiner h1{
-    font-family: 'Permanent Marker', cursive;
-    margin-top: 5%;
-    margin-bottom: 5%;
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
 }
 
-/*form#login{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    overflow: hidden; /*tudo que setiver fora da borda vai ficar escondido*/
-    /*background-color: white;
-    width: 400px;
-    height: 250px;
-    border-radius: 20px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,450);/*borda sombreada*/
-    /*transition: width .3s, height .3s;
-    transition-timing-function: ease;
-
-}
-/*label{
-    margin-top: 20%;
-    margin-bottom: 20%;
-}
-/*body .conteiner{
-    align-content: center;
-    /*border: 1px solid black;*//*
+#login {
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
     border-radius: 10px;
-    width: 35%;
-    margin: 10% 25% 10% 25%;
-}*/
-/*form input {
-    width: 50%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /*sombra*/
+
 }
-form label {
-    display: inline-block;
-    width: 100%; /* Faz a label ocupar 100% da largura do contêiner pai */
-    /*max-width: 20%; /* Define a largura máxima desejada */
-    /*box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
-/*}
+img{
+    width: 300px;
+}
+
+#ititulo {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#msg {
+    color: red;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    margin-left: 15px;
+}
+#iemail{
+    width: 85%;
+    padding: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: left;
+    display: block;
+    margin-left: 15px;
+}
+#senhaInput{
+    width: 85%;
+    padding: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: left;
+    display: block;
+    margin-left: 15px;
+}
+
+#senhaInputContainer {
+    position: relative;
+}
+
+#toggleSenha {
+    position: absolute;
+    right: 0px;
+    top: 75%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
 /* Estilos para Computador */
 /*@media screen and (min-width: 1025px) {
     body {
