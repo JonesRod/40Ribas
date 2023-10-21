@@ -59,31 +59,31 @@
         <div id="imenuBtn" onclick="<?php if (!isset($_SESSION['usuario'])) { ?>
                 location.reload();
             <?php } else { ?>
-                toggleMenu();   
+                toggleMenu();
             <?php } ?>">
             <div class="iconeMenu"></div>
             <div class="iconeMenu"></div>
             <div class="iconeMenu"></div>
-        </div>  
+        </div>
 
         <div id="iusuario">
             <a> Olá, <?php echo $usuario['apelido']; ?></a><br>
-            <a> Status: <?php echo $usuario['status']; ?></a> 
+            <a> Status: <?php echo $usuario['status']; ?></a>
         </div>
-    </div> 
+    </div>
 
     <div class="titulo">
         <div class="menu" id="imenu">
             <ul id="ilista" class="lista">
-                <li><a href="#" onclick="abrirNaDiv('inicio.php');toggleMenu()">Inicío </a></li> 
-                <li><a href="#" onclick="abrirNaDiv('perfil.php');toggleMenu()">Meu Perfil </a></li>              
+                <li><a href="#" onclick="abrirNaDiv('inicio.php');toggleMenu()">Inicío </a></li>
+                <li><a href="#" onclick="abrirNaDiv('perfil.php');toggleMenu()">Meu Perfil </a></li>
                 <li><a href="#" onclick="abrirNaDiv('CarregarMensalidades.php');toggleMenu()">Minhas Mensalidades</a></li>
                 <li><a href="#" onclick="abrirNaDiv('Carregar_joia.php');toggleMenu()">Jóia</a></li>
                 <li><a href="usuario_logout.php">Sair</a></li>
-            </ul> 
-        </div> 
+            </ul>
+        </div>
         <div id="ititulo">
-            <H1>Associação 40Ribas</H1> 
+            <H1>Associação 40Ribas</H1>
         </div>
     </div>
     <div class="container">
