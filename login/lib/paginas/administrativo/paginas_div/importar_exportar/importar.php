@@ -13,12 +13,12 @@ session_start(); // Iniciar a sessão
 <body>
 
     <h1>Importar Excel .csv</h1>
-    <h3>Antes de importar, retire da lista os dados de quem ja esta  no outro 
+    <h3>Antes de importar, retire da lista os dados de quem ja esta  no outro
         banco e verifique a ordem e a deixe na seguite seguência:
     </h3>
 
-    <p>(DATA DE CADASTRO = "00/00/0000", APELIDO, NOME DO SOCIO, CPF = "000.000.000-00", 
-        RG, DATA NASC. = "00/00/0000", RUA, N°, BAIRRO, TELEFONE, E-MAIL, 
+    <p>(DATA DE CADASTRO = "00/00/0000", APELIDO, NOME DO SOCIO, CPF = "000.000.000-00",
+        RG, DATA NASC. = "00/00/0000", RUA, N°, BAIRRO, TELEFONE, E-MAIL,
         STATUS = "ATIVO, AFASTADO, SUSPENSO, EXCLUIDO",OBS., JOIA)
     </p>
     <?php

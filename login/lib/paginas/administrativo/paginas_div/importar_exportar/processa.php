@@ -56,9 +56,9 @@
             $nascimento = date("Y-m-d", strtotime(str_replace('/', '-', $nascimento)));
 
             // Inserir os dados no banco de dados
-            $sql_inserir_socios = "INSERT INTO socios (data, apelido, nome_completo, cpf, rg, 
-            nascimento, endereco, numero, bairro, celular1, email, status, observacao, joia) 
-            VALUES ('$data', '$apelido', '$nome', '$cpf', '$rg', '$nascimento', '$endereco', '$numero', 
+            $sql_inserir_socios = "INSERT INTO socios (data, apelido, nome_completo, cpf, rg,
+            nascimento, endereco, numero, bairro, celular1, email, status, observacao, joia)
+            VALUES ('$data', '$apelido', '$nome', '$cpf', '$rg', '$nascimento', '$endereco', '$numero',
             '$bairro', '$celular', '$email', '$status', '$obs', '$joia')";
 
             // Executar a query
