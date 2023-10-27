@@ -71,7 +71,7 @@
             box-sizing: border-box; /* Inclui a largura da borda e o preenchimento na largura total */
         }
         form .dados input {
-            width: 50%;
+            /*width: 50%;*/
             padding: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;

@@ -19,7 +19,7 @@ function enviar_email($destinatario, $assunto, $mensagemHTML){
     // Port = Porta hotmail SMTP (TLS): 587
 
     $id = '1';
-    $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
+    $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->error);
     $dadosEscolhido = $dados->fetch_assoc();
 
     //$destinatario ='batata_jonesrodrigues@hotmail.com';

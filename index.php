@@ -23,7 +23,7 @@
    if(isset($_POST['email']) || isset($_POST['senha'])) {
         //echo 'oii';
         $sql_primeiro_registro = "SELECT * FROM socios";
-        $registros = $mysqli->query($sql_primeiro_registro) or die("Falha na execução do código SQL: " . $mysqli->$error);
+        $registros = $mysqli->query($sql_primeiro_registro) or die("Falha na execução do código SQL: " . $mysqli->error);
 
         // Verifica se existem registros na tabela 'socios'
         if ($registros->num_rows == 0) {
@@ -52,10 +52,10 @@
             //echo $msg;
         } else {
 
-            $sql_code = "SELECT * FROM socios WHERE email = '$email' LIMIT 1";
-            $sql_query =$mysqli->query($sql_code) or die("Falha na execução do código SQL: " . $mysqli->$error);
-            $usuario = $sql_query->fetch_assoc();
-            $quantidade = $sql_query->num_rows;//retorna a quantidade encontrado
+            $verifica = "SELECT * FROM socios WHERE email = '$email' LIMIT 1";
+            $sql_verifiva =$mysqli->query($verifica) or die("Falha na execução do código SQL: " . $mysqli->error);
+            $usuario = $sql_verifiva->fetch_assoc();
+            $quantidade = $sql_verifiva->num_rows;//retorna a quantidade encontrado
 
             if(($quantidade ) == 1) {
 
@@ -68,12 +68,14 @@
                         $_SESSION['admin'] = $admin;
                         //$msg = "1";
                         unset($_POST);
+                        session_start(); 
                         header("Location: login/lib/tipo_login.php");
                     }else if($admin != 1){
                         $_SESSION['usuario'] = $usuario['id'];
                         $_SESSION['admin'] = $admin;
                         //$msg = "2";
                         unset($_POST);
+                        session_start(); 
                         header("Location: login/lib/paginas/usuarios/usuario_home.php");
                     }    
                 }else{
@@ -84,7 +86,7 @@
             }else{
 
                 $sql_cpf = "SELECT * FROM socios WHERE cpf = '$cpf' LIMIT 1";
-                $sql_query =$mysqli->query($sql_cpf) or die("Falha na execução do código SQL: " . $mysqli->$error);
+                $sql_query =$mysqli->query($sql_cpf) or die("Falha na execução do código SQL: " . $mysqli->error);
                 $usuario = $sql_query->fetch_assoc();
                 $quantidade_cpf = $sql_query->num_rows;//retorna a quantidade encontrado
         
@@ -112,20 +114,20 @@
                     }else{
                         $msg= true;
                         $msg = "Usúario ou Senha estão inválidos!";   
-                        $mysqli->close(); 
+                        //$mysqli->close(); 
                         //echo $msg;
                     }
                 }else{
                     $msg= true;
                     $msg = "O Usúario informado não esta correto ou não está cadastrado!";
-                    $mysqli->close();
+                    //$mysqli->close();
                     //echo $msg;
                 }
             }
         }
     }
     $id = '1';
-    $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->$error);
+    $dados = $mysqli->query("SELECT * FROM config_admin WHERE id = '$id'") or die($mysqli->error);
     $dadosEscolhido = $dados->fetch_assoc();
 
     //$logo = $dadosEscolhido['logo'];

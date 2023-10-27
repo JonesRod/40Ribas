@@ -41,7 +41,7 @@ if(isset($_POST['email'])) {
             $msg2 = "Já enviamos sua nova senha em seu E-mail.";
             $msg1 = '';
 
-            header("refresh: 5; ../../index.php");
+            //header("refresh: 5; ../../index.php");
             }    
         }
         if(($registro ) == 0) {
