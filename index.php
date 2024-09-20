@@ -171,7 +171,7 @@
         <img src="<?php echo $logo; ?>" alt="">
         <h1 id="ititulo">Entrar</h1>
         <span id="msg"><?php echo $msg; ?></span>
-        <p >
+        <p>
             <label id="email" for="iemail">Usuário</label>
             <input required type="text" name="email" id="iemail" placeholder="E-mail ou CPF" oninput="formatarCampo(this)" value="<?php if(isset($_POST['email'])) echo $_POST['email']; ?>">
         </p>
