@@ -32,7 +32,7 @@ function enviar_email($destinatario, $assunto, $mensagemHTML){
 
     //$razao = 'razao';
     //$email_suporte = 'batatajonesrodrigues@gmail.com';
-    //$senha = '#@//Jones?';
+    //$senha = '#@//Jones?'; xqurngdmehhkfhob
     //  //batata2023
 
     if (strstr($email_suporte, "@gmail.com")) {
