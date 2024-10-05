@@ -21,7 +21,7 @@
     $msg= false;
 
    if(isset($_POST['email']) || isset($_POST['senha'])) {
-        //echo 'oii';
+        echo 'oii';
         $sql_primeiro_registro = "SELECT * FROM socios";
         $registros = $mysqli->query($sql_primeiro_registro) or die("Falha na execução do código SQL: " . $mysqli->error);
 
@@ -36,7 +36,7 @@
         $senha = $mysqli->escape_string($_POST['senha']);
         
 
-        //echo "oii";
+        echo "oii2";
         if(isset($_SESSION['email'])){
             $email = $_SESSION['email'];
             $senha = password_hash($_SESSION['senha'], PASSWORD_DEFAULT);
