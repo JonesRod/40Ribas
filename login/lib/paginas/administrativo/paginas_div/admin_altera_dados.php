@@ -10,7 +10,7 @@
         header("Location: ../../../../../index.php");
     } 
 
-    function enviarArquivo($error, $name, $tmp_name) {
+    function enviarArquivo($error, $name, $tmp_name): bool|string {
         if ($error) {
             echo "Falha ao enviar o arquivo. Código de erro: " . $error;
             return false;
