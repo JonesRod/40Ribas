@@ -168,7 +168,7 @@
                 <label for="inome_completo" >Nome Completo: </label>
                 <input required id="inome_completo" value="<?php echo $usuario['nome_completo']; ?>" name="nome_completo" type="text"><br>
             </p>
-            <p>
+            <p>                 
                 <label for="iapelido" >Apelido: </label>
                 <input required id="iapelido" value="<?php echo $usuario['apelido']; ?>" name="apelido" type="text"><br>
             </p>
